@@ -1,0 +1,18 @@
+<div class="container" id="invoice_list">
+    <div class="row invoiceHead">
+        <div class="col-2">{% trans %}Invoice number{% endtrans %}</div>
+        <div class="col-2"><b>{{ invoice.number }}</b></div>
+        <div class="col-2">{% trans %}Date{% endtrans %}</div>
+        <div class="col-2"><b>{{ invoice.date|date('Y-m-d') }}</b></div>
+        <div class="col-2">{% trans %}Supplier{% endtrans %}</div>
+        <div class="col-2"><b>{{ invoice.getContrahent.name }}</b></div>
+    </div>
+    {% if invoice.object %}
+        <div class="row invoiceHead">
+            <div class="col-2">{% trans %}Object{% endtrans %}</div>
+            <div class="col-10">
+                {{ invoice.object.header }}
+            </div>
+        </div>
+    {% endif %}
+</div>

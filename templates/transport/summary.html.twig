@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Transporto s1{% endblock %}
+
+{% block body %}
+<div class="section_menu">
+    <table width="100%" class="table_x">
+    <thead>
+        <tr>
+            <th rowspan="2">Markė</th>
+            <th rowspan="2">Modelis</th>
+            <th rowspan="2">Valst. Nr.</th>
+            <th rowspan="2">Nuvažiuota, km</th>
+            <th colspan="2">Odometras</th>
+            {# <th>Odometras</th> #}
+            <th colspan="3">main fuel</th>
+            <th colspan="3">secondary fuel</th>
+        </tr>
+        <tr>
+            <th>pradžioje</th>
+            <th>pabaigoje</th>
+            <th>gauta</th>
+            <th>likutis</th>
+            <th>norma</th>
+            <th>gauta</th>
+            <th>likutis</th>
+            <th>norma</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in transport %}
+            <tr>
+                <td>{{ item.brand }}</td>
+                <td>{{ item.model }}</td>
+                <td>{{ item.licensePlate }}</td>
+                <td>{{ item.monthlyStatistic['distance'] }}</td>
+                <td>{{ item.monthlyStatistic['odometerStart'] }}</td>
+                <td>{{ item.monthlyStatistic['odometerEnd'] }}</td>
+
+                <td>{{ item.monthlyStatistic['mainFuelUsed'] }}</td>
+                <td>{{ item.monthlyStatistic['mainFuelResidue'] }}</td>
+                <th>{{ item.monthlyStatistic['mainFuelNorm']|number_format(2, ',', ' ') }}</th>
+                <td>{{ item.monthlyStatistic['secondaryFuelUsed'] }}</td>
+                <td>{{ item.monthlyStatistic['secondaryFuelResidue'] }}</td>
+                <th>
+                    {% if item.secondaryFuel is not null %}
+                        {{ item.monthlyStatistic['secondaryFuelNorm']|number_format(2, ',', ' ') }}
+                    {% endif %}    
+                </th>
+
+
+                <td align="left">
+                    <form type="post" action="{{ path('fuel_close') }}">
+                        <input name="id" value="{{ item.id }}" hidden />
+                        <input name="main" value="{{ item.monthlyStatistic['mainFuelResidue'] }}" /><br/>
+                        {% if item.secondaryFuel is not null %}
+                        <input name="secondary" value="{{ item.monthlyStatistic['secondaryFuelResidue'] }}" /><br/>
+                        {% endif %}
+                        <input name="odometer" value="{{ item.monthlyStatistic['odometerEnd'] }}" />
+                        <button type="submit">OK</button>
+                    </form>
+                </td>
+
+            
+            </tr>
+        {% endfor %}
+    </tbody>
+
+    </table>
+
+    <script>
+        function clickedTransport(id) {
+            window.location.replace('transport/form/' + id);
+        }
+    </script>
+
+</div>
+{% endblock %}

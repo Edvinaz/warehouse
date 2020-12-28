@@ -1,0 +1,170 @@
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="lt-LT" xml:lang="lt">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style>
+        body {
+            font-family: DejaVu Sans, sans-serif;
+        }
+
+        @page {
+            margin: 85px 25px;
+        }
+
+        header {
+            position: fixed;
+            top: -45px;
+            left: 0px;
+            right: 0px;
+            height: 50px;
+
+            /** Extra personal styles **/
+            font-size: 9px;
+        }
+
+        footer {
+            position: fixed;
+            bottom: -45px;
+            left: 0px;
+            right: 0px;
+            height: 50px;
+
+            /** Extra personal styles **/
+            font-size: 9px;
+        }
+
+        footer .page-number {
+            /* position: fixed; */
+            /* left: -45px; */
+            /* bottom: -45px; */
+            font-weight: italic;
+        }
+
+        header .page-number:after {
+            font-weight: bold italic;
+            content: counter(page);
+        }
+
+        table {
+            border-spacing: 0px;
+            border: 0.5px solid black;
+        }
+
+        thead {
+            font-weight: bold;
+            font-size: 11px;
+        }
+
+        tbody {
+            font-size: 10px;
+        }
+
+        td {
+            border: 0.1px solid black;
+        }
+
+        .table-footer {
+            border: 0px solid white;
+        }
+
+        .table-footer td {
+            font-size: 9px;
+            border: none;
+        }
+
+        .table-footer .report-name {
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .table-footer .number {
+            font-size: 10px;
+            font-weight: bold;
+        }
+    </style>
+    <title>Mėnesio ataskaita</title>
+</head>
+
+<body>
+
+<header>
+    <table class="table-footer" width="100%">
+        <tr>
+            <td colspan="5" align="right"><span class="report-name">Medžiagų likučių ataskaita už {{ statistic['month'] }}</span></td>
+        </tr>
+        <tr>
+            <td width="17%">Likutis pradžioje: <span class="number">{{ statistic['begin']|number_format(2, ',', ' ') }}</span> Eur</td>
+            <td width="17%">Gauta per mėn.: <span class="number">{{ statistic['purchased']|number_format(2, ',', ' ') }}</span> Eur</td>
+            <td width="17%">Nurašyta per mėn.: <span class="number">{{ statistic['debited']|number_format(2, ',', ' ') }}</span> Eur</td>
+            <td width="17%">Likutis pabaigoje: <span class="number">{{ statistic['end']|number_format(2, ',', ' ') }}</span> Eur</td>
+            <td align="right"><span class="page-number">Puslapis </span></td>
+        </tr>
+    </table>
+    {# <div align="center">Hellod<div> #}
+</header>
+
+<footer>
+    
+    {# {% include 'document_print/partials/footer.html.twig' %} #}
+</footer>
+
+<main>
+<table width="100%">
+<thead>
+    <tr>
+        <td rowspan="2" align="center" width="27%">Medžiagos pavadinimas</td>
+        <td rowspan="2" align="center" width="5%">Mato vnt.</td>
+        <td colspan="3" align="center" width="17%">Likutis pradžioje</td>
+        <td colspan="3" align="center" width="17%">Gauta per laikotarpį</td>
+        <td colspan="3" align="center" width="17%">Nurašyta</td>
+        <td colspan="3" align="center" width="17%">Likutis pabaigoje</td>
+    </tr>
+    <tr>
+        <td align="center">Kiekis</td>
+        <td align="center">Kaina, €/vnt</td>
+        <td align="center">Suma, €</td>
+
+        <td align="center">Kiekis</td>
+        <td align="center">Kaina, €/vnt</td>
+        <td align="center">Suma, €</td>
+
+        <td align="center">Kiekis</td>
+        <td align="center">Kaina, €/vnt</td>
+        <td align="center">Suma, €</td>
+
+        <td align="center">Kiekis</td>
+        <td align="center">Kaina, €/vnt</td>
+        <td align="center">Suma, €</td>
+    </tr>
+</thead>
+<tbody>
+    {% for material in materials %}
+    <tr>
+        <td>{{ material.name }}</td>
+        <td align="center">{{ material.unit }}</td>
+
+        <td align="center">{{ material.begin_amount|number_format(2, ',', ' ') }}</td>
+        <td align="center">{{ material.begin_price|number_format(2, ',', ' ') }}</td>
+        <td align="center">{{ material.begin_sum|number_format(2, ',', ' ') }}</td>
+
+        <td align="center">{{ material.got_amount|number_format(2, ',', ' ') }}</td>
+        <td align="center">{{ material.got_price|number_format(2, ',', ' ') }}</td>
+        <td align="center">{{ material.got_sum|number_format(2, ',', ' ') }}</td>
+
+        <td align="center">{{ material.debited_amount|number_format(2, ',', ' ') }}</td>
+        <td align="center">{{ material.debited_price|number_format(2, ',', ' ') }}</td>
+        <td align="center">{{ material.debited_sum|number_format(2, ',', ' ') }}</td>
+
+        <td align="center">{{ material.left_amount|number_format(2, ',', ' ') }}</td>
+        <td align="center">{{ material.left_price|number_format(2, ',', ' ') }}</td>
+        <td align="center">{{ material.left_sum|number_format(2, ',', ' ') }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+</main>
+</body>
+<html>
+
+

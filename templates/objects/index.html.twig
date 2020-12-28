@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Objects list{% endtrans %}{% endblock %}
+
+{% block body %}
+
+ {% include 'objects/partials/list_header.html.twig' %}
+
+<div class="section_menu" id="object_list">
+    <table width="100%" class="table_x">
+        <thead>
+        <tr>
+            <th>{% trans %}Customer{% endtrans %}</th>
+            <th>{% trans %}Number{% endtrans %}</th>
+            <th>{% trans %}Date{% endtrans %}</th>
+            <th>{% trans %}Object name{% endtrans %}</th>
+            <th>{% trans %}Reserved{% endtrans %}</th>
+            <th>{% trans %}Income{% endtrans %}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for object in object_list %}
+            <tr onclick="clickedObject({{ object.id }})">
+                <td width="20%">{{ object.contrahent.name }}</td>
+                <td width="8%">{{ object.number }}</td>
+                <td width="10%">{{ object.date|date('Y-m-d') }}</td>
+                <td width="42%">{{ object.name }}, {{ object.adress }}</td>
+                <td width="10%">{{ object.reserved|number_format(2, ',', ' ') }}</td>
+                <td width="10%">{{ object.income|number_format(2, ',', ' ') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="col-1">
+        {% if page > 0 %}
+        <form type="GET">
+            <input id="page" name="page" value="{{ page - 1 }}" hidden></input>
+            <button type="submit">Previous</button>
+        </form>
+        {% endif %}
+        </div>
+        <div class="col-1">
+        {% if page < pages - 1 %}
+        <form type="GET">
+            <input id="page" name="page" value="{{ page + 1 }}" hidden></input>
+            <button type="submit">Next</button>
+        </form>
+        {% endif %}
+        </div>
+    </div>
+
+    <script>
+        function clickedObject(id) {
+            window.location.replace('objects/' + id);
+        }
+    </script>
+</div>
+{% endblock %}

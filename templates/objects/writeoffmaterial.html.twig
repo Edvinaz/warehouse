@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Update Invoice details{% endtrans %}{% endblock %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+    {% include 'objects/partials/list_header.html.twig' %}
+
+    {% include 'objects/partials/writeOffHeader.html.twig' %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+
+                {{ form(form) }}
+
+            </div>
+            <div class="col-6">
+
+                {% include 'objects/partials/writeOffMaterials.html.twig' %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

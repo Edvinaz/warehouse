@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Update Invoice details{% endtrans %}{% endblock %}
+
+{% block body %}
+
+    {% include 'objects/partials/list_header.html.twig' %}
+
+    {% include 'objects/partials/writeOffHeader.html.twig' %}
+
+    <div class="section_menu">
+        <div class="row">
+            <div class="col-6">
+            {% include 'objects/partials/search.html.twig' %}
+
+            </div>
+            <div class="col-6">
+                <table width="100%">
+                    <tr>
+                        <th>{% trans %}Primarily{% endtrans %}</th>
+                        <th>{% trans %}Received{% endtrans %}</th>
+                        <th>{% trans %}Debited{% endtrans %}</th>
+                        <th>{% trans %}Finally{% endtrans %}</th>
+                    </tr>
+                    <tr>
+                        <td>{{ statistic.period['begin']|number_format(2, ',', ' ') }}</td>
+                        <td>{{ statistic.period['received']|number_format(2, ',', ' ') }}</td>
+                        <td>{{ statistic.period['debited']|number_format(2, ',', ' ') }}</td>
+                        <td>{{ statistic.period['end']|number_format(2, ',', ' ') }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>{% trans %}Name{% endtrans %}</th>
+                        <th>{% trans %}Unit{% endtrans %}</th>
+                        <th>{% trans %}Quantity{% endtrans %}</th>
+                        <th>{% trans %}Price{% endtrans %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for material in writeOff.warehouseMaterials %}
+                        <tr onclick="debitMaterial({{ writeOff.entity.id }}, {{ material.id }})">
+                            <td>{{ material.name }}</td>
+                            <td>{{ material.unit }}</td>
+                            <td>{{ material.quantity|number_format }}</td>
+                            <td>{{ material.price|number_format(2, ',', ' ') }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-6">
+
+                {% include 'objects/partials/writeOffMaterials.html.twig' %}
+
+            </div>
+        </div>
+
+        <script>
+            function debitMaterial(id, material) {
+                window.location.replace('/writeOff/' + id + '/' + material);
+            }
+
+            function unDebitMaterial(id, material) {
+                window.location.replace('/writeOff/' + id + '/update/' + material);
+            }
+        </script>
+    </div>
+{% endblock %}

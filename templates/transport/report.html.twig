@@ -1,0 +1,168 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Kuro naudojimas!{% endblock %}
+
+{% block body %}
+
+<style>
+    .fuelNorm {
+        font-size:10px; 
+        font-style:italic;
+    }
+
+    .main {
+        font-size:13px;
+    }
+</style>
+
+<div class="section_menu">
+    <table width="100%" class="table_x">
+    <thead>
+        <tr>
+            <th width="7%" rowspan="2" align="center">Markė</th>
+            <th width="5%" rowspan="2" align="center">Valst. Nr.</th>
+            <th width="8%" colspan="2" align="center">Odometras</th>
+            <th width="3%" rowspan="2" align="center">Nuvažiuota, km</th>
+            <th width="18%" colspan="3" align="center">Pradžioje</th>
+            <th width="18%" colspan="3" align="center">Gauta</th>
+            <th width="21%" colspan="3" align="center">Sunaudota</th>
+            <th width="18%" colspan="3" align="center">Pabaigoje</th>
+        </tr>
+        <tr>
+            <th align="center">Pradžioje</th>
+            <th align="center">Pabaigoje</th>
+            <th align="center">Dyzelis</th>
+            <th align="center">Benzinas</th>
+            <th align="center">Dujos</th>
+            <th align="center">Dyzelis</th>
+            <th align="center">Benzinas</th>
+            <th align="center">Dujos</th>
+            <th align="center">Dyzelis</th>
+            <th align="center">Benzinas</th>
+            <th align="center">Dujos</th>
+            <th align="center">Dyzelis</th>
+            <th align="center">Benzinas</th>
+            <th align="center">Dujos</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for transport in list %}
+        {% if transport[1] is not null %}
+        <tr>
+            <td width="7%"><span class="main">{{ transport[0].brand }} {{ transport[0].model }}</span></td>
+            <td width="5%" align="center"><span class="main">{{ transport[0].licensePlate }}</span></td>
+            <td width="4%" align="center"><span class="main">{{ transport[1].tachometerBegin }}</span></td>
+            <td width="4%" align="center"><span class="main">{{ transport[1].tachometerEnd }}</span></td>
+            <td width="3%" align="center"><span class="main">{{ transport[1].distance }}</span></td>
+            <td width="3%" align="center">
+            {% if transport[0].mainFuel == 22 %}
+                <span class="main">{{ transport[1].mainFuelBegin }}</span>
+            {% endif %}
+            {% if transport[0].secondaryFuel == 22 %}
+                <span class="main">{{ transport[1].secondaryFuelBegin }}</span>
+            {% endif %}
+            </td>
+            <td width="6%" align="center">
+            {% if transport[0].mainFuel == 21 %}
+                <span class="main">{{ transport[1].mainFuelBegin }}</span>
+            {% endif %}
+            {% if transport[0].secondaryFuel == 21 %}
+                <span class="main">{{ transport[1].secondaryFuelBegin }}</span>
+            {% endif %}
+            </td>
+            <td width="6%" align="center">
+            {% if transport[0].mainFuel == 23 %}
+                <span class="main">{{ transport[1].mainFuelBegin }}</span>
+            {% endif %}
+            {% if transport[0].secondaryFuel == 23 %}
+                <span class="main">{{ transport[1].secondaryFuelBegin }}</span>
+            {% endif %}
+            </td>
+
+            <td width="6%" align="center">
+            {% if transport[0].mainFuel == 22 and transport[1].mainFuelReceived > 0 %}
+                <span class="main">{{ transport[1].mainFuelReceived|number_format(2, ',', ' ') }}</span>
+            {% endif %}
+            {% if transport[0].secondaryFuel == 22 and transport[1].secondaryFuelReceived > 0 %}
+                <span class="main">{{ transport[1].secondaryFuelReceived|number_format(2, ',', ' ') }}</span>
+            {% endif %}
+            </td>
+            <td width="6%" align="center">
+            {% if transport[0].mainFuel == 21 and transport[1].mainFuelReceived > 0 %}
+                <span class="main">{{ transport[1].mainFuelReceived|number_format(2, ',', ' ') }}</span>
+            {% endif %}
+            {% if transport[0].secondaryFuel == 21 and transport[1].secondaryFuelReceived > 0 %}
+                <span class="main">{{ transport[1].secondaryFuelReceived|number_format(2, ',', ' ') }}</span>
+            {% endif %}
+            </td>
+            <td width="6%" align="center">
+            {% if transport[0].mainFuel == 23 and transport[1].mainFuelReceived > 0 %}
+                <span class="main">{{ transport[1].mainFuelReceived|number_format(2, ',', ' ') }}</span>
+            {% endif %}
+            {% if transport[0].secondaryFuel == 23 and transport[1].secondaryFuelReceived > 0 %}
+                <span class="main">{{ transport[1].secondaryFuelReceived|number_format(2, ',', ' ') }}</span>
+            {% endif %}
+            </td>
+
+            <td width="7%" align="center">
+            {% if transport[0].mainFuel == 22 and transport[1].mainFuelUsed > 0 %}
+                <span class="main">{{ transport[1].mainFuelUsed|number_format(1, ',', ' ') }}</span> 
+                <span class="fuelNorm">{{ transport[1].mainFuelNorm|number_format(2, ',', ' ') }}</span>
+            {% endif %}
+            {% if transport[0].secondaryFuel == 22 and transport[1].secondaryFuelUsed > 0 %}
+                <span class="main">{{ transport[1].secondaryFuelUsed|number_format(1, ',', ' ') }}</span> 
+                <span class="fuelNorm">{{ transport[1].secondaryFuelNorm|number_format(2, ',', ' ') }}</span>
+            {% endif %}
+            </td>
+            <td width="7%" align="center">
+            {% if transport[0].mainFuel == 21 and transport[1].mainFuelUsed > 0 %}
+                <span class="main">{{ transport[1].mainFuelUsed|number_format(1, ',', ' ') }}</span> 
+                <span class="fuelNorm">{{ transport[1].mainFuelNorm|number_format(2, ',', ' ') }}</span>
+            {% endif %}
+            {% if transport[0].secondaryFuel == 21 and transport[1].secondaryFuelUsed > 0 %}
+                <span class="main">{{ transport[1].secondaryFuelUsed|number_format(1, ',', ' ') }}</span> 
+                <span class="fuelNorm">{{ transport[1].secondaryFuelNorm|number_format(2, ',', ' ') }}</span>
+            {% endif %}
+            </td>
+            <td width="7%" align="center">
+            {% if transport[0].mainFuel == 23 and transport[1].mainFuelUsed > 0 %}
+                <span class="main">{{ transport[1].mainFuelUsed|number_format(1, ',', ' ') }}</span> 
+                <span class="fuelNorm">{{ transport[1].mainFuelNorm|number_format(2, ',', ' ') }}</span>
+            {% endif %}
+            {% if transport[0].secondaryFuel == 23 and transport[1].secondaryFuelUsed > 0 %}
+                <span class="main">{{ transport[1].secondaryFuelUsed|number_format(1, ',', ' ') }}</span> 
+                <span class="fuelNorm">{{ transport[1].secondaryFuelNorm|number_format(2, ',', ' ') }}</span>
+            {% endif %}
+            </td>
+
+            <td width="6%" align="center">
+            {% if transport[0].mainFuel == 22 and transport[1].mainFuelEnd > 0 %}
+                <span class="main">{{ transport[1].mainFuelEnd|number_format(2, ',', ' ') }}</span>
+            {% endif %}
+            {% if transport[0].secondaryFuel == 22 and transport[1].secondaryFuelEnd > 0 %}
+                <span class="main">{{ transport[1].secondaryFuelEnd|number_format(2, ',', ' ') }}</span>
+            {% endif %}
+            </td>
+            <td width="6%" align="center">
+            {% if transport[0].mainFuel == 21 and transport[1].mainFuelEnd > 0 %}
+                <span class="main">{{ transport[1].mainFuelEnd|number_format(2, ',', ' ') }}</span>
+            {% endif %}
+            {% if transport[0].secondaryFuel == 21 and transport[1].secondaryFuelEnd > 0 %}
+                <span class="main">{{ transport[1].secondaryFuelEnd|number_format(2, ',', ' ') }}</span>
+            {% endif %}
+            </td>
+            <td width="6%" align="center">
+            {% if transport[0].mainFuel == 23 and transport[1].mainFuelEnd > 0 %}
+                <span class="main">{{ transport[1].mainFuelEnd|number_format(2, ',', ' ') }}</span>
+            {% endif %}
+            {% if transport[0].secondaryFuel == 23 and transport[1].secondaryFuelEnd > 0 %}
+                <span class="main">{{ transport[1].secondaryFuelEnd|number_format(2, ',', ' ') }}</span>
+            {% endif %}
+            </td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+    </tbody>
+    </table>
+</div>
+{% endblock %}

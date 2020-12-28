@@ -1,0 +1,26 @@
+<style>
+    table.footer {
+        border-top: 1px solid;
+        vertical-align: text-top;
+    }
+</style>
+
+<table width="100%" class="footer">
+    <tr>
+        <td align="left">
+            {{ company.name }}<br/>
+            Įmonės kodas {{ company.code }}<br/>
+            PVM mokėtojo kodas {{ company.vat }}
+        </td>
+        <td align="center">
+            {{ company.address }}<br/>
+            Tel./faks. {{ company.phone }}<br/>
+            Mob. tel. {{ company.mobile }}<br/>
+            El. paštas {{ company.email }}
+        </td>
+        <td align="right">
+            {{ company.bank }}<br/>
+            {{ company.account }}
+        </td>
+    </tr>
+</table>

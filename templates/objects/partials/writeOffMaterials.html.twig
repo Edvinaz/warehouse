@@ -1,0 +1,20 @@
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>{% trans %}Name{% endtrans %}</th>
+        <th>{% trans %}Unit{% endtrans %}</th>
+        <th>{% trans %}Quantity{% endtrans %}</th>
+        <th>{% trans %}Price{% endtrans %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for debited in writeOff.materials %}
+        <tr onclick="unDebitMaterial({{ writeOff.entity.id }}, {{ debited.materialID }})">
+            <td>{{ debited.name }}</td>
+            <td>{{ debited.unit }}</td>
+            <td>{{ debited.amount|number_format }}</td>
+            <td>{{ debited.price|number_format(2, ',', ' ') }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

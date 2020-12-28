@@ -1,0 +1,146 @@
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="lt-LT" xml:lang="lt">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style>
+        body {
+            font-family: DejaVu Sans, sans-serif;
+        }
+
+        @page {
+            margin: 85px 25px;
+        }
+
+        header {
+            position: fixed;
+            top: -45px;
+            left: 0px;
+            right: 0px;
+            height: 50px;
+
+            /** Extra personal styles **/
+            font-size: 9px;
+        }
+
+        footer {
+            position: fixed;
+            bottom: -45px;
+            left: 0px;
+            right: 0px;
+            height: 50px;
+
+            /** Extra personal styles **/
+            font-size: 9px;
+        }
+
+        footer .page-number {
+            /* position: fixed; */
+            /* left: -45px; */
+            /* bottom: -45px; */
+            font-weight: italic;
+        }
+
+        header .page-number:after {
+            font-weight: bold italic;
+            content: counter(page);
+        }
+
+        table.head {
+            border-spacing: 0px;
+            border: 0px solid black;
+        }
+
+        table.head td {
+            border: 0px solid black;
+        }
+
+        table {
+            border-spacing: 0px;
+            border: 0.5px solid black;
+        }
+
+        thead {
+            font-weight: bold;
+            font-size: 11px;
+        }
+
+        tbody {
+            font-size: 10px;
+        }
+
+        td {
+            border: 0.1px solid black;
+        }
+
+        .table-footer {
+            border: 0px solid white;
+        }
+
+        .table-footer td {
+            font-size: 9px;
+            border: none;
+        }
+
+        .table-footer .report-name {
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .table-footer .number {
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        table.head td.head-1 {
+            font-size: 12px;
+            font-weight: bold;
+            align: center;
+        }
+    </style>
+    <title>Mėnesio ataskaita</title>
+</head>
+
+<body>
+
+<div>
+
+    <table width="100%" class="head">
+        <tr>
+            <td width="20%" rowspan="3" align="center"><img src="{{ company.logo }}" height="40" /></td>
+            <td width="80%" class="head-1">Darbuotojų tabelis</td>
+        </tr>
+        <tr>
+            <td class="head-2">{{ date.year }} m. {{ date.monthWords }} mėn.</td>
+        </tr>
+        <tr>
+            <td class="head-date"></td>
+        </tr>
+    </table>
+<br/>
+    <table width="100%" border="1">
+        <tr>
+            <th width="15%">Vardas, pavardė</th>
+            {% for day in 1..days %}
+                <th width="{{ 82/days }}%" align="center">{{ day }}</th>
+            {% endfor %}
+            <th>Viso</th>
+        </tr>
+        {% for name, array in list %}   
+        {% set sum = 0 %}
+            <tr>
+                <td width="15%">{{name}}</td>
+                {% for day in array %}
+                    <td width="{{ 82/days }}%" align="center">
+                        {% if day.workHours > 0 %}
+                            {{ day.workHours }}
+                            {% set sum = sum + day.workHours %}
+                        {% endif %}
+                    </td>
+                {% endfor %}
+                <td align="center">{{ sum }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
+</body>
+</html>

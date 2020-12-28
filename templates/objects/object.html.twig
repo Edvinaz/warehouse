@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ object.object.number }}. {{ object.object.name }}, {{ object.object.adress }}{% endblock %}
+
+{% block body %}
+
+    {% include 'objects/partials/list_header.html.twig' %}
+
+    {% include 'objects/partials/object.html.twig' %}
+
+    <div class="section_menu">
+        <div class="row">
+            <div class="col-12">
+                <table class="table">
+                <tr>
+                    {% for key, month in object.reservedMaterialsByMonth %}
+                        <td onclick="printMonthMaterials( {{ month }}, {{ key }}, {{ object.object.id }} )">
+                            <a href="{{ path('print_reserved_materials_month', {'id': object.object.id, 'month': key}) }}">{{ key }} ({{ month|number_format(2, ',', ' ') }} Eur)</a>
+                        </td>
+                    {% endfor %}
+                </tr>
+                </table>
+            </div>
+            <div class="col-6">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>{% trans %}Name{% endtrans %}</th>
+                        <th>{% trans %}Unit{% endtrans %}</th>
+                        <th>{% trans %}Quantity{% endtrans %}</th>
+                        <th>{% trans %}Price{% endtrans %}</th>
+                    </tr> 
+                    </thead>
+                    <tbody>
+                    {% for material in object.reservedMaterials %}
+                        <tr onclick="cancelReservation({{material.id}}, {{ object.object.id }})">
+                            <td>{{ material.name }}</td>
+                            <td>{{ material.unit }}</td>
+                            <td>{{ material.quantity|number_format(1, ',', ' ') }}</td>
+                            <td>{{ material.price|number_format(2, ',', ' ') }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-6">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>{% trans %}Number{% endtrans %}</th>
+                        <th>{% trans %}Date{% endtrans %}</th>
+                        <th>{% trans %}Sum{% endtrans %}</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for invoice in object.object.buhInvoices %}
+                    <tr>
+                        <td>{{ invoice.number }}</td>
+                        <td>{{ invoice.date|date('Y-m-d') }}</td>
+                        <td>{{ invoice.total|number_format(2, ',', ' ') }}</td>
+                        <td><a class="btn btn-outline-secondary btn-sm"
+                               href="{{ path('object_invoice_add_content', {'id': object.object.id, 'invoiceId': invoice.id}) }}">
+                                {% trans %}Add{% endtrans %}</a>
+                            <a class="btn btn-outline-secondary btn-sm"
+                               href="{{ path('print_invoice', {'id': invoice.id}) }}">
+                                {% trans %}Print{% endtrans %}</a>
+                        </td>
+                    </tr>
+                        {% for content in invoice.buhInvoiceContents %}
+                            <tr>
+                                <td colspan="3" align="right">
+                                    <font size="2">
+                                    {% if content.material.name == 'Notes' %}
+                                        {{ content.notes }}<br/> {{ content.amount|number_format(1, ',', ' ') }} {{ content.price|number_format(2, ',', ' ') }} 
+                                    {% else %}
+                                        {{ content.material.name }} {{ content.amount|number_format(1, ',', ' ') }} {{ content.price|number_format(2, ',', ' ') }}
+                                    {% endif %}
+                                    </font>
+                                </td>
+                                <td><a class="btn btn-outline-secondary btn-sm"
+                                    href="{{ path('object_invoice_remove_content', {'id': object.object.id, 'contentId': content.id}) }}">-</a></td>
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function cancelReservation(material, object) {
+            window.open('./' + object + '/cancel/' + material, "_self");
+        }
+
+        function printMonthMaterials(month, key, object) {
+console.log(key);
+            window.open('./print/reserved/' + object + '/' + key);
+        }
+    </script>
+
+{% endblock %}

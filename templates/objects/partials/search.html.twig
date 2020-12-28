@@ -1,0 +1,23 @@
+{{ form_start(form) }}
+<div class="section_menu section_full">
+    <div class="search">
+        {{ form_widget(form.search, {'attr': {'class': 'first width40', 'placeholder': 'search here', 'value': app.request.cookies.get('search') }}) }}
+        {% if writeOff.entity.object and writeOff.entity.object.hasReserved %}
+            <form method="get">
+            {{ form_widget(form.category, {'attr': {'class': 'width30', 'value': app.session.get('category') }}) }}<!--
+            -->{{ form_widget(form.submit, {'attr': {'class': 'width15'}}) }}<!--
+            --><button class="last width14" value="change" name="reserved" type="submit">
+                    {% if app.session.get('reserved') %}
+                        Free
+                    {% else %}
+                        Reserved
+                    {% endif %}
+                </button>
+            </form>
+        {% else %}
+            {{ form_widget(form.category, {'attr': {'class': 'width40', 'value': app.session.get('category') }}) }}<!--
+            -->{{ form_widget(form.submit, {'attr': {'class': 'width19 last'}}) }}
+        {% endif %}
+    </div>
+</div>
+{{ form_end(form) }}

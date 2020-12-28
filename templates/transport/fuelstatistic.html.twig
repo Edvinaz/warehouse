@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nepanaudotas kuras{% endblock %}
+
+{% block body %}
+<div class="container">
+    <table width="100%" class="table_x">
+    <thead>
+    <tr>
+        <th>Mėnuo</th>
+        <th>Benzinas</th>
+        <th>Dyzelinas</th>
+        <th>Dujos</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for key, fuel in list %}
+        <tr>
+            <td>{{ key }}</td>
+            {% for name, total in fuel%}
+            <td align="center">
+                {% if name == 'dyzelinas' or name == 'benzinas' or name == 'dujos' %}
+                    {{ total|number_format(2, ',', ' ') }}
+                {% else %}
+                    -
+                {% endif %}
+           </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+</div>
+{% endblock %}

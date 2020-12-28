@@ -1,0 +1,176 @@
+<div class="section_menu">
+    <div class="object-name">
+        <span class="object-number">{{ object.object.number }}</span>
+        <span class="object-full-name">{{ object.object.name }}, {{ object.object.adress }}</span>
+    </div>
+    
+    <div class="object-status">
+        <a class="{{ object.object.status == 'OFFER' ? 'object-status-button first': 'first' }}" href="{{ path('update_object_status', {'id': object.object.id, 'status': 'OFFER'}) }}">Pasiūlymas</a><!--
+        --><a class="{{ object.object.status == 'EXECUTING' ? 'object-status-button': '' }}" href="{{ path('update_object_status', {'id': object.object.id, 'status': 'EXECUTING'}) }}">Vykdomas</a><!--
+        --><a class="{{ object.object.status == 'DONE' ? 'object-status-button': '' }}" href="{{ path('update_object_status', {'id': object.object.id, 'status': 'DONE'}) }}">Baigtas</a><!--
+        --><a class="{{ object.object.status == 'CLOSED' ? 'object-status-button last': 'last' }}" href="{{ path('update_object_status', {'id': object.object.id, 'status': 'CLOSED'}) }}">Uždarytas</a>
+        {% if is_granted('ROLE_ADMIN') %}
+        <form class="staff-update" method="POST">
+            <label class="name">Manager</label>
+            <select class="list" name="manager">
+                {% for person in staff.responsible %}
+                    <option value={{ person.id }}>{{ person.person.fullName }}</option>
+                {% endfor %}
+            </select><!--
+            --><button type="submit">Add</button>
+        </form>
+        <form class="staff-update">
+            <label class="name">Foremen</label>
+            <select class="list" name="foremen">
+                {% for person in staff.allStaff %}
+                    <option value={{ person.id }}>{{ person.person.fullName }}</option>
+                {% endfor %}
+            </select><!--
+            --><button>Add</button>
+        </form>
+        {% else %}
+        <br/><br/>
+        {% endif %}
+        <form class="staff-update">
+            <label class="name">Staff</label>
+            <select class="list" name="staff">
+                {% for person in staff.notResponsible %}
+                    <option value={{ person.id }}>{{ person.person.fullName }}</option>
+                {% endfor %}
+            </select><!--
+            --><button>Add</button>
+        </form>
+    </div>
+    
+    <br/><br/><br/>
+
+    <div class="row">
+        <div class="col-1">{% trans %}Customer{% endtrans %}</div>
+        <div class="col-8">{{ object.object.contrahent.name }}
+        {% if object.object.hasContract %}
+        (<i>{{ object.object.buhContracts.name }} sutartis Nr. {{ object.object.buhContracts.number }}.
+            date: {{ object.object.buhContracts.date|date('Y-m-d') }}</i>)
+        {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <table width="100%" class="staff">
+            <tr>
+            {% if object.objectDetails.manager %}
+                <td width="12%">Darbų vadovas</td>
+                <td width="20%"><i>{{ object.objectDetails.manager.name }}</i></td>
+            {% else %}
+                <td width="12%" width="15%"></td>
+                <td width="20%"></td>
+            {% endif %}
+            {% if object.objectDetails.foremen %}
+                <td width="15%">Darbų vykdytojas</td>
+                <td><i>{{ object.objectDetails.foremen.name }}</i></td>
+            {% else %}
+                <td></td>
+                <td></td>
+            {% endif %}
+            </tr>
+            <tr>
+            <td align="center">Brigada</td>
+            <td colspan="3">
+                {% for worker in object.objectDetails.staff %}
+                    <span class="worker">
+                        {{ worker.name }} (<b>{{ worker.hours }}</b>val)
+                    </span>
+                {% endfor %}
+            </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="row">
+        <table width="100%">
+        <tr>
+            <td colspan="2" align="center">Medžiagos, €</td>
+            <td rowspan="2" align="center">Paslaugos, €</td>
+            <td rowspan="2" align="center">{% trans %}Worked hours{% endtrans %}</td>
+            <td rowspan="2" align="center">Pajamos, €</td>
+            <td rowspan="2" align="center">Pelnas, €</td>
+        </tr>
+        <tr>
+            <td align="center">rezervuotos</td><td align="center">nurašytos</td>
+        </tr>
+        <tr>
+            <td align="center">{{ object.objectDetails.reservedMaterials|number_format(2, ',', ' ') }}</td>
+            <td align="center">{{ object.objectDetails.debitedMaterials|number_format(2, ',', ' ') }}</td>
+            <td align="center">{{ object.objectDetails.services|number_format(2, ',', ' ') }}</td>
+            <td align="center">{{ object.objectDetails.workedHours }}</td>
+            <td align="center">{{ object.objectDetails.income|number_format(2, ',', ' ') }}</td>
+            <td align="center">{{ object.objectDetails.profit|number_format(2, ',', ' ') }}</td>
+        </tr>
+        </table>   
+    </div>
+    {# <div class="row">
+        <div class="col-2">{% trans %}Staff{% endtrans %}</div>
+        <div class="col-6">
+            {% if object.objectDetails.manager %}
+            <div class="row">
+                <div class="col-2"><label>Manager:</label></div>
+                <div class="col-10">
+                    {{ object.objectDetails.manager.name }}
+                </div>
+            </div>
+            {% endif %}
+            {% if object.objectDetails.foremen %}
+            <div class="row">
+                <div class="col-2"><label>Foremen:</label></div>
+                <div class="col-10">
+                    {{ object.objectDetails.foremen.name }}
+                </div>
+            </div>
+            {% endif %}
+            <div class="row">
+                <div class="col-2">
+                    <label>Staff:</label>
+                </div>
+                <div class="col-10">
+                    <div class="row">
+                        {% for worker in object.objectDetails.staff %}
+                        <div class="col-6">
+                            {{ worker.name }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+            </div>
+        </div> #}
+        {# <div class="col-4">
+            <form class="row" method="POST">
+                <label class="col-4" for="manager">Manager</label>
+                <select name="manager" class="form-control col-6">
+                    {% for person in staff.responsible %}
+                        <option value={{ person.id }}>{{ person.person.fullName }}</option>
+                    {% endfor %}
+                </select>
+                <button class="btn btn-s btn-outline-primary" type="submit">Add</button>
+            </form>
+
+            <form class="row" method="POST">
+                <label class="col-4" for="foremen">Foremen</label>
+                <select name="foremen" class="form-control col-6">
+                    {% for person in staff.allStaff %}
+                        <option value={{ person.id }}>{{ person.person.fullName }} {{ person.fired|date('Y') }}</option>
+                    {% endfor %}
+                </select>
+                <button class="btn btn-s btn-outline-primary" type="submit">Add</button>
+            </form>
+
+            <form class="row" method="POST">
+                <label class="col-4" for="staff">Add staff</label>
+                <select name="staff" class="form-control col-6">
+                    {% for person in staff.notResponsible %}
+                        <option value={{ person.id }}>{{ person.person.fullName }}</option>
+                    {% endfor %}
+                </select>
+                <button class="btn btn-s btn-outline-primary" type="submit">Add</button>
+            </form>
+        </div> #}
+    </div>
+</div>

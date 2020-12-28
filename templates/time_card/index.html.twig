@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Time card table{% endtrans %}{% endblock %}
+
+{% block body %}
+    {% set hours = 8 %}
+
+    {% include 'objects/partials/list_header.html.twig' %}
+
+    <div id="root"></div>
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('timeCard') }}
+    {% endblock %}
+
+{% endblock %}

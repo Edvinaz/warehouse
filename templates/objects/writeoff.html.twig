@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Update Invoice details{% endtrans %}{% endblock %}
+
+{% block body %}
+
+    {% include 'objects/partials/list_header.html.twig' %}
+
+    <div class="section_menu">
+        <table class="table_x">
+            <thead>
+            <tr>
+                <th>{% trans %}Number{% endtrans %}</th>
+                <th>{% trans %}Date{% endtrans %}</th>
+                <th>{% trans %}Customer{% endtrans %}</th>
+                <th>{% trans %}Object name{% endtrans %}</th>
+                <th>{% trans %}Debited amount{% endtrans %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for writeOff in writeOffs %}
+                <tr onclick="clickedWriteOff({{ writeOff.id }})">
+                    <td width="10%">{{ writeOff.number }}</td>
+                    <td width="10%">{{ writeOff.date|date('Y-m-d') }}</td>
+                    <td width="20%">
+                    {% if writeOff.object %}
+                        {{ writeOff.object.contrahent.name }}
+                    {% endif %}
+                    </td>
+                    <td width="50%">
+                    {% if writeOff.object %}
+                        {{ writeOff.object.number }}. {{ writeOff.object.name }} {{ writeOff.object.adress }}
+                    {% else %}
+                        {% trans %}Write-off act{% endtrans %}
+                    {% endif %}
+                    </td>
+                    <td width="10%">{{ writeOff.amount }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <script>
+            function clickedWriteOff(id) {
+                window.location.replace('writeOff/' + id);
+            }
+        </script>
+
+    </div>
+
+{% endblock %}

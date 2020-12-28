@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Kuro naudojimas!{% endblock %}
+
+{% block body %}
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style>
+        table {
+            border-spacing: 0px;
+            border: 0.5px solid black;
+        }
+
+        thead {
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        tbody {
+            font-size: 11px;
+            margin: 5px;
+        }
+
+        td {
+            border: 0.1px solid black;
+        }
+    </style>
+    <title>Mėnesio ataskaita</title>
+</head>
+
+<body>
+
+<main>
+
+<div class="container">
+
+<table width="100%">
+<thead>
+    <tr>
+        <td align="center">Mėnuo</td>
+        <td align="center">Likutis pradžiai, €</td>
+        <td align="center">Gauta per mėn., €</td>
+        <td align="center">Nurašyta per mėn., €</td>
+        <td align="center">Likutis pabaigai, €</td>
+    </tr>    
+</thead>
+<tbody>
+{% for key, month in period %}
+    <tr>
+        <td align="center">{{ key }}</td>
+        <td align="center">{{ month[0].begin|number_format(2, ',', ' ') }}</td>
+        <td align="center">{{ month[0].received|number_format(2, ',', ' ') }}</td>
+        <td align="center">{{ month[0].debited|number_format(2, ',', ' ') }}</td>
+        <td align="center">{{ month[0].end|number_format(2, ',', ' ') }}</td>
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+
+</main>
+</body>
+
+{% endblock %}
+
+

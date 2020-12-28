@@ -1,0 +1,48 @@
+<div class="section_menu">
+    <div class="level1buttons">
+        <a class="first" href="{{ path('objects') }}">{% trans %}Objects list{% endtrans %}</a><!--
+        --><a href="{{ path('write_off') }}">{% trans %}Write-off list{% endtrans %}</a><!--
+        --><a href="{{ path('edit_object', {'id': 0}) }}">{% trans %}New object{% endtrans %}</a><!--
+        --><a class="last" href="{{ path('new_write_off') }}">{% trans %}New write-off{% endtrans %}</a>
+    </div>
+    {% if object is defined %}
+    <div class="level2buttons">
+        <a class="first" href="{{ path('edit_object', {'id': object.object.id}) }}">
+            {% trans %}Edit{% endtrans %}
+        </a>
+        {% if not object.object.reserved or not object.object.invoices %}
+        <a class="danger" href="{{ path('delete_object', {'id': object.object.id}) }}">
+            {% trans %}Delete{% endtrans %}
+        </a>
+        {% endif %}
+        {% if not object.object.hasContract %}
+        <a href="{{ path('object_contract_edit', {'objectId': object.object.id}) }}">
+            {% trans %}New contract{% endtrans %}
+        </a>
+        {% endif %}
+        <a href="{{ path('object_invoice', {'id': object.object.id}) }}">
+            {% trans %}New invoice{% endtrans %}
+        </a ><!--
+        --><a href="{{ path('print_reserved_materials', {'id': object.object.id}) }}">
+            {% trans %}Print reserved materials{% endtrans %}
+        </a><!--
+        --><a href="{{ path('object_time_card', {'id': object.object.id}) }}">
+            {% trans %}Time-card{% endtrans %}
+        </a><!--
+        --><a href="{{ path('recalculate_object_details', {'objectId': object.object.id}) }}">
+            {% trans %}Recalculate{% endtrans %}
+        </a><!--
+        --><a class="last" href="{{ path('object_info', {'id': object.object.id}) }}">
+            {% trans %}Back{% endtrans %}
+        </a>
+    </div>
+    {% endif %}
+    {% if object_list is defined %}
+    <form class="search" method="POST">
+        <input class="first last" name="search" placeholder="objekto paieška..." size="154"/><!--
+        --><button type="submit" hidden>{% trans %}Search{% endtrans %}</button>
+    </form>
+    {% endif %}
+</div>
+
+

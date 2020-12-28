@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Purchase{% endtrans %}{% endblock %}
+
+{% block content %}
+
+{% endblock %}
+
+{% block body %}
+    {% include('purchase/partials/menu.html.twig') %}
+
+    <div class="section_menu">
+        <table class="table_x">
+        <thead>
+            <tr>
+                <th width="24%">Pardavėjas</th>
+                <th width="10%">Medžiagos</th>
+                <th width="10%">Kuras</th>
+                <th width="10%">Kanceliarija</th>
+                <th width="10%">Automobiliai</th>
+                <th width="10%">Drabužiai</th>
+                <th width="10%">Remontas</th>
+                <th width="10%">Nuoma</th>
+                <th width="10%">Suma</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contrahent in report %}
+            <tr>
+                <td width="24%">{{ contrahent.contrahent }}</td>
+                <td width="10%">
+                    {% if contrahent.purchase[1] is defined %}
+                        {{ contrahent.purchase[1]|number_format(2, ',', ' ') }}
+                    {% endif %}
+                </td>
+                <td width="10%">
+                    {% if contrahent.purchase[2] is defined %}
+                        {{ contrahent.purchase[2]|number_format(2, ',', ' ') }}
+                    {% endif %}
+                </td>
+                <td width="10%">
+                    {% if contrahent.purchase[10] is defined %}
+                        {{ contrahent.purchase[10]|number_format(2, ',', ' ') }}
+                    {% endif %}
+                </td>
+                <td width="10%">
+                    {% if contrahent.purchase[11] is defined %}
+                        {{ contrahent.purchase[11]|number_format(2, ',', ' ') }}
+                    {% endif %}
+                </td>
+                <td width="10%">
+                    {% if contrahent.purchase[12] is defined %}
+                        {{ contrahent.purchase[12]|number_format(2, ',', ' ') }}
+                    {% endif %}
+                </td>
+                <td width="10%">
+                    {% if contrahent.purchase[21] is defined %}
+                        {{ contrahent.purchase[21]|number_format(2, ',', ' ') }}
+                    {% endif %}
+                </td>
+                <td width="10%">
+                    {% if contrahent.purchase[22] is defined %}
+                        {{ contrahent.purchase[22]|number_format(2, ',', ' ') }}
+                    {% endif %}
+                </td>
+                <td width="10%">{{ contrahent.sum|number_format(2, ',', ' ') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>    
+        </table>
+    </div>
+{% endblock %}

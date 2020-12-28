@@ -1,0 +1,126 @@
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="lt-LT" xml:lang="lt">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style>
+        body {
+            font-family: DejaVu Sans, sans-serif;
+        }
+
+        @page {
+            margin: 55px 75px;
+        }
+
+        footer {
+            position: fixed;
+            bottom: -45px;
+            left: 0px;
+            right: 0px;
+            height: 50px;
+
+            /** Extra personal styles **/
+            font-size: 9px;
+        }
+
+        .mainText {
+            border-color: grey;
+            font-size: 11px;
+            text-indent: 20px;
+            text-align: justify;
+        }
+
+        .titleText {
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .titleDateText {
+            text-align: right;
+            font-size: 12px;
+            margin: 7px;
+        }
+
+        .props {
+            font-size: 11px;
+        }
+
+        .props td {
+            padding-left: 70px;
+        }
+
+        p {
+            margin: 1px;
+        }
+    </style>
+    <title>Contract</title>
+</head>
+
+<body>
+<main>
+<div class="titleText">
+{{ object.buhContracts.name|upper }} SUTARTIS Nr. {{ object.buhContracts.number }}
+</div>
+
+<div class="titleDateText">
+{{ object.buhContracts.dateInWords }}
+</div>
+
+<div class="mainText">
+<p><b>{{ object.contrahent.name }}</b>, įmonės kodas <b>{{ object.contrahent.companyCode }}</b> atstovaujama (-s) 
+<b>{{ object.contrahent.boss }}</b>, toliau vadinama UŽSAKOVU ir <b>{{ company.name }}</b>, įmonės kodas <b>{{ company.code }}</b>
+atstovaujama <b>{{ company.ceo }}</b>, toliau vadinamas RANGOVU, remdamiesi sąmata sudarė šią sutartį.</p>
+<p>1. Sutarties objektas: <i>{{ object.name }}, {{ object.adress }}</i></p>
+<p>2. Sutarties objekto kaina yra nustatyta remiantis sąmata (su PVM) - <i>{{ object.buhContracts.total|number_format(2, ',', ' ') }} Eur ({{ object.buhContracts.totalWords }})</i><br>
+{% if object.buhContracts.reverseVat %}
+	Sutarties objekto kaina be PVM -  {{ (object.buhContracts.total / 1.21)|number_format(2, ',', ' ') }} Eur<br>
+	Taikomas atvirkštinis apmokestinimas pagal PVM įstatymo 96 straipsnį.<br>
+{% endif %}
+</p>
+
+<p>3. UŽSAKOVAS darbų pradžioje sumoka <i>{{ object.buhContracts.advance }}</i> Eur avansą, o už visą sutarties objektą sumoka 
+<i>{{ object.buhContracts.billingCondition }}</i>.</p>
+<p>4. RANGOVAS darbus pradeda <i>{{ object.buhContracts.begin|date('Y-m-d') }}</i> ir baigia <i>{{ object.buhContracts.end|date('Y-m-d') }}</i>.</p>
+<p>5. Vykdydamos šią sutartį šalys vadovaujasi įstatymais, kitais normatyviniais aktais, Statybos rangos sutarties nuostatais ir šios sutarties sąlygomis.</p>
+<p>6. UŽSAKOVAS įsipareigoja vykdyti visas jam priskiriamas pareigas ir prisiima atlikti: <br>            <i>{{ object.buhContracts.billing }}</i></p>
+<p>7. RANGOVAS įsipareigoja atlikti {{ object.buhContracts.works }}<br> 
+keisti UŽSAKOVO patvirtintus projektinius sprendimus tik gavęs jo sutikimą raštu;</p>
+<p>8. Sutarties objektui nustatomas <i>{{ object.buhContracts.warranty }}</i> garantinis laikas.</p>
+<p>9. Šalių atsakomybė už neįvykdytą sutartį joje ar vėliau šalių nustatytu laiku arba už kitokius sutarties pažeidimus:</p>
+<p>    UŽSAKOVAS:<br>
+	Nepagrįstai uždelsęs atsiskaityti už atliktus darbus nustatytu laiku, moka RANGOVUI <i>{{ object.buhContracts.fine }}</i> % 
+    nuo neapmokėtos sumos dydžio delspinigius už kiekvieną uždelstą dieną.<br>
+	Nutraukęs sutartį ne dėl RANGOVO kaltės, atlygina RANGOVUI jo turėtas pagrįstas objekto statybos išlaidas ir nuostoliu, susijusius su sutarties nutraukimu.</p>
+<p>	RANGOVAS:<br>
+	UŽSAKOVO nurodytu laiku nepašalinęs defektų, nustatytų per garantinį laiką, atlygina UŽSAKOVO išlaidas, susijusias su defektų šalinimu, 
+    ir dėl to UŽSAKOVO patirtus nuostolius.<br>
+	Nutraukęs sutartį dėl nepateisinamos priežasties, sumoka UŽSAKOVUI <i>-</i> % sutartyje nurodytos pradinės darbų kainos dydžio baudą ir 
+    atlygina dėl to UŽSAKOVO patirtus nuostolius.<br>
+	Uždelsęs objekto statybą, moka UŽSAKOVUI <i>-</i> % delspinigius už kiekvieną uždelstą dieną ir atlygina dėl to UŽSAKOVO patirtus nuostolius.</p>
+<p>10. Iškilusius nesutarimus sprendžia teismas.</p>
+<p>11. RANGOVAS atsako už darbų saugą objekto teritorijoje, tiria ir apskaito nelaimingus atsitikimus. Darbus vykdo savo technika ir medžiagomis.</p>
+<p>12. Šalių adresai, telefonų, telefaksų Nr., atsiskaitomosios sąskaitos:</p>
+</div>
+
+<table width="100%" class="props">
+<tr><th width="50%"><b>UŽSAKOVAS</b></th><th width="50%"><b>RANGOVAS</b></th></tr>
+<tr><td>{{ object.contrahent.name }}</td><td>{{ company.name }}</td></tr>
+<tr><td>{{ object.contrahent.adress }}</td><td>{{ company.address }}</td></tr>
+<tr><td>Tel./faks. {{ object.contrahent.phone }}</td><td>Tel./faks. {{ company.phone }}</td></tr>
+<tr><td>Įmonės kodas {{ object.contrahent.companyCode }}</td><td>Įmonės kodas {{ company.code }}</td></tr>
+<tr><td>
+{% if object.contrahent.vatCode %}
+    PVM mokėtojo kodas {{ object.contrahent.vatCode }}
+{% endif %}
+</td><td>PVM mokėtojo kodas {{ company.vat }}</td></tr>
+<tr><td></td><td>{{ company.account }},<br>{{ company.bank }},<br>{{ company.bankCode }}</td></tr>
+<tr><td></td><td>&nbsp;</td></tr>
+<tr><td></td><td>&nbsp;</td></tr>
+<tr><td>(vardas, pavardė, parašas)</td><td>(vardas, pavardė, parašas)</td></tr>
+<tr><td></td><td></td></tr>
+<tr><td>{{ object.buhContracts.date|date('Y') }} m. </td><td>{{ object.buhContracts.date|date('Y') }} m.</td></tr>
+<tr><td>A.V.</td><td>A.V.</td></tr>
+</table>
+</main>
+</body>
+<html>
+
+

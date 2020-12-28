@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}{% trans %}Welcome!{% endtrans %}{% endblock %}</title>
+
+        <style>
+            body {
+                background-color: yellow;
+                position: relative;
+                width: 300px;
+            }
+
+            .form {
+                width: 100%;
+                position: absolute;
+                top:0;
+                left:0;
+                border: 1px solid black;
+            }
+
+            form {
+                width: 100%;
+                position: absolute;
+                top:0;
+                left:0;
+                border: 2px solid red;
+
+            }
+        </style>
+    </head>
+    <body>
+    <div class="form">
+        <form width="100%">
+            <input name="name" class="form-control" placeholder="vardas" autocomplete="off" width="100%" /><br/>
+            <input name="height" class="form-control" placeholder="ūgis" autocomplete="off" /><br/>
+            <input name="volume" class="form-control" placeholder="apimtis" autocomplete="off" /><br/>
+            <input name="shoeSize" class="form-control" placeholder="batų dydis" autocomplete="off" /><br/>
+            <input name="jacketSize" class="form-control" placeholder="striukės dydis" autocomplete="off" /><br/>
+            <button type="submit">OK</button>
+        </form>
+</div>
+    </body>
+</html>
+
+
+
+
+

@@ -1,0 +1,23 @@
+<div class="section_menu">
+    <div class="level1buttons">
+        <a class="first" href="{{ path('new_invoice') }}">{% trans %}New Invoice{% endtrans %}</a><!--
+        --><a class="middle" href="{{ path('purchase') }}">{% trans %}Invoice list{% endtrans %}</a><!--
+        --><a class="last" href="{{ path('analytics') }}">{% trans %}statistika{% endtrans %}</a>
+    </div>
+    {% if invoice is defined %}
+    <div class="level2buttons">
+        <a class="first" href="{{ path('edit_invoice', {'id': invoice.id}) }}">{% trans %}Edit{% endtrans %}</a><!--
+        --><a href="{{ path('delete_invoice', {'id': invoice.id}) }}">{% trans %}Delete{% endtrans %}</a><!--
+        --><a class="last" href="{{ path('invoice_details', {'id': invoice.id}) }}">{% trans %}Back{% endtrans %}</a>
+    </div>
+    {% endif %}
+    {% if purchases is defined %}
+    <form>
+        <div class="search">
+            <input class="first last width100" type="text" name="search"
+                    placeholder="{% trans %}search by invoice number{% endtrans %}" value="{{ app.request.get('search') }}">
+            <button type="submit" hidden>{% trans %}Search{% endtrans %}</button>
+        </div>
+    </form>
+    {% endif %}
+</div>

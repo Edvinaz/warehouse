@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Kuro naudojimas!{% endblock %}
+
+{% block body %}
+<div class="section_menu">
+    <table width="100%" class="table_x">
+    <thead>
+        <tr>
+            <th>Markė</th>
+            <th>Modelis</th>
+            <th>Valst. Nr.</th>
+            <th>Draudimas iki...</th>
+            <th>Kelių mokestis iki...</th>
+            <th>Išlaidos</th>
+            <th></th>
+        </tr>
+        </thead>
+        {% for transport in list %}
+        <tr onclick="clickedTransport({{ transport.id }})">
+            <td>{{ transport.brand }}</td>
+            <td>{{ transport.model }}</td>
+            <td>{{ transport.licensePlate }}</td>
+            <td>{{ transport.insurance|date("Y-m-d") }}</td>
+            <td>
+                {% if transport.roadTax is null %}
+                    -
+                {% else %}
+                    {{ transport.roadTax|date("Y-m-d") }}
+                {% endif %}
+            </td>
+            <td>{{ transport.allCosts }} ({{ transport.fuelTanks[0] }} | {{ transport.fuelTanks[1] }})</td>
+            <td><a href="{{ path('create_transport_monthly_usage', {'auto': transport.id}) }}">MU</a></td>
+        </tr>
+        {% endfor%}
+    </table>
+
+    <script>
+        function clickedTransport(id) {
+            window.location.replace('transport/form/' + id);
+        }
+    </script>
+
+</div>
+{% endblock %}

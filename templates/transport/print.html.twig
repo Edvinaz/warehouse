@@ -1,0 +1,153 @@
+<table class="table table-hover" width="100%" border="1">
+    <thead>
+        <tr>
+            <th rowspan="2" width="10%">Automobilis</th>
+            <th rowspan="2" width="5%">Valst.Nr.</th>
+            <th colspan="2" width="10%">Odometras</th>
+            <th rowspan="2" width="5%">Nuvažiuota, km</th>
+            <th colspan="3" width="17.5%">Likutis pradžioje</th>
+            <th colspan="3" width="17.5%">Gauta</th>
+            <th colspan="3" width="17.5%">Sunaudota</th>
+            <th colspan="3" width="17.5%">Likutis pabaigoje</th>
+        </tr>
+        <tr>
+            <th>pradžioje</th>
+            <th>pabaigoje</th>
+            <th width="5.84%">dyzelis</th>
+            <th width="5.83%">benzinas</th>
+            <th width="5.83%">dujos</th>
+            <th width="5.84%">dyzelis</th>
+            <th width="5.83%">benzinas</th>
+            <th width="5.83%">dujos</th>
+            <th width="5.84%">dyzelis</th>
+            <th width="5.83%">benzinas</th>
+            <th width="5.83%">dujos</th>
+            <th width="5.84%">dyzelis</th>
+            <th width="5.83%">benzinas</th>
+            <th width="5.83%">dujos</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% set dieselStart = 0 %}
+    {% set gasolineStart = 0 %}
+    {% set gasStart = 0 %}
+
+    {% set dieselReceived = 0 %}
+    {% set gasolineReceived = 0 %}
+    {% set gasReceived = 0 %}
+
+    {% set dieselUsed = 0 %}
+    {% set gasolineUsed = 0 %}
+    {% set gasUsed = 0 %}
+
+    {% set dieselEnd = 0 %}
+    {% set gasolineEnd = 0 %}
+    {% set gasEnd = 0 %}
+
+    {% for auto in autos %}
+        <tr>
+            <td align="center">{{ auto.brand }} {{ auto.model }}</td>
+            <td align="center">{{ auto.licensePlate }}</td>
+            <td align="center">{{ auto.usage.class.odometerStart }}</td>
+            <td align="center">{{ auto.usage.class.odometerEnd }}</td>
+            <td align="center">{{ auto.usage.class.odometerEnd - auto.usage.class.odometerStart }}</td>
+            <td align="center">
+                {% if auto.usage.class.diesel %}
+                    {{ auto.usage.class.diesel.beginingStatus|round(2) }}
+                    {% set dieselStart = dieselStart + auto.usage.class.diesel.beginingStatus %}
+                {% endif %}
+            </td>
+            <td align="center">
+                {% if auto.usage.class.gasoline %}
+                    {{ auto.usage.class.gasoline.beginingStatus|round(2) }}
+                    {% set gasolineStart = gasolineStart + auto.usage.class.gasoline.beginingStatus %}
+                {% endif %}
+            </td>
+            <td align="center">
+                {% if auto.usage.class.gas %}
+                    {{ auto.usage.class.gas.beginingStatus|round(2) }}
+                    {% set gasStart = gasStart + auto.usage.class.gas.beginingStatus %}
+                {% endif %}
+            </td>
+
+            <td align="center">
+                {% if auto.usage.class.diesel %}
+                    {{ auto.usage.class.diesel.receivedStatus|round(2) }}
+                    {% set dieselReceived = dieselReceived + auto.usage.class.diesel.receivedStatus %}
+                {% endif %}
+            </td>
+            <td align="center">
+                {% if auto.usage.class.gasoline %}
+                    {{ auto.usage.class.gasoline.receivedStatus|round(2) }}
+                    {% set gasolineReceived = gasolineReceived + auto.usage.class.gasoline.receivedStatus %}
+                {% endif %}
+            </td>
+            <td align="center">
+                {% if auto.usage.class.gas %}
+                    {{ auto.usage.class.gas.receivedStatus|round(2) }}
+                    {% set gasReceived = gasReceived + auto.usage.class.gas.receivedStatus %}
+                {% endif %}
+            </td>
+
+            <td align="center">
+                {% if auto.usage.class.diesel %}
+                    {{ auto.usage.class.diesel.usedStatus|round(2) }}
+                    <small>(<b>{{ auto.usage.class.diesel.fuelNorm|round(2) }}</b>)</small>
+                    {% set dieselUsed = dieselUsed + auto.usage.class.diesel.usedStatus %}
+                {% endif %}
+            </td>
+            <td align="center">
+                {% if auto.usage.class.gasoline %}
+                    {{ auto.usage.class.gasoline.usedStatus|round(2) }}
+                    <small>(<b>{{ auto.usage.class.gasoline.fuelNorm|round(2) }}</b>)</small>
+                    {% set gasolineUsed = gasolineUsed + auto.usage.class.gasoline.usedStatus %}
+                {% endif %}
+            </td>
+            <td align="center">
+                {% if auto.usage.class.gas %}
+                    {{ auto.usage.class.gas.usedStatus|round(2) }}
+                    <small>(<b>{{ auto.usage.class.gas.fuelNorm|round(2) }}</b>)</small>
+                    {% set gasUsed = gasUsed + auto.usage.class.gas.usedStatus %}
+                {% endif %}
+            </td>
+
+            <td align="center">
+                {% if auto.usage.class.diesel %}
+                    {{ auto.usage.class.diesel.endingStatus|round(2) }}
+                    {% set dieselEnd = dieselEnd + auto.usage.class.diesel.endingStatus %}
+                {% endif %}
+            </td>
+            <td align="center">
+                {% if auto.usage.class.gasoline %}
+                    {{ auto.usage.class.gasoline.endingStatus|round(2) }}
+                    {% set gasolineEnd = gasolineEnd + auto.usage.class.gasoline.endingStatus %}
+                {% endif %}
+            </td>
+            <td align="center">
+                {% if auto.usage.class.gas %}
+                    {{ auto.usage.class.gas.endingStatus|round(2) }}
+                    {% set gasEnd = gasEnd + auto.usage.class.gas.endingStatus %}
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    <tr>
+        <td colspan="5"></td>
+        <th align="center">{{ dieselStart|round(2) }}</th>
+        <th align="center">{{ gasolineStart|round(2) }}</th>
+        <th align="center">{{ gasStart|round(2) }}</th>
+
+        <th align="center">{{ dieselReceived|round(2) }}</th>
+        <th align="center">{{ gasolineReceived|round(2) }}</th>
+        <th align="center">{{ gasReceived|round(2) }}</th>
+
+        <th align="center">{{ dieselUsed|round(2) }}</th>
+        <th align="center">{{ gasolineUsed|round(2) }}</th>
+        <th align="center">{{ gasUsed|round(2) }}</th>
+
+        <th align="center">{{ dieselEnd|round(2) }}</th>
+        <th align="center">{{ gasolineEnd|round(2) }}</th>
+        <th align="center">{{ gasEnd|round(2) }}</th>
+    </tr>
+    </tbody>
+</table>

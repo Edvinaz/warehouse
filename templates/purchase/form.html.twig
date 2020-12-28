@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}New Invoice{% endtrans %}{% endblock %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block content %}
+
+{% endblock %}
+
+{% block body %}
+
+    {% include('purchase/partials/menu.html.twig') %}
+
+    <div class="container" id="invoice_form">
+        <div class="card">
+            <div class="card-header">{% trans %}New Invoice{% endtrans %}</div>
+            <div class="card-body">
+                {{ form(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Purchase{% endtrans %}{% endblock %}
+
+{% block content %}
+
+{% endblock %}
+
+{% block body %}
+    {% include('purchase/partials/menu.html.twig') %}
+
+    <div class="section_menu" id="invoice_list">
+        <table width="100%" class="table_x">
+            <thead>
+            <tr>
+                <th>{% trans %}Number{% endtrans %}</th>
+                <th>{% trans %}Date{% endtrans %}</th>
+                <th>{% trans %}Seller{% endtrans %}</th>
+                <th>{% trans %}Sum{% endtrans %}, Eur</th>
+            </tr>
+            </thead>
+            {% for invoice in purchases.invoices %}
+            <tbody>
+                <tr onclick="clickedInvoice({{ invoice.id }})">
+                    <td>{{ invoice.number }}</td>
+                    <td>{{ invoice.date|date('Y-m-d') }}</td>
+                    <td>{{ invoice.getContrahent.name }}</td>
+                    <td>{{ invoice.amount|number_format(2, ',', ' ') }}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+        <div class="row">
+            {% if not purchases.previousPageDisabled %}
+            <div class="col-1">
+                <form method="get">
+                    <input name="page" value="{{ purchases.previousPage }}" hidden \>
+                    <button type="submit" >Previous</button>
+                </form>
+            </div>
+            {% endif %}
+            {% if not purchases.nextPageDisabled %}
+            <div class="col-1">
+                <form method="get">
+                    <input name="page" value="{{ purchases.nextPage }}" hidden \>
+                    <button type="submit">Next</button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+
+{#        <a href="{{ path('set_purchase_invoice_page', {'page': 1}) }}">{{ purchases.maxPage }}</a>#}
+
+        <script>
+            function clickedInvoice(id) {
+                window.location.replace('purchase/' + id);
+            }
+        </script>
+    </div>
+{% endblock %}

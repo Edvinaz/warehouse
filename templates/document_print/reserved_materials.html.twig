@@ -1,0 +1,146 @@
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="lt-LT" xml:lang="lt">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style>
+        body {
+            font-family: DejaVu Sans, sans-serif;
+        }
+
+        @page {
+            margin: 55px 75px;
+        }
+
+        footer {
+            position: fixed;
+            bottom: -45px;
+            left: 0px;
+            right: 0px;
+            height: 50px;
+            border-top: 1px solid black;
+
+            /** Extra personal styles **/
+            font-size: 9px;
+        }
+
+        .mainText {
+            border-color: grey;
+            font-size: 11px;
+            text-indent: 20px;
+            text-align: justify;
+        }
+
+        .titleText {
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .titleDateText {
+            text-align: right;
+            font-size: 12px;
+            margin: 7px;
+        }
+
+        .props {
+            font-size: 11px;
+        }
+
+        .props td {
+            padding-left: 70px;
+        }
+
+        .page_break {
+            page-break-after: always;
+        }
+
+        p {
+            margin: 1px;
+        }
+
+        table {
+            font-size: 10px;
+            border-spacing: -1px;
+        }
+    </style>
+    <title>Reserved materials</title>
+</head>
+
+<body>
+<footer>
+<table width="100%">
+    <tr>
+        <td width="80%">{{ object.object.header }}</td>
+        <td width="20%" align="right">
+        {% if month is defined %}
+            Mėnuo: {{ month }}
+        {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td width="80%">Užsakovas: {{ object.object.contrahent }}</td>
+        <td width="20%" align="right">{{ "now"|date("Y-m-d H:i:s") }}</td>
+    </tr>
+</table>
+
+</footer>
+<main>
+<table width="100%" border="1px">
+    <tr>
+        <th align="center" width="60%">Pavadinimas</th>
+        <th align="center" width="10%">Mato vnt.</th>
+        <th align="center" width="10%">Kiekis</th>
+        <th align="center" width="10%">Kaina, Eur/vnt</th>
+        <th align="center" width="10%">Suma, Eur</th>
+    </tr>
+{% for material in object.reservedMaterials %}
+    <tr>
+        <td>{{ material.name }}</td>
+        <td align="center">{{ material.unit }}</td>
+        <td align="center">{{ material.quantity|number_format(2, ',', ' ') }}</td>
+        <td align="center">{{ material.price|number_format(2, ',', ' ') }}</td>
+        <td align="center">{{ (material.quantity * material.price)|number_format(2, ',', ' ') }}</td>
+    </tr>
+{% endfor %}
+    <tr>
+        <td colspan="4" align="right">Viso rezervuota objekte:&nbsp;</td>
+        <td align="center">{{ object.reservedMaterialsSum|number_format(2, ',', ' ') }}</td>
+    </tr>
+</table>
+
+{# Force page break if need it #}
+{# <span class="page_break"/> #}
+<br/>
+
+{% set length = object.object.staff|length + 2 %}
+{% set colspan = months|length + 1 %}
+{% if length > 2 and months|length > 0 %}
+<table width="100%" border="1">
+<tr>
+    <th colspan="{{ colspan }}">Dirbta valandų</th>
+</tr>
+<tr>
+    <th>Vardas Pavardė</th>
+    {% for month in months %}
+        <th>{{ month }}</th>
+    {% endfor %}
+</tr>
+
+{% for key, name in workers %}
+<tr>
+    <td>{{ key }}</td>
+    {% for month in months %}
+        {% if month in name|keys %}
+            <td align="center">{{ name[month] }}</td>
+        {% else %}
+        <td></td>
+        {% endif %}
+    {% endfor %}
+</tr>
+{% endfor %}
+
+</table>
+{% endif %}
+</main>
+</body>
+<html>
+
+

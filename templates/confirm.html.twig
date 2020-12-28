@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirm{% endblock %}
+
+{% block body %}
+
+<div class="section_menu">
+    {{ message }}
+    <form>
+        <input name="answer" value="true" hidden />
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+{% endblock %}

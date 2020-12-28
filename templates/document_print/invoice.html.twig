@@ -1,0 +1,306 @@
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="lt-LT" xml:lang="lt">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style>
+        body {
+            font-family: DejaVu Sans, sans-serif;
+        }
+
+        @page {
+            margin: 75px 25px;
+        }
+
+        footer {
+            position: fixed;
+            bottom: -45px;
+            left: 0px;
+            right: 0px;
+            height: 50px;
+
+            /** Extra personal styles **/
+            font-size: 9px;
+        }
+
+        table {
+            border-spacing: 0px;
+        }
+
+        table.requisites td {
+            padding-right: 12px;
+        }
+        tr.medium {
+            
+        }
+
+        tr.medium td {
+            padding-top: 6px;
+            padding-bottom: 6px;
+        }
+
+        td.pabrauktas {
+            border-bottom: 1px solid #222;
+        }
+
+        th.header-left {
+            border-left: 2px solid #222;
+            border-right: 1px solid #222;
+            border-top: 2px solid #222;
+            border-bottom: 2px solid #222;
+        }
+
+        th.header-center {
+            border-left: 1px solid #222;
+            border-right: 1px solid #222;
+            border-top: 2px solid #222;
+            border-bottom: 2px solid #222;
+        }
+
+        th.header-right {
+            border-left: 2px solid #222;
+            border-right: 2px solid #222;
+            border-top: 2px solid #222;
+            border-bottom: 2px solid #222;
+        }
+
+        td.body {
+            border: 1px solid #222;
+            border-bottom: 2px solid #222;
+        }
+
+        td.body-left-end {
+            border-left: 2px solid #222;
+            border-bottom: 2px solid #222;
+            height: 25px;
+        }
+
+        td.body-center-end {
+            border-bottom: 2px solid #222;
+        }
+
+        td.body-right-end {
+            border-left: 2px solid #222;
+            border-right: 2px solid #222;
+            border-bottom: 2px solid #222;
+        }
+
+        td.suma-top {
+            border-left: 2px solid #222;
+            border-right: 2px solid #222;
+            border-top: 2px solid #222;
+            border-bottom: 1px solid #222;
+        }
+
+        td.suma-middle {
+            border-left: 2px solid #222;
+            border-right: 2px solid #222;
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
+        }
+
+        td.suma-bottom {
+            border-left: 2px solid #222;
+            border-right: 2px solid #222;
+            border-top: 1px solid #222;
+            border-bottom: 2px solid #222;
+        }
+
+        td.head-1 {
+            font-size: 15px;
+            font-weight: bold;
+            padding-left: 50px;
+        }
+
+        td.head-2 {
+            font-size: 13px;
+            padding-left: 50px;
+        }
+
+        td.head-date {
+            font-size: 11px;
+            padding-left: 50px;
+        }
+
+        table.requisites {
+            font-size: 12px;
+            padding: 6px;
+        }
+
+        table.materials {
+            width: 100%;
+            font-size: 11px;
+        }
+
+        tr.small {
+            font-size: 8px;
+        }
+
+        tr.medium {
+            font-size: 11px;
+        }
+
+        img {
+            width: 170px;
+            height: auto;
+        }
+    </style>
+    <title>Invoice</title>
+</head>
+
+<body>
+
+<footer>
+    {% include 'document_print/partials/footer.html.twig' %}
+</footer>
+
+<main>
+<table width="100%">
+    <tr>
+        <td width="40%" rowspan="3" align="center"><img src="{{ company.logo }}" /></td>
+        <td width="60%" class="head-1">PVM SĄSKAITA FAKTŪRA</td>
+    </tr>
+    <tr>
+        <td class="head-2">SERIJA <b>REL</b> Nr. <b>{{ invoice.number }}</b></td>
+    </tr>
+    <tr>
+        <td class="head-date">{{ invoice.date|date("Y") }} m. {{ invoice.month }} mėn. {{ invoice.date|date("d") }} d.</td>
+    </tr>
+</table>
+<br>
+<div>
+    <table class="requisites" width="100%">
+        <tr>
+            <td width="19%" align="right">Pardavėjas</td>
+            <td width="31%">{{ company.name }}</td>
+            <td width="19%" align="right">Pirkėjas</td>
+            <td width="31%">{{ invoice.object.contrahent.name }}</td>
+        </tr>
+        <tr>
+            <td align="right">Adresas</td>
+            <td>{{ company.street }}, {{ company.city }}</td>
+            <td align="right">Adresas</td>
+            <td>{{ invoice.object.contrahent.adress }}</td>
+        </tr>
+        <tr>
+            <td align="right">Įmonės kodas</td>
+            <td>{{ company.code }}</td>
+            <td align="right">Įmonės kodas</td>
+            <td>{{ invoice.object.contrahent.companyCode }}</td>
+        </tr>
+        <tr>
+            <td align="right">PVM mokėtojo kodas</td>
+            <td>{{ company.vat }}</td>
+            {% if invoice.object.contrahent.vatCode %}
+                <td align="right">PVM mokėtojo kodas</td>
+                <td>{{ invoice.object.contrahent.vatCode }}</td>
+            {% endif %}
+        </tr>
+        <tr>
+            <td align="right">Banko rekvizitai</td>
+            <td>{{ company.account }}<br/>{{ company.bank }},<br/> {{ company.bankCode }}</td>
+        </tr>
+        <tr>
+            <td align="right">Tel./faks.</td>
+            <td>{{ company.phone }}</td>
+        </tr>
+    </table>
+</div>
+<br>
+<table class="materials">
+    <tr class="header">
+        <th width="5%" align="center" class="header-left">Eil. Nr.</th>
+        <th width="40%" align="center" class="header-center">Prekės pavadinimas</th>
+        <th width="11%" align="center" class="header-center">Mato vnt.</th>
+        <th width="11%" align="center" class="header-center">Kiekis</th>
+        <th width="11%" align="center" class="header-center">Kaina, Eur</th>
+        <th width="11%" align="center" class="header-center">PVM, %</th>
+        <th width="11%" align="center" class="header-right">Suma, Eur</th>
+    </tr>
+    {% for content in invoice.buhInvoiceContents %}
+    <tr>
+        <td align="center" class="body-left-end">{{ loop.index }}</td>
+        <td class="body-center-end">
+        {% if content.printObject and content.depend and content.printMaterial != 'Notes' %}
+            {{ content.printObject }}<br/>  
+        {% endif %}
+        {% if content.printMaterial and not content.depend %}
+            {% if content.printMaterial == 'Notes' %}
+                {{ content.notes }}<br/>
+            {% else %}
+                {{ content.printMaterial }}<br/>
+            {% endif %}
+        {% endif %}
+        {% if content.printContract and content.depend %}
+            {{ content.printContract }}
+        {% endif %}
+        <td align="center" class="body-center-end">{{ content.material.unit }}</td>
+        <td align="center" class="body-center-end">{{ content.amount|number_format(2, ',', ' ') }}</td>
+        <td align="center" class="body-center-end">{{ content.price|number_format(2, ',', ' ') }}</td>
+        <td align="center" class="body-center-end">21</td>
+        <td align="center" class="body-right-end">{{ (content.amount * content.price)|number_format(2, ',', ' ') }}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td colspan="4" rowspan="3" align="center" ><br>
+        {% if invoice.reverseVat == true %}
+            Taikomas atvirkštinis apmokestinimas
+        {% endif %}
+        </td><td colspan="2" align="center">Suma be PVM  </td>
+        <td align="center" class="suma-top">{{ invoice.total|number_format(2, ',', ' ') }}</td>
+    </tr>
+    <tr>
+        <td align="center" colspan="2">PVM, 21%  </td>
+        <td align="center" class="suma-middle">{{ (invoice.total * 0.21)|number_format(2, ',', ' ') }}</td>
+    </tr>
+    <tr>
+        <td align="center" colspan="2">Suma su PVM  </td>
+        <td align="center" class="suma-bottom">{{ (invoice.total * 1.21)|number_format(2, ',', ' ') }}</td>
+    </tr>
+</table>
+<br/>
+<table width="100%">
+    <tr class="medium">
+        <td width="20%">Suma žodžiais:</td>
+        <td width="80%" align="center" class="body">{{ invoice.totalVatWords }}</td>
+    </tr>
+    {% if invoice.reverseVat == true %}
+    <tr class="medium">
+        <td width="20%">Suma apmokėjimui:</td>
+        <td width="80%" align="center" class="body">{{ invoice.totalWords }}</td>
+    </tr>
+    {% endif %}
+</table>
+<br/><br/><br/>
+<table width="100%">
+    <tr class="medium">
+        <td>Pardavėjas</td>
+        <td align="center" class="pabrauktas">{{ company.position }}</td>
+        <td class="pabrauktas"></td>
+        <td align="center" class="pabrauktas">{{ company.boss }}</td>
+    </tr>
+    <tr class="small">
+        <td></td>
+        <td align="center">(pareigos)</td>
+        <td align="center">(parašas)</td>
+        <td align="center">(vardas, pavardė)</td>
+    </tr>
+    <tr>
+        <td><br/></td>
+    </tr>
+    <tr class="medium">
+        <td>Pirkėjas</td>
+        <td class="pabrauktas"></td>
+        <td class="pabrauktas"></td>
+        <td class="pabrauktas"></td>
+    </tr>
+    <tr class="small">
+        <td></td>
+        <td align="center">(pareigos)</td>
+        <td align="center">(parašas)</td>
+        <td align="center">(vardas, pavardė)</td>
+    </tr>
+</table>
+</main>
+</body>
+<html>
+
+

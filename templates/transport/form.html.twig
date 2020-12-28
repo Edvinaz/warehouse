@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Kuro naudojimas!{% endblock %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+<div class="section_menu">
+    {{ form(form) }}
+</div>
+{% endblock %}

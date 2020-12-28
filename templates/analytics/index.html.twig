@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AnalyticsController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="container">
+    <table class="table table-hover" width="100%">
+    <thead>
+        <tr>
+            <th>Pardavėjas</th>
+            <th width="13%">Medžiagos</th>
+            <th width="13%">Kuras</th>
+            <th width="13%">Kanceliarija</th>
+            <th width="13%">Automobilių priežiūra</th>
+            <th width="13%">Darbo drabužiai</th>
+            <th width="13%">Kitos paslaugos</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for item in list %}
+        <tr>
+            <td>
+            {% if item.id is null %}
+                {{ item.name }}
+            {% else %}
+                <a href="{{ path('analytics_id', {id: item.id}) }}">{{ item.name }}</a>
+            {% endif %}
+            </td>
+            <td align="center" width="13%">{{ item.workMaterials|number_format(2, ',', ' ') }}</td>
+            <td align="center" width="13%">{{ item.fuel|number_format(2, ',', ' ') }}</td>
+            <td align="center" width="13%">{{ item.stationerySupplies|number_format(2, ',', ' ') }}</td>
+            <td align="center" width="13%">{{ item.transportService|number_format(2, ',', ' ') }}</td>
+            <td align="center" width="13%">{{ item.workClothesPPE|number_format(2, ',', ' ') }}</td>
+            <td align="center" width="13%">{{ item.otherServices|number_format(2, ',', ' ') }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    
+</div>
+{% endblock %}
