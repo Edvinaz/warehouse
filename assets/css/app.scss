@@ -1,0 +1,426 @@
+// the ~ allows you to reference things in node_modules
+@import "~bootstrap/scss/bootstrap";
+
+$body-color: black;
+
+body {
+  background-color: #ECECEC;
+  color: $body-color;
+}
+
+.logo {
+  position: fixed;
+  top: 10px;
+  left: 25px;
+  width: 170px;
+  background-color: #ECECEC;
+  border-radius: 10px;
+  padding-left: 20px;
+}
+
+.logo img {
+  width: 130px;
+  border-radius: 10px;
+}
+
+.menu {
+  position: fixed;
+  top: 10px;
+  left: 225px;
+  right: 255px;
+  width: auto;
+  border-radius: 5px;
+  z-index: 100;
+}
+
+.user {
+  position: fixed;
+  top: 10px;
+  right: 15px;
+  z-index: 100;
+}
+
+.main_content {
+  margin: 25px;
+}
+
+.container {
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: thin;
+  border-color: gray;
+}
+
+.navbar {
+  margin-bottom: 10px;
+  position: sticky;
+  top: 70px;
+  border-radius: 5px;
+}
+
+.invoiceHead {
+  margin-bottom: 8px;
+}
+
+.time-card-day {
+  position: relative;
+  background-color: whitesmoke;
+}
+
+.time-card-info {
+  display: none;
+  position: absolute;
+
+  z-index: 200;
+
+  background-color: white;
+  border-color: gray;
+  border-radius: 25px;
+
+  width: 250px;
+  height: auto;
+
+  margin: 25px;
+
+  bottom: -10px;
+  right: 25px;
+
+  text-align: center;
+}
+
+.time-card-day:hover .time-card-info{
+  display: inline-block;
+  position: absolute;
+  visibility: visible;
+}
+
+.alert {
+  width: auto;
+  position: fixed;
+  right: 0.75rem;
+  padding-right: 1.8rem;
+  opacity: 0.35;
+}
+
+.alert .alertx {
+  position: absolute;
+  right: 0.6rem;
+}
+
+.sticky {
+  top: 150px;
+}
+
+.table_x {
+  color: solid black;
+  background-color: white;
+}
+
+.table_x thead th {
+  font-size: 15px;
+  text-align: center;
+  border-bottom: solid grey 5px;
+  border-width: thin;
+}
+
+.table_x tbody tr {
+  border-bottom: solid rgb(187, 187, 187) 1px;
+}
+
+.table_x tbody tr:hover {
+  background-color: rgb(187, 187, 187);
+  box-shadow: rgb(187, 187, 187);
+}
+
+.table_x tbody td {
+  font-size: 15px;
+  text-align: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.section_menu{
+  position: relative;
+  width: 72%;
+  margin: auto; 
+  background-color: white;
+  padding: 10px;
+  border: solid gray;
+  border-width: thin;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.section_menu a {
+  border: solid rgb(120, 120, 210);
+  border-width: thin;
+  color: rgb(120, 120, 210);
+  background-color: white;
+  padding: 2px;
+}
+
+.section_menu .level1buttons {
+  position: relative;
+  top: 5px;
+  padding: 5px;
+  margin-bottom: 15px;
+}
+.section_menu .level2buttons {
+  position: relative;
+  padding-left: 5px;
+  padding-bottom: 2px;
+}
+
+.section_menu .search {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  margin: 5px;
+  border: solid grey;
+  border-width: thin;
+  border-radius: 5px;
+}
+
+.section_menu .level1buttons a {
+  font-size: 16px;
+  padding: 8px;
+}
+
+.section_menu .level2buttons a {
+  font-size: 13px;
+  padding: 6px;
+}
+
+.section_menu a:hover {
+  background-color: rgb(120, 120, 210);
+  text-decoration: solid;
+  color: white;
+  border-color: white;
+}
+
+.section_menu .search input {
+  position: relative;
+  padding: 3px 3px 3px 9px;
+  border: 0;
+  display: inline;
+}
+
+.section_menu .search select {
+  padding: 3px;
+  border: 0.25px;
+  border-color: white;
+  display: inline;
+}
+
+.section_menu .search a {
+  padding: 3px;
+  background-color: white;
+  color: grey;
+  border-color: grey;
+  display: inline;
+}
+
+.section_menu .search a:hover {
+  background-color: grey;
+  color: white;
+  border-color: white;
+}
+
+.section_menu .search button {
+  padding: 3px;
+  background-color: white;
+  color: grey;
+  border-color: grey;
+  display: inline;
+}
+
+.section_menu .search button:hover {
+  background-color: grey;
+  color: white;
+  border-color: white;
+}
+
+.section_menu .danger {
+  background-color: white;
+  color: rgb(250, 80, 80);
+  border-color: rgb(250, 80, 80); 
+}
+
+.section_menu .danger:hover {
+  background-color: rgb(250, 80, 80);
+  color: white;
+  border-color: white;  
+}
+
+.section_menu .object-status {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  align-content: right;
+}
+
+.section_menu .object-status-button {
+  background-color: lightblue;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.section_menu .staff {
+  position: relative;
+  left: 0;
+  margin: 10px;
+  width: 100%;
+}
+
+.section_menu .staff .worker {
+  padding: 2px;
+  margin: 4px;
+  font-style: italic;
+}
+
+.object-name {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  width: 73%;
+  background-color: lightgray;
+  border-right: solid black;
+  border-bottom: 1px solid black;
+  border-bottom-right-radius: 80px;
+  border-top-left-radius: 5px;
+}
+
+.object-name .object-number {
+  position: relative;
+  font-size: large;
+  font-weight: bold;
+  padding: 8px;
+  background-color: lightgray;
+  color: black;
+  margin: 10px;
+}
+
+.object-name .object-full-name {
+  position: relative;
+  font-size: medium;
+  padding: 5px;
+  margin: 1px;
+  background-color: lightgray;
+  color: black;
+  border-color: lightgray;
+  display: inline;
+  z-index: 0;
+  border-radius: 30px;
+}
+
+.object-status .staff-update {
+  position: relative;
+  align-items: right;
+  right: 0;
+  margin: 4px;
+  width: auto;
+}
+
+.object-status label {
+  color: black;
+  font-size: smaller;
+  width: 22%;
+}
+
+.object-status select {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-color: lightgray;
+  padding: 2px;
+  width: 59%;
+  font-size: small;
+}
+
+.object-status button {
+  border: 1px solid lightgray;
+  color: black;
+  background-color: white;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  font-size: small;
+}
+
+.object-status button:hover {
+  background-color: lightgray;
+}
+
+.first {
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  padding: 0px;
+}
+
+.middle {
+  padding: 0px;
+}
+
+.last {
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 0px;
+}
+
+.section_full {
+  width: 100%;
+  border: none;
+}
+
+.width100 {
+  width: 100%;
+}
+
+.width75 {
+  width: 75%;
+}
+
+.width60 {
+  width: 60%;
+}
+
+.width50 {
+  width: 50%;
+}
+
+.width40 {
+  width: 40%;
+}
+
+.width30 {
+  width: 30%;
+}
+
+.width25 {
+  width: 25%;
+}
+
+.width20 {
+  width: 20%;
+}
+
+.width19 {
+  width: 19%;
+}
+
+.width15 {
+  width: 15%;
+}
+
+.width14 {
+  width: 14%;
+}
+
+.width10 {
+  width: 10%;
+}
