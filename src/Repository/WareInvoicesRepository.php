@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\Purchases\WareInvoices;
 use App\Helpers\DateInterval;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -55,7 +54,7 @@ class WareInvoicesRepository extends ServiceEntityRepository
     public function invoiceList(string $search)
     {
         $date = new DateInterval();
-        $query = $this->createQueryBuilder('w')
+        return $this->createQueryBuilder('w')
             ->join('w.contrahent', 'c')
             ->andWhere('w.date BETWEEN :from AND :to')
             ->andWhere('w.number LIKE :search')
@@ -64,9 +63,9 @@ class WareInvoicesRepository extends ServiceEntityRepository
             ->setParameter('to', $date->getEnd())
             ->setParameter('search', '%'.$search.'%')
             ->orderBy('w.date', 'ASC')
+            ->getQuery()
+            ->getResult()
             ;
-
-        return new Paginator($query, $fetchJoinCollection = true);
     }
 
     public function save(WareInvoices $invoice)
