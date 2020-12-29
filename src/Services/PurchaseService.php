@@ -2,17 +2,18 @@
 declare(strict_types=1);
 namespace App\Services;
 
+use App\Entity\Purchases\WareInvoices;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\WareInvoicesRepository;
 use App\Repository\WareMaterialsRepository;
 use App\Repository\WarePurchasedMaterialsRepository;
-use Doctrine\ORM\EntityManagerInterface;
 
-abstract class PurchaseService
+class PurchaseService
 {
-    private $invoicesRepository;
-    private $materialRepository;
-    private $purchasedMaterialsRepository;
-    private $em;
+    protected $invoicesRepository;
+    protected $materialRepository;
+    protected $purchasedMaterialsRepository;
+    protected $em;
 
     public function __construct(
         WareInvoicesRepository $wareInvoicesRepository,
@@ -24,5 +25,10 @@ abstract class PurchaseService
        $this->materialRepository = $wareMaterialsRepository;
        $this->purchasedMaterialsRepository = $warePurchasedMaterialsRepository; 
        $this->em = $entityManagerInterface;
+    }
+
+    public function getInvoice(int $invoiceId): WareInvoices
+    {
+        return $this->invoicesRepository->find($invoiceId);
     }
 }
