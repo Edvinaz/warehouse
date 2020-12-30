@@ -35,3 +35,32 @@ services:
     App\Services\PurchaseService:
         factory: ['@App\Factories\PurchaseServiceFactory', 'createPurchaseServiceManager']
     
+    App\Services\Purchase\InvoiceListService:
+        public: true
+
+
+
+    PurchaseSubscriber:
+        class: App\EventListener\PurchaseEventSubscriber
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    PurchaseMaterials:
+        class: App\EventListener\WarePurchasedMaterialsListener
+        tags:
+            -
+                name: 'doctrine.orm.entity_listener'
+                event: 'postUpdate'
+                entity: 'App\Entity\Purchases\WarePurchasedMaterials'
+                lazy: true
+            -
+                name: 'doctrine.orm.entity_listener'
+                event: 'postPersist'
+                entity: 'App\Entity\Purchases\WarePurchasedMaterials'
+                lazy: true
+            -
+                name: 'doctrine.orm.entity_listener'
+                event: 'preRemove'
+                entity: 'App\Entity\Purchases\WarePurchasedMaterials'
+                lazy: true
+    
