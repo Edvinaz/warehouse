@@ -68,7 +68,7 @@
 <footer>
 <table width="100%">
     <tr>
-        <td width="80%">{{ object.object.header }}</td>
+        <td width="80%">{{ object.header }}</td>
         <td width="20%" align="right">
         {% if month is defined %}
             Mėnuo: {{ month }}
@@ -76,7 +76,7 @@
         </td>
     </tr>
     <tr>
-        <td width="80%">Užsakovas: {{ object.object.contrahent }}</td>
+        <td width="80%">Užsakovas: {{ object.contrahent }}</td>
         <td width="20%" align="right">{{ "now"|date("Y-m-d H:i:s") }}</td>
     </tr>
 </table>
@@ -91,7 +91,7 @@
         <th align="center" width="10%">Kaina, Eur/vnt</th>
         <th align="center" width="10%">Suma, Eur</th>
     </tr>
-{% for material in object.reservedMaterials %}
+{% for material in reservedMaterials %}
     <tr>
         <td>{{ material.name }}</td>
         <td align="center">{{ material.unit }}</td>
@@ -102,7 +102,7 @@
 {% endfor %}
     <tr>
         <td colspan="4" align="right">Viso rezervuota objekte:&nbsp;</td>
-        <td align="center">{{ object.reservedMaterialsSum|number_format(2, ',', ' ') }}</td>
+        <td align="center">{{ reservedMaterialsSum|number_format(2, ',', ' ') }}</td>
     </tr>
 </table>
 
@@ -110,7 +110,7 @@
 {# <span class="page_break"/> #}
 <br/>
 
-{% set length = object.object.staff|length + 2 %}
+{% set length = object.staff|length + 2 %}
 {% set colspan = months|length + 1 %}
 {% if length > 2 and months|length > 0 %}
 <table width="100%" border="1">

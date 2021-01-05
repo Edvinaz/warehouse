@@ -57,6 +57,11 @@ services:
     App\Services\StatisticService:
         factory: ['@App\Factories\StatisticServiceFactory', 'createStatisticServiceManager']
 
+    App\Services\Sales\InvoiceService: ~
+
+    App\Services\Sales\InvoiceService:
+        factory: ['@App\Factories\InvoiceServiceFactory', 'createInvoiceServiceManager']
+
 
 
     
