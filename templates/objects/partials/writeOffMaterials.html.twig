@@ -8,8 +8,8 @@
     </tr>
     </thead>
     <tbody>
-    {% for debited in writeOff.materials %}
-        <tr onclick="unDebitMaterial({{ writeOff.entity.id }}, {{ debited.materialID }})">
+    {% for debited in debitedMaterials %}
+        <tr onclick="unDebitMaterial({{ writeOff.id }}, {{ debited.materialID }})">
             <td>{{ debited.name }}</td>
             <td>{{ debited.unit }}</td>
             <td>{{ debited.amount|number_format }}</td>

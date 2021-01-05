@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Services\Purchase;
 
-use App\Entity\Purchases\WareInvoices;
 use App\Models\PurchaseInvoice;
 use App\Services\PurchaseService;
 

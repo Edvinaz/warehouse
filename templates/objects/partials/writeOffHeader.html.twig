@@ -1,22 +1,22 @@
 <div class="section_menu">
     <div class="row">
         <div class="col-2">{% trans %}Write off number{% endtrans %}</div>
-        <div class="col-2"><b>{{ writeOff.entity.number }}</b></div>
+        <div class="col-2"><b>{{ writeOff.number }}</b></div>
         <div class="col-2">{% trans %}Date{% endtrans %}</div>
-        <div class="col-2"><b>{{ writeOff.entity.date|date('Y-m-d') }}</b></div>
-        {% if writeOff.entity.object %}
+        <div class="col-2"><b>{{ writeOff.date|date('Y-m-d') }}</b></div>
+        {% if writeOff.object %}
             <div class="col-2">{% trans %}Customer{% endtrans %}</div>
-            <div class="col-2"><b>{{ writeOff.entity.object.contrahent.name }}</b></div>
+            <div class="col-2"><b>{{ writeOff.object.contrahent.name }}</b></div>
         {% endif %}
     </div>
     <div class="row">
-        {% if writeOff.entity.object %}
+        {% if writeOff.object %}
             <div class="col-2">{% trans %}Object{% endtrans %}</div>
-            <div class="col-10"><b>{{ writeOff.entity.object.number }}.</b> {{ writeOff.entity.object.name }}, {{ writeOff.entity.object.adress }}</div>
+            <div class="col-10"><b>{{ writeOff.object.number }}.</b> {{ writeOff.object.name }}, {{ writeOff.object.adress }}</div>
         {% endif %}
     </div>
     <div class="row">
         <div class="col-2">Nurašyta suma, Eur</div>
-        <div class="col-10"><b>{{ writeOff.entity.amount|number_format(2, ',', ' ') }} €</b></div>
+        <div class="col-10"><b>{{ writeOff.amount|number_format(2, ',', ' ') }} €</b></div>
     </div>
 </div>

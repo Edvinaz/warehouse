@@ -2,7 +2,7 @@
 <div class="section_menu section_full">
     <div class="search">
         {{ form_widget(form.search, {'attr': {'class': 'first width40', 'placeholder': 'search here', 'value': app.request.cookies.get('search') }}) }}
-        {% if writeOff.entity.object and writeOff.entity.object.hasReserved %}
+        {% if writeOff.object and writeOff.object.hasReserved %}
             <form method="get">
             {{ form_widget(form.category, {'attr': {'class': 'width30', 'value': app.session.get('category') }}) }}<!--
             -->{{ form_widget(form.submit, {'attr': {'class': 'width15'}}) }}<!--
