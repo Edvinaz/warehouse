@@ -11,31 +11,30 @@ use App\Services\WriteOff\WriteOffDetailsService;
 use App\Services\WriteOff\WriteOffListService;
 use App\Services\WriteOff\WriteOffManageService;
 use Exception;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class WriteOffController extends AbstractController
 {
     private $session;
 
-    public function __construct() 
+    public function __construct()
     {
         $this->session = new Session();
     }
 
     /**
      * @Route("/writeOff", name="write_off")
-     * 
+     *
      * @IsGranted("ROLE_ACCOUNTANT")
      */
     public function writeOffList(
         WriteOffListService $service
     ): Response {
-
         $this->session->set('search', null);
         $this->session->set('category', null);
 
@@ -46,13 +45,12 @@ class WriteOffController extends AbstractController
 
     /**
      * @Route("/writeOff/new", name="new_write_off")
-     * 
+     *
      * @IsGranted("ROLE_ACCOUNTANT")
      */
     public function newWriteOff(
         WriteOffManageService $service
     ): Response {
-
         $service->newWriteOff();
 
         return $this->redirectToRoute('write_off');
@@ -60,16 +58,15 @@ class WriteOffController extends AbstractController
 
     /**
      * @Route("/writeOff/{id}", name="write_off_details")
-     * 
+     *
      * @IsGranted("ROLE_ACCOUNTANT")
      */
     public function writeOffDetails(
-        int $id, 
-        Request $request, 
+        int $id,
+        Request $request,
         StatisticService $statisticService,
         WriteOffDetailsService $service
     ): Response {
-
         if ('change' === $request->get('reserved')) {
             $this->session->set('reserved', !$this->session->get('reserved'));
         }
@@ -85,22 +82,21 @@ class WriteOffController extends AbstractController
             $class = $form->getData();
             $search = [
                 'search' => $class->getSearch(),
-                'category' => $class->getCategory()
+                'category' => $class->getCategory(),
             ];
             $this->session->set('category', $search['category']);
             $this->session->set('search', $search['search']);
-
         } else {
             $search = [
                 'search' => $this->session->get('search'),
-                'category' => $this->session->get('category')
+                'category' => $this->session->get('category'),
             ];
         }
 
         return $this->render('objects/writeoffdetails.html.twig', [
             'writeOff' => $service->getWriteOff($id),
             'debitedMaterials' => $service->getDebitedMaterials($id),
-            'warehouseMaterials' => $service->getWarehouseMaterials($id, $search), 
+            'warehouseMaterials' => $service->getWarehouseMaterials($id, $search),
             'statistic' => $statisticService->getPeriodStatistic(),
             'form' => $form->createView(),
         ]);
@@ -108,7 +104,7 @@ class WriteOffController extends AbstractController
 
     /**
      * @Route("/writeOff/{id}/{materialId}", name="write_off_material")
-     * 
+     *
      * @IsGranted("ROLE_ACCOUNTANT")
      */
     public function writeOffMaterial(
@@ -118,9 +114,8 @@ class WriteOffController extends AbstractController
         WriteOffDetailsService $service,
         WriteOffModel $model
     ): Response {
-        
         $model->initiate($id, null);
-        $debitMaterial = $this->writeOffModel->newDebitMaterial($materialId, true);
+        $debitMaterial = $model->newDebitMaterial($materialId, true);
 
         $form = $this->createForm(DebitMaterialType::class, $debitMaterial);
         $form->handleRequest($request);
@@ -132,7 +127,7 @@ class WriteOffController extends AbstractController
                 dd($e);
                 return $this->redirectToRoute('write_off_details', ['id' => $id]);
             }
-            
+
             return $this->redirectToRoute('write_off_details', ['id' => $id]);
         }
 
@@ -145,7 +140,7 @@ class WriteOffController extends AbstractController
 
     /**
      * @Route("/writeOff/{id}/update/{material}", name="update_write_off_material")
-     * 
+     *
      * @IsGranted("ROLE_ACCOUNTANT")
      */
     public function updateWriteOffMaterial(
@@ -155,7 +150,6 @@ class WriteOffController extends AbstractController
         WriteOffModel $model,
         WriteOffDetailsService $service
     ): Response {
-
         $model->initiate($id, null);
         $debitMaterial = $model->newDebitMaterial($material, false);
         $form = $this->createForm(DebitMaterialType::class, $debitMaterial);
