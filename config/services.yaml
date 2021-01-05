@@ -52,6 +52,11 @@ services:
 
     App\Interfaces\StaffListInterface: '@App\Helpers\StaffList'
 
+    App\Services\StatisticService: ~
+
+    App\Services\StatisticService:
+        factory: ['@App\Factories\StatisticServiceFactory', 'createStatisticServiceManager']
+
 
 
     
@@ -82,5 +87,81 @@ services:
                 name: 'doctrine.orm.entity_listener'
                 event: 'preRemove'
                 entity: 'App\Entity\Purchases\WarePurchasedMaterials'
+                lazy: true
+
+    DebitMaterials:
+        class: App\EventListener\WareDebitMaterialsListener
+        tags:
+            -
+                name: 'doctrine.orm.entity_listener'
+                event: 'postPersist'
+                entity: 'App\Entity\Debition\WareDebitedMaterials'
+                lazy: true
+            -
+                name: 'doctrine.orm.entity_listener'
+                event: 'postUpdate'
+                entity: 'App\Entity\Debition\WareDebitedMaterials'
+                lazy: true
+            -
+                name: 'doctrine.orm.entity_listener'
+                event: 'postRemove'
+                entity: 'App\Entity\Debition\WareDebitedMaterials'
+                lazy: true
+
+    BuhInvoices:
+        class: App\EventListener\BuhInvoicesListener
+        tags:
+            -
+                name: 'doctrine.orm.entity_listener'
+                event: 'postPersist'
+                entity: 'App\Entity\Sales\BuhInvoices'
+                lazy: true
+            -
+                name: 'doctrine.orm.entity_listener'
+                event: 'postUpdate'
+                entity: 'App\Entity\Sales\BuhInvoices'
+                lazy: true
+            -
+                name: 'doctrine.orm.entity_listener'
+                event: 'postRemove'
+                entity: 'App\Entity\Sales\BuhInvoices'
+                lazy: true
+
+    BuhInvoiceContent:
+        class: App\EventListener\BuhInvoicesContentListener
+        tags:
+            -
+                name: 'doctrine.orm.entity_listener'
+                event: 'postPersist'
+                entity: 'App\Entity\Sales\BuhInvoiceContent'
+                lazy: true
+            -
+                name: 'doctrine.orm.entity_listener'
+                event: 'postUpdate'
+                entity: 'App\Entity\Sales\BuhInvoiceContent'
+                lazy: true
+            -
+                name: 'doctrine.orm.entity_listener'
+                event: 'postRemove'
+                entity: 'App\Entity\Sales\BuhInvoiceContent'
+                lazy: true
+
+    WareWriteOff:
+        class: App\EventListener\WareWriteOffsListener
+        tags:
+            -
+                name: 'doctrine.orm.entity_listener'
+                event: 'postPersist'
+                entity: 'App\Entity\Debition\WareWriteOffs'
+                lazy: true
+            -
+                name: 'doctrine.orm.entity_listener'
+                event: 'postUpdate'
+                entity: 'App\Entity\Debition\WareWriteOffs'
+                lazy: true
+            -
+                name: 'doctrine.orm.entity_listener'
+                event: 'preRemove'
+                entity: 'App\Entity\Debition\WareWriteOffs'
                 lazy: true
     
