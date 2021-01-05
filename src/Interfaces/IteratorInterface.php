@@ -1,9 +1,13 @@
 <?php
 namespace App\Interfaces;
 
-Interface IteratorInterface
-{
-    public function getNext();
+use Iterator;
 
-    public function hasMore();
+Interface IteratorInterface extends Iterator
+{
+    // public function getNext();
+
+    // public function hasMore();
+
+    public function count();
 }

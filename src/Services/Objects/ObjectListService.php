@@ -6,6 +6,7 @@ namespace App\Services\Objects;
 use App\Settings\Settings;
 use App\Services\ObjectsService;
 use App\Helpers\Iterators\ItemsCollection;
+use App\Interfaces\IteratorInterface;
 use App\Traits\IteratorTrait;
 
 class ObjectListService extends ObjectsService
@@ -18,7 +19,7 @@ class ObjectListService extends ObjectsService
         string $search = '', 
         string $objectStatus, 
         int $page = 0
-    ) {
+    ): IteratorInterface {
         // TODO implement objectStatus
         $this->setObjectList();
 
