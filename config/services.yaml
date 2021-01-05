@@ -35,6 +35,26 @@ services:
     App\Services\PurchaseService:
         factory: ['@App\Factories\PurchaseServiceFactory', 'createPurchaseServiceManager']
     
+    App\Services\ObjectsService: ~
+
+    App\Services\ObjectsService:
+        factory: ['@App\Factories\ObjectServiceFactory', 'createObjectServiceManager']
+
+    App\Services\MaterialService: ~
+
+    App\Services\MaterialService:
+        factory: ['@App\Factories\MaterialServiceFactory', 'createMaterialServiceManager']
+
+    App\Helpers\StaffList: ~
+
+    App\Helpers\StaffList:
+        factory: ['@App\Factories\StaffListFactory', 'createStaffListManager']
+
+    App\Interfaces\StaffListInterface: '@App\Helpers\StaffList'
+
+
+
+    
     App\Services\Purchase\InvoiceListService:
         public: true
 

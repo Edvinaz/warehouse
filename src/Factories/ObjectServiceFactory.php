@@ -8,6 +8,7 @@ use App\Repository\WareObjectsRepository;
 use App\Repository\BuhContractsRepository;
 use App\Repository\BuhInvoiceContentRepository;
 use App\Repository\WarePurchasedMaterialsRepository;
+use App\Repository\WareWriteOffsRepository;
 
 class ObjectServiceFactory
 {
@@ -16,19 +17,22 @@ class ObjectServiceFactory
     protected $invoicesRepository;
     protected $invoiceContentRepository;
     protected $purchasedMaterialsRepository;
+    protected $writeOffRepository;
 
     public function __construct(
         WareObjectsRepository $wareObjectsRepository,
         BuhContractsRepository $buhContractsRepository,
         BuhInvoicesRepository $buhInvoicesRepository,
         BuhInvoiceContentRepository $buhInvoiceContentRepository,
-        WarePurchasedMaterialsRepository $warePurchasedMaterialsRepository
+        WarePurchasedMaterialsRepository $warePurchasedMaterialsRepository,
+        WareWriteOffsRepository $wareWriteOffsRepository
     ) {
         $this->objectsRepository = $wareObjectsRepository;
         $this->contractsRepository = $buhContractsRepository;
         $this->invoicesRepository = $buhInvoicesRepository;
         $this->invoiceContentRepository = $buhInvoiceContentRepository;
         $this->purchasedMaterialsRepository = $warePurchasedMaterialsRepository;
+        $this->writeOffRepository = $wareWriteOffsRepository;
     }
 
     public function createObjectServiceManager()
@@ -38,7 +42,8 @@ class ObjectServiceFactory
             $this->contractsRepository, 
             $this->invoicesRepository,
             $this->invoiceContentRepository,
-            $this->purchasedMaterialsRepository
+            $this->purchasedMaterialsRepository,
+            $this->writeOffRepository
         );
 
         return $objectDetailsManager;

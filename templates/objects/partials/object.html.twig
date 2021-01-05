@@ -1,14 +1,14 @@
 <div class="section_menu">
     <div class="object-name">
-        <span class="object-number">{{ object.object.number }}</span>
-        <span class="object-full-name">{{ object.object.name }}, {{ object.object.adress }}</span>
+        <span class="object-number">{{ object.number }}</span>
+        <span class="object-full-name">{{ object.name }}, {{ object.adress }}</span>
     </div>
     
     <div class="object-status">
-        <a class="{{ object.object.status == 'OFFER' ? 'object-status-button first': 'first' }}" href="{{ path('update_object_status', {'id': object.object.id, 'status': 'OFFER'}) }}">Pasiūlymas</a><!--
-        --><a class="{{ object.object.status == 'EXECUTING' ? 'object-status-button': '' }}" href="{{ path('update_object_status', {'id': object.object.id, 'status': 'EXECUTING'}) }}">Vykdomas</a><!--
-        --><a class="{{ object.object.status == 'DONE' ? 'object-status-button': '' }}" href="{{ path('update_object_status', {'id': object.object.id, 'status': 'DONE'}) }}">Baigtas</a><!--
-        --><a class="{{ object.object.status == 'CLOSED' ? 'object-status-button last': 'last' }}" href="{{ path('update_object_status', {'id': object.object.id, 'status': 'CLOSED'}) }}">Uždarytas</a>
+        <a class="{{ object.status == 'OFFER' ? 'object-status-button first': 'first' }}" href="{{ path('update_object_status', {'id': object.id, 'status': 'OFFER'}) }}">Pasiūlymas</a><!--
+        --><a class="{{ object.status == 'EXECUTING' ? 'object-status-button': '' }}" href="{{ path('update_object_status', {'id': object.id, 'status': 'EXECUTING'}) }}">Vykdomas</a><!--
+        --><a class="{{ object.status == 'DONE' ? 'object-status-button': '' }}" href="{{ path('update_object_status', {'id': object.id, 'status': 'DONE'}) }}">Baigtas</a><!--
+        --><a class="{{ object.status == 'CLOSED' ? 'object-status-button last': 'last' }}" href="{{ path('update_object_status', {'id': object.id, 'status': 'CLOSED'}) }}">Uždarytas</a>
         {% if is_granted('ROLE_ADMIN') %}
         <form class="staff-update" method="POST">
             <label class="name">Manager</label>
@@ -46,26 +46,26 @@
 
     <div class="row">
         <div class="col-1">{% trans %}Customer{% endtrans %}</div>
-        <div class="col-8">{{ object.object.contrahent.name }}
-        {% if object.object.hasContract %}
-        (<i>{{ object.object.buhContracts.name }} sutartis Nr. {{ object.object.buhContracts.number }}.
-            date: {{ object.object.buhContracts.date|date('Y-m-d') }}</i>)
+        <div class="col-8">{{ object.contrahent.name }}
+        {% if object.hasContract %}
+        (<i>{{ object.buhContracts.name }} sutartis Nr. {{ object.buhContracts.number }}.
+            date: {{ object.buhContracts.date|date('Y-m-d') }}</i>)
         {% endif %}
         </div>
     </div>
     <div class="row">
         <table width="100%" class="staff">
             <tr>
-            {% if object.objectDetails.manager %}
+            {% if object.entity.manager %}
                 <td width="12%">Darbų vadovas</td>
-                <td width="20%"><i>{{ object.objectDetails.manager.name }}</i></td>
+                <td width="20%"><i>{{ object.entity.manager.name }}</i></td>
             {% else %}
                 <td width="12%" width="15%"></td>
                 <td width="20%"></td>
             {% endif %}
-            {% if object.objectDetails.foremen %}
+            {% if object.entity.foremen %}
                 <td width="15%">Darbų vykdytojas</td>
-                <td><i>{{ object.objectDetails.foremen.name }}</i></td>
+                <td><i>{{ object.entity.foremen.name }}</i></td>
             {% else %}
                 <td></td>
                 <td></td>
@@ -74,7 +74,7 @@
             <tr>
             <td align="center">Brigada</td>
             <td colspan="3">
-                {% for worker in object.objectDetails.staff %}
+                {% for worker in object.entity.staff %}
                     <span class="worker">
                         {{ worker.name }} (<b>{{ worker.hours }}</b>val)
                     </span>
@@ -97,12 +97,12 @@
             <td align="center">rezervuotos</td><td align="center">nurašytos</td>
         </tr>
         <tr>
-            <td align="center">{{ object.objectDetails.reservedMaterials|number_format(2, ',', ' ') }}</td>
-            <td align="center">{{ object.objectDetails.debitedMaterials|number_format(2, ',', ' ') }}</td>
-            <td align="center">{{ object.objectDetails.services|number_format(2, ',', ' ') }}</td>
-            <td align="center">{{ object.objectDetails.workedHours }}</td>
-            <td align="center">{{ object.objectDetails.income|number_format(2, ',', ' ') }}</td>
-            <td align="center">{{ object.objectDetails.profit|number_format(2, ',', ' ') }}</td>
+            <td align="center">{{ object.entity.reservedMaterials|number_format(2, ',', ' ') }}</td>
+            <td align="center">{{ object.entity.debitedMaterials|number_format(2, ',', ' ') }}</td>
+            <td align="center">{{ object.entity.services|number_format(2, ',', ' ') }}</td>
+            <td align="center">{{ object.entity.workedHours }}</td>
+            <td align="center">{{ object.entity.income|number_format(2, ',', ' ') }}</td>
+            <td align="center">{{ object.entity.profit|number_format(2, ',', ' ') }}</td>
         </tr>
         </table>   
     </div>

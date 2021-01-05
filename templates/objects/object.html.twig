@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ object.object.number }}. {{ object.object.name }}, {{ object.object.adress }}{% endblock %}
+{% block title %}{{ object.number }}. {{ object.name }}, {{ object.adress }}{% endblock %}
 
 {% block body %}
 
@@ -13,9 +13,9 @@
             <div class="col-12">
                 <table class="table">
                 <tr>
-                    {% for key, month in object.reservedMaterialsByMonth %}
-                        <td onclick="printMonthMaterials( {{ month }}, {{ key }}, {{ object.object.id }} )">
-                            <a href="{{ path('print_reserved_materials_month', {'id': object.object.id, 'month': key}) }}">{{ key }} ({{ month|number_format(2, ',', ' ') }} Eur)</a>
+                    {% for key, month in reservedMaterialsByMonth %}
+                        <td onclick="printMonthMaterials( {{ month }}, {{ key }}, {{ object.id }} )">
+                            {# <a href="{{ path('print_reserved_materials_month', {'id': object.id, 'month': key}) }}">{{ key }} ({{ month|number_format(2, ',', ' ') }} Eur)</a> #}
                         </td>
                     {% endfor %}
                 </tr>
@@ -32,8 +32,8 @@
                     </tr> 
                     </thead>
                     <tbody>
-                    {% for material in object.reservedMaterials %}
-                        <tr onclick="cancelReservation({{material.id}}, {{ object.object.id }})">
+                    {% for material in reservedMaterials %}
+                        <tr onclick="cancelReservation({{material.id}}, {{ object.id }})">
                             <td>{{ material.name }}</td>
                             <td>{{ material.unit }}</td>
                             <td>{{ material.quantity|number_format(1, ',', ' ') }}</td>
@@ -54,17 +54,18 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for invoice in object.object.buhInvoices %}
+                    {% for invoice in object.buhInvoices %}
                     <tr>
                         <td>{{ invoice.number }}</td>
                         <td>{{ invoice.date|date('Y-m-d') }}</td>
                         <td>{{ invoice.total|number_format(2, ',', ' ') }}</td>
-                        <td><a class="btn btn-outline-secondary btn-sm"
-                               href="{{ path('object_invoice_add_content', {'id': object.object.id, 'invoiceId': invoice.id}) }}">
-                                {% trans %}Add{% endtrans %}</a>
+                        <td>
                             <a class="btn btn-outline-secondary btn-sm"
+                               href="{{ path('object_invoice_add_content', {'id': object.id, 'invoiceId': invoice.id}) }}">
+                                {% trans %}Add{% endtrans %}</a>
+                            {# <a class="btn btn-outline-secondary btn-sm"
                                href="{{ path('print_invoice', {'id': invoice.id}) }}">
-                                {% trans %}Print{% endtrans %}</a>
+                                {% trans %}Print{% endtrans %}</a> #}
                         </td>
                     </tr>
                         {% for content in invoice.buhInvoiceContents %}
@@ -79,7 +80,7 @@
                                     </font>
                                 </td>
                                 <td><a class="btn btn-outline-secondary btn-sm"
-                                    href="{{ path('object_invoice_remove_content', {'id': object.object.id, 'contentId': content.id}) }}">-</a></td>
+                                    href="{{ path('object_invoice_remove_content', {'id': object.id, 'contentId': content.id}) }}">-</a></td>
                             </tr>
                         {% endfor %}
                     {% endfor %}

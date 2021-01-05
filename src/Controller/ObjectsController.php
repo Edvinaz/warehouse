@@ -4,53 +4,28 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Objects\ObjectList;
 use App\Form\WareObjectType;
 use App\Form\ObjectInvoiceType;
 use App\Form\ObjectContractType;
-use App\Services\ObjectsService;
 use App\Services\MaterialService;
-use App\Entity\Objects\WareObjects;
-use App\Objects\ObjectDetailsService;
 use App\Form\ObjectInvoiceContentType;
 use App\Interfaces\StaffListInterface;
-use App\Services\Sales\InvoiceService;
-use App\Services\ObjectMaterialService;
-use App\Repository\WareObjectsRepository;
-use Symfony\Component\Form\FormInterface;
+use App\Services\Objects\ObjectContractService;
+use App\Services\Objects\ObjectListService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Services\Objects\ObjectExaminationService;
-use App\Repository\WareMaterialCategoriesRepository;
-use Symfony\Component\HttpFoundation\Session\Session;
+use App\Services\Objects\ObjectInvoiceService;
+use App\Services\Objects\ObjectManageService;
+use App\Services\Objects\ObjectMaterialsService;
+use App\Services\Objects\ObjectStaffService;
+use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ObjectsController extends AbstractController
 {
-    protected $objectsRepository;
-    protected $materialCategories;
-    protected $session;
-    protected $objectDetails;
-    protected $objectList;
-    protected $staffList;
-
-    // public function __construct(
-    //     WareObjectsRepository $objectsRepository,
-    //     WareMaterialCategoriesRepository $categoriesRepository,
-    //     ObjectList $objectList,                     // ObjectList service 2020-03-05
-    //     ObjectDetailsService $objectDetails,         // ObjectDetails service 2020-03-05
-    //     StaffListInterface $staffList
-    // ) {
-    //     $this->objectsRepository = $objectsRepository;
-    //     $this->materialCategories = $categoriesRepository;
-    //     $this->session = new Session();
-    //     $this->objectDetails = $objectDetails;
-    //     $this->objectList = $objectList;
-    //     $this->staffList = $staffList;
-    // }
 
     /**
      * @Route("/objects", name="objects")
@@ -59,17 +34,24 @@ class ObjectsController extends AbstractController
      * 
      * @IsGranted("ROLE_ACCOUNTANT")
      */
-    public function index(Request $request, ObjectsService $service): Response
-    {
-        //! dd($_ENV['APP_SECRET']);
+    public function index(
+        Request $request, 
+        ObjectListService $service
+    ): Response {
+        //! Done
         // TODO reikia padaryti objektų paiešką, filtravimą pagal įvykdymą
-dd($service->test());
-        $list = $this->objectList->getList($request->get('search', ''), null, (int) $request->get('page', 0));
+
+        $list = $service->getObjectList(
+            $request->get('search', ''), 
+            $request->get('status', ''), 
+            (int) $request->get('page', 0)
+        );
         
         return $this->render('objects/index.html.twig', [
             'object_list' => $list->current(),
             'page' => $list->key(),
             'pages' => $list->count(),
+            'search' => $request->get('search', '')
         ]);
     }
 
@@ -77,26 +59,24 @@ dd($service->test());
      * @Route("/objects/{id}/edit", name="edit_object")
      *
      * @return Response
+     * 
+     * @IsGranted("ROLE_ACCOUNTANT")
      */
-    public function editObject(int $id, Request $request): Response
-    {
-        try {
-            $this->denyAccessUnlessGranted(['ROLE_FOREMEN', 'ROLE_ACCOUNTANT', 'ROLE_ADMIN']);
-        } catch (AccessDeniedException $e) {
-            return $this->redirectToRoute('home');
-        }
-        $this->objectDetails->setObject($id);
-
-        $form = $this->createObjectForm($this->objectDetails->getObject());
+    public function editObject(
+        int $id, 
+        Request $request, 
+        ObjectManageService $service
+    ): Response {
+        $form = $this->createForm(WareObjectType::class, $service->getObject($id));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $submittedObject = $form->getData();
 
-            $submittedObject = $this->objectDetails->saveObject($submittedObject);
+            $submittedObject = $service->saveObject($submittedObject);
 
             return $this->redirectToRoute('object_info', [
-                'id' => $submittedObject->getObject()->getId(),
+                'id' => $id,
             ]);
         }
 
@@ -109,20 +89,17 @@ dd($service->test());
      * @Route("/objects/{id}/delete", name="delete_object")
      *
      * @return Response
+     * 
+     * @IsGranted("ROLE_ACCOUNTANT")
      */
-    public function deleteObject(int $id): Response
-    {
+    public function deleteObject(
+        int $id, 
+        ObjectManageService $service
+    ): Response { 
         try {
-            $this->denyAccessUnlessGranted(['ROLE_FOREMEN', 'ROLE_ACCOUNTANT', 'ROLE_ADMIN']);
-        } catch (AccessDeniedException $e) {
-            return $this->redirectToRoute('home');
-        }
-        $this->objectDetails->setObject($id);
-
-        try {
-            $this->objectDetails->deleteObject($this->objectDetails->getObject());
+            $service->deleteObject($service->getObject($id));
         } catch (AccessDeniedException $exception) {
-            dd($exception);
+            throw new Exception('Something was wrong');
         }
 
         return $this->redirectToRoute('objects');
@@ -132,29 +109,36 @@ dd($service->test());
      * @Route("/objects/{id}", name="object_info")
      *
      * @return Response
+     * 
+     * @IsGranted("ROLE_ACCOUNTANT")
      */
-    public function objectInfo(int $id, Request $request, MaterialService $materials): Response
-    {
-        try {
-            $this->denyAccessUnlessGranted(['ROLE_FOREMEN', 'ROLE_ACCOUNTANT', 'ROLE_ADMIN']);
-        } catch (AccessDeniedException $e) {
-            return $this->redirectToRoute('home');
-        }
-        $this->objectDetails->setObject($id);
+    public function objectInfo(
+        int $id, 
+        Request $request,  
+        ObjectManageService $service,
+        ObjectStaffService $staffService,
+        StaffListInterface $staffList,
+        ObjectMaterialsService $materials
+    ): Response {
+        // ! still needs to test out
+
+        $object = $service->getObject($id);
+
         if ($request->get('staff') > 0) {
-            $this->objectDetails->addObjectStaff($this->staffList->getById($request->get('staff')));
+            $staffService->addObjectStaff($staffList->getById($request->get('staff')), $id);
         }
         if ($request->get('manager') > 0) {
-            $this->objectDetails->addObjectManager($this->staffList->getById($request->get('manager')));
+            $staffService->addObjectManager($staffList->getById($request->get('manager')), $id);
         }
         if ($request->get('foremen') > 0) {
-            $this->objectDetails->addObjectForemen($this->staffList->getById($request->get('foremen')));
+            $staffService->addObjectForemen($staffList->getById($request->get('foremen')), $id);
         }
 
         return $this->render('objects/object.html.twig', [
-            'object' => $this->objectDetails,
-            'staff' => $this->staffList,
-            'materials' => $materials,
+            'object' => $object,
+            'staff' => $staffList,
+            'reservedMaterials' => $materials->getReservedMaterials($id),
+            'reservedMaterialsByMonth' => $service->calculateObjectReservedMaterialsByPurchaseMonth($id),
         ]);
     }
 
@@ -162,19 +146,16 @@ dd($service->test());
      * @Route("/objects/{id}/cancel/{materialId}", name="cancel_material_reservation")
      *
      * @return Response
+     * 
+     * @IsGranted("ROLE_ACCOUNTANT")
      */
     public function cancelMaterialReservation(
         int $id,
         int $materialId,
         Request $request,
         MaterialService $materials,
-        ObjectMaterialService $objectMaterialService
+        ObjectMaterialsService $objectMaterialService
     ): Response {
-        try {
-            $this->denyAccessUnlessGranted(['ROLE_FOREMEN', 'ROLE_ACCOUNTANT', 'ROLE_ADMIN']);
-        } catch (AccessDeniedException $e) {
-            return $this->redirectToRoute('home');
-        }
 
         if ($request->get('answer')) {
             $objectMaterialService->cancelReservation($materialId, $id);
@@ -192,21 +173,24 @@ dd($service->test());
 
     /**
      * @Route("/objects/{objectId}/contract", name="object_contract_edit")
+     * 
+     * @IsGranted("ROLE_ACCOUNTANT")
      */
-    public function objectContractEdit(int $objectId, Request $request)
-    {
-        try {
-            $this->denyAccessUnlessGranted(['ROLE_FOREMEN', 'ROLE_ACCOUNTANT', 'ROLE_ADMIN']);
-        } catch (AccessDeniedException $e) {
-            return $this->redirectToRoute('home');
-        }
-        $this->objectDetails->setObject($objectId);
+    public function objectContractEdit(
+        int $objectId, 
+        Request $request,
+        ObjectContractService $service
+    ): Response {
 
-        $form = $this->createForm(ObjectContractType::class, $this->objectDetails->getContract());
+        $form = $this->createForm(
+            ObjectContractType::class, 
+            $service->getContract($objectId)
+        );
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->objectDetails->saveContract($form->getData());
+            $service->saveContract($form->getData());
 
             return $this->redirectToRoute('object_info', [
                 'id' => $objectId,
@@ -222,17 +206,22 @@ dd($service->test());
      * @Route("/objects/{id}/invoice", name="object_invoice")
      *
      * @return Response
+     * 
+     * @IsGranted("ROLE_ACCOUNTANT")
      */
-    public function objectNewInvoice(int $id, Request $request, InvoiceService $service): Response
-    {
-        try {
-            $this->denyAccessUnlessGranted(['ROLE_FOREMEN', 'ROLE_ACCOUNTANT', 'ROLE_ADMIN']);
-        } catch (AccessDeniedException $e) {
-            return $this->redirectToRoute('home');
-        }
-        $this->objectDetails->setObject($id);
+    public function objectNewInvoice(
+        int $id, 
+        Request $request, 
+        ObjectInvoiceService $service
+    ): Response {
 
-        $form = $this->createForm(ObjectInvoiceType::class, $this->objectDetails->getInvoice(null));
+        $invoiceId = $request->get('invoiceId', null);
+
+        $form = $this->createForm(
+            ObjectInvoiceType::class, 
+            $service->getInvoice($id, $invoiceId)
+        );
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -252,17 +241,21 @@ dd($service->test());
      * @Route("/objects/{id}/invoice/{invoiceId}", name="object_invoice_add_content")
      *
      * @return Response
+     * 
+     * @IsGranted("ROLE_ACCOUNTANT")
      */
-    public function objectAddInvoiceContent(int $id, int $invoiceId, Request $request, InvoiceService $service): Response
-    {
-        try {
-            $this->denyAccessUnlessGranted(['ROLE_FOREMEN', 'ROLE_ACCOUNTANT', 'ROLE_ADMIN']);
-        } catch (AccessDeniedException $e) {
-            return $this->redirectToRoute('home');
-        }
-        $this->objectDetails->setObject($id);
+    public function objectAddInvoiceContent(
+        int $id, 
+        int $invoiceId, 
+        Request $request, 
+        ObjectInvoiceService $service
+    ): Response {
 
-        $form = $this->createForm(ObjectInvoiceContentType::class, $this->objectDetails->getInvoiceContent($invoiceId));
+        $form = $this->createForm(
+            ObjectInvoiceContentType::class, 
+            $service->getInvoiceContent($id, $invoiceId)
+        );
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -282,16 +275,16 @@ dd($service->test());
      * @Route("/objects/{id}/remove/{contentId}", name="object_invoice_remove_content")
      *
      * @return Response
+     * 
+     * @IsGranted("ROLE_ACCOUNTANT")
      */
-    public function objectRemoveInvoiceContent(int $id, int $contentId, Request $request, InvoiceService $service): Response
-    {
-        try {
-            $this->denyAccessUnlessGranted(['ROLE_FOREMEN', 'ROLE_ACCOUNTANT', 'ROLE_ADMIN']);
-        } catch (AccessDeniedException $e) {
-            return $this->redirectToRoute('home');
-        }
-        $this->objectDetails->setObject($id);
-        $service->deleteInvoiceContent($this->objectDetails->getInvoiceContentById($contentId));
+    public function objectRemoveInvoiceContent(
+        int $id, 
+        int $contentId,
+        ObjectInvoiceService $service
+    ): Response {
+
+        $service->deleteInvoiceContent($contentId);
 
         return $this->redirectToRoute('object_info', [
             'id' => $id,
@@ -300,48 +293,19 @@ dd($service->test());
 
     /**
      * @Route("/objects/{id}/status/{status}", name="update_object_status")
+     * 
+     * @IsGranted("ROLE_ACCOUNTANT")
      */
-    public function updateObjectStatus(int $id, string $status, Request $request): Response
-    {
-        try {
-            $this->denyAccessUnlessGranted(['ROLE_FOREMEN', 'ROLE_ACCOUNTANT', 'ROLE_ADMIN']);
-        } catch (AccessDeniedException $e) {
-            return $this->redirectToRoute('home');
-        }
-        $this->objectDetails->setObject($id);
-        $this->objectDetails->updateStatus($status);
+    public function updateObjectStatus(
+        int $id, 
+        string $status, 
+        ObjectManageService $service
+    ): Response {
+
+        $service->updateStatus($id, $status);
 
         return $this->redirectToRoute('object_info', [
             'id' => $id,
         ]);
-    }
-
-    /**
-     * @return FormInterface
-     */
-    private function createObjectForm(WareObjects $object)
-    {
-        return $this->createForm(WareObjectType::class, $object);
-    }
-
-    /**
-     * @Route("/objects_test/{objectId}", name="recalculate_object_details")
-     *
-     * @return Response
-     */
-    public function objectTest(Request $request, ObjectExaminationService $service, int $objectId): Response
-    {
-        try {
-            $this->denyAccessUnlessGranted(['ROLE_ACCOUNTANT', 'ROLE_FOREMEN', 'ROLE_ADMIN']);
-        } catch (AccessDeniedException $e) {
-            return $this->redirectToRoute('home');
-        }
-        //! reikia testuoti objektus, perskaičiuoti medžiagas, pajamas ir kt.
-
-        $service->recalculateObject($objectId);
-        
-        return $this->redirectToRoute('object_info', [
-            'id' => $objectId,
-        ]);
-    }  
+    } 
 }

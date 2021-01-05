@@ -37,6 +37,8 @@
         {% if page > 0 %}
         <form type="GET">
             <input id="page" name="page" value="{{ page - 1 }}" hidden></input>
+            <input id="search" name="search" value="{{ search }}" hidden></input>
+
             <button type="submit">Previous</button>
         </form>
         {% endif %}
@@ -45,6 +47,7 @@
         {% if page < pages - 1 %}
         <form type="GET">
             <input id="page" name="page" value="{{ page + 1 }}" hidden></input>
+            <input id="search" name="search" value="{{ search }}" hidden></input>
             <button type="submit">Next</button>
         </form>
         {% endif %}

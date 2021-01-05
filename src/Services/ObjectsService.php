@@ -7,7 +7,9 @@ use App\Repository\BuhInvoicesRepository;
 use App\Repository\WareObjectsRepository;
 use App\Repository\BuhContractsRepository;
 use App\Repository\BuhInvoiceContentRepository;
+use App\Repository\Objects\ObjectMaterialsRepository;
 use App\Repository\WarePurchasedMaterialsRepository;
+use App\Repository\WareWriteOffsRepository;
 
 class ObjectsService
 {
@@ -16,18 +18,26 @@ class ObjectsService
     protected $invoicesRepository;
     protected $invoiceContentRepository;
     protected $purchasedMaterialsRepository;
+    protected $writeOffRepository;
 
     public function __construct(
         WareObjectsRepository $wareObjectsRepository,
         BuhContractsRepository $buhContractsRepository,
         BuhInvoicesRepository $buhInvoicesRepository,
         BuhInvoiceContentRepository $buhInvoiceContentRepository,
-        WarePurchasedMaterialsRepository $warePurchasedMaterialsRepository
+        ObjectMaterialsRepository $warePurchasedMaterialsRepository,
+        WareWriteOffsRepository $wareWriteOffsRepository
     ) {
         $this->objectsRepository = $wareObjectsRepository;
         $this->contractsRepository = $buhContractsRepository;
         $this->invoicesRepository = $buhInvoicesRepository;
-        $this->invoicesContentRepository = $buhInvoiceContentRepository;
+        $this->invoiceContentRepository = $buhInvoiceContentRepository;
         $this->purchasedMaterialsRepository = $warePurchasedMaterialsRepository;
+        $this->writeOffRepository = $wareWriteOffsRepository;
+    }
+
+    public function getObject(int $objectId)
+    {
+        return $this->objectsRepository->find($objectId);
     }
 }
