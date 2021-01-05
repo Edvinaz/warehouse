@@ -1,9 +1,10 @@
 <?php
 namespace App\Helpers\Iterators;
 
+use App\Interfaces\IteratorInterface;
 use Iterator;
 
-class ItemsIterator implements Iterator
+class ItemsIterator implements IteratorInterface
 {
     private $collection;
 

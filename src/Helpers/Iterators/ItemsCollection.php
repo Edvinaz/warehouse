@@ -1,6 +1,7 @@
 <?php
 namespace App\Helpers\Iterators;
 
+use App\Interfaces\IteratorInterface;
 use Iterator;
 use IteratorAggregate;
 
@@ -18,7 +19,7 @@ class ItemsCollection implements IteratorAggregate
         $this->items[] = $item;
     }
 
-    public function getIterator(): Iterator
+    public function getIterator(): IteratorInterface
     {
         return new ItemsIterator($this);
     }
