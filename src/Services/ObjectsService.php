@@ -8,7 +8,6 @@ use App\Repository\WareObjectsRepository;
 use App\Repository\BuhContractsRepository;
 use App\Repository\BuhInvoiceContentRepository;
 use App\Repository\Objects\ObjectMaterialsRepository;
-use App\Repository\WarePurchasedMaterialsRepository;
 use App\Repository\WareWriteOffsRepository;
 
 class ObjectsService
