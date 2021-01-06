@@ -13,7 +13,6 @@ use App\Services\Objects\ObjectContractService;
 use App\Services\Objects\ObjectMaterialsService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Services\TimeCard\TimeCardSummaryService;
 use App\Settings\Settings;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
