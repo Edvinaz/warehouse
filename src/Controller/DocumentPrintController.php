@@ -9,17 +9,14 @@ use App\Models\Company;
 use App\Helpers\DateInterval;
 use App\Services\InvoiceService;
 use App\Services\StatisticService;
-use App\Objects\ObjectDetailsService;
 use App\Services\Objects\ObjectContractService;
 use App\Services\Objects\ObjectMaterialsService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\TimeCard\TimeCardSummaryService;
 use App\Settings\Settings;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class DocumentPrintController extends AbstractController
 {
@@ -166,6 +163,8 @@ class DocumentPrintController extends AbstractController
     public function statistic(
         StatisticService $statisticService
     ) {
+
+        // TODO implement statistic sums and month
         $pdfOption = new Options();
         $pdfOption->set('defaultFont', 'timesnewroman');
 
