@@ -67,6 +67,16 @@ services:
     App\Services\TimeCard\TimeCardService:
         factory: ['@App\Factories\TimeCardServiceFactory', 'createTimeCardServiceManager']
 
+    App\Services\TransportService: ~
+
+    App\Services\TransportService:
+        factory: ['@App\Factories\TransportServiceFactory', 'createTransportServiceManager']
+
+    App\Services\FuelService: ~
+
+    App\Services\FuelService:
+        factory: ['@App\Factories\FuelServiceFactory', 'createFuelServiceManager']
+
 
 
     
