@@ -23,12 +23,11 @@ trait IteratorTrait
                 $chunk = [];
             }
         }
-        if (count($chunk) > 0) {
+        if (count($chunk) > 0 || count($list->getItems()) < 1) {
             $list->addItem($chunk);
         }
 
         $iterator = $list->getIterator();
-
         for ($i=0; $i<$page; $i++) {
             $iterator->next();
         }
