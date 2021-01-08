@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Services\StatisticService;
 use App\Form\SessionTimeIntervalType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HelperController extends AbstractController
 {
@@ -43,6 +44,19 @@ class HelperController extends AbstractController
 
         return $this->render('helper/index.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/overview", name="overview")
+     * 
+     * @IsGranted("ROLE_ACCOUNTANT")
+     */
+    public function overview(
+        StatisticService $statisticService
+    ) {
+        return $this->render('statistics/overview.html.twig', [
+            'period' => $statisticService->warehouseOverview(19),
         ]);
     }
 }
