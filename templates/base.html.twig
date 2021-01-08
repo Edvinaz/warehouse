@@ -10,7 +10,115 @@
     </head>
     <body>
 
- 
+    <div class="logo ware">
+        <a class="navbar-brand" href="{{ path('home') }}">
+            <img src="/images/logo.png">
+        </a>
+    </div>
+
+    <div class="menu">
+        <nav class="navbar navbar-expand-sm navbar-light bg-light"> 
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    {% if not app.user %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path('home') }}">{% trans %}Home{% endtrans %} <span class="sr-only">(current)</span></a>
+                    </li>
+                    {% endif %}
+                    {% if app.user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('purchase') }}">{% trans %}Purchases{% endtrans %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('objects') }}">{% trans %}Objects{% endtrans %}</a>
+                    </li>
+                    {% if is_granted("ROLE_ADMIN") == true %}
+                    {# <li class="nav-item">
+                        <a class="nav-link" href="{{ path('transport_list') }}">{% trans %}Transport{% endtrans %}</a>
+                    </li> #}
+
+                    <ul class="navbar-nav mr-5">
+                        <li class="navbar-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#"        id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {% trans %}Transport{% endtrans %}
+                            </a>
+                            
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{ path('transport_list') }}">
+                                    Sąrašas
+                                </a>
+                                <a class="dropdown-item" href="{{ path('transport_fuel') }}">{% trans %}Fuel{% endtrans %}</a>
+                                <a class="dropdown-item" href="{{ path('transport_usage_list') }}">{% trans %}Month usage{% endtrans %}</a>
+
+                                <a class="dropdown-item" href="{{ path('transport_usage_report') }}">{% trans %}Report{% endtrans %}</a>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('easyadmin') }}">{% trans %}Administration{% endtrans %}</a>
+                    </li>
+                    {% endif %}
+                        
+                    {% endif %}
+                    {% if not app.user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">{% trans %}Kontaktai{% endtrans %}</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                {% if app.user %}
+                <ul class="navbar-nav mr-5">
+                    <li class="navbar-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Statistika
+                        </a>
+                        
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ path('statistic') }}">
+                                Statistika
+                            </a>
+                            <a class="dropdown-item" href="{{ path('overview') }}">{% trans %}Overview{% endtrans %}</a>
+                            <a class="dropdown-item" href="{{ path('time_card_summary') }}">{% trans %}Time card{% endtrans %}</a>
+                        </div>
+                    </li>
+                </ul>
+                {% endif %}
+            </div>
+        </nav>
+    </div>
+
+    <div class="user">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <ul class="navbar-nav mr-5">
+            <li class="navbar-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {% if app.user %}
+                        {{ app.user.email }}
+                    {% else %}
+                        {% trans %}Login{% endtrans %}
+                    {% endif %}
+                </a>
+                {% if app.user %}
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ path('set_date_interval') }}">
+                            {{ app.session.get('interval').date|date('Y-m-01') }} -
+                            {{ app.session.get('interval').date|date('Y-m-t') }}
+                        </a>
+                        <a class="dropdown-item" href="{{ path('app_logout') }}">{% trans %}Logout{% endtrans %}</a>
+                    </div>
+                {% else %}
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ path('app_login') }}">{% trans %}Login{% endtrans %}</a>
+                    </div>
+                {% endif %}
+            </li>
+        </ul>
+        </nav>
+    </div>
 
     <div class="main_content">&nbsp;</div>
     
