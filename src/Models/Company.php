@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+/**
+ * require details.json file in public folder with company details
+ */
+
+use App\Helpers\NameConverterLT;
+
 class Company
 {
     private $logo;
     private $name;
-    private $address;
     private $street;
     private $postalCode;
     private $city;
@@ -22,29 +27,27 @@ class Company
     private $bank;
     private $bankCode;
     private $account;
-    private $ceo;
 
     public function __construct()
     {
+        $companyDetails = json_decode(file_get_contents('details.json'));
         $image = 'images/logo.png';
         $imageData = base64_encode(file_get_contents($image));
         $this->logo = 'data:'.mime_content_type($image).';base64,'.$imageData;
-        $this->name = 'Relsta, UAB';
-        $this->address = 'Pienių g. 12, LT-47444 Kaunas';
-        $this->street = 'Pienių g. 12';
-        $this->postalCode = 'LT-47444';
-        $this->city = 'Kaunas';
-        $this->code = '134765264';
-        $this->vat = 'LT347652610';
-        $this->phone = '+370 37 489162';
-        $this->mobile = '+370 698 39258';
-        $this->email = 'info@relsta.lt';
-        $this->position = 'direktorius';
-        $this->boss = 'Romualdas Pinkevičius';
-        $this->bank = 'AB bankas Swedbank';
-        $this->bankCode = 'banko kodas 73000';
-        $this->account = 'a/s LT067300010002275665';
-        $this->ceo = 'direktoriaus Romualdo Pinkevičiaus';
+        $this->name = $companyDetails->name;
+        $this->street = $companyDetails->street;
+        $this->postalCode = $companyDetails->postal_code;
+        $this->city = $companyDetails->city;
+        $this->code = $companyDetails->company_code;
+        $this->vat = $companyDetails->vat_code;
+        $this->phone = $companyDetails->phone;
+        $this->mobile = $companyDetails->mobile;
+        $this->email = $companyDetails->email;
+        $this->position = $companyDetails->position;
+        $this->boss = $companyDetails->boss;
+        $this->bank = $companyDetails->bank;
+        $this->bankCode = $companyDetails->bankCode;
+        $this->account = $companyDetails->account;
     }
 
     /**
@@ -60,7 +63,7 @@ class Company
      */
     public function getAddress()
     {
-        return $this->address;
+        return $this->street.', '.$this->postalCode.' '.$this->city;
     }
 
     /**
@@ -116,7 +119,7 @@ class Company
      */
     public function getAccount()
     {
-        return $this->account;
+        return 'a/s '.$this->account;
     }
 
     /**
@@ -140,7 +143,7 @@ class Company
      */
     public function getBankCode()
     {
-        return $this->bankCode;
+        return 'banko kodas '.$this->bankCode;
     }
 
     /**
@@ -180,6 +183,7 @@ class Company
      */
     public function getCeo()
     {
-        return $this->ceo;
+        $converter = new NameConverterLT();
+        return $converter->convertString($this->position.' '.$this->boss);
     }
 }
