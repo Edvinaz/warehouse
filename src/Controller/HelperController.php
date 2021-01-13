@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Form\CompanyDetailsType;
 use App\Services\StatisticService;
 use App\Form\SessionTimeIntervalType;
+use App\Helpers\CompanyDetailsUpdater;
+use App\Models\CompanyUpdate;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -57,6 +60,24 @@ class HelperController extends AbstractController
     ) {
         return $this->render('statistics/overview.html.twig', [
             'period' => $statisticService->warehouseOverview(19),
+        ]);
+    }
+
+    /**
+     * @Route("/companyDetails", name="company_details")
+     * 
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function companyDetails(Request $request) {
+        $company = new CompanyUpdate();
+        $form = $this->createForm(CompanyDetailsType::class, $company);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted()){
+            CompanyDetailsUpdater::updateDetails($form->getData());
+        }
+        return $this->render('form.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }

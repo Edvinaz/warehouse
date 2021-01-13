@@ -4,56 +4,56 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-/**
- * require details.json file in public folder with company details
- */
-
 use App\Helpers\NameConverterLT;
 
 class Company
 {
-    private $logo;
-    private $name;
-    private $street;
-    private $postalCode;
-    private $city;
-    private $code;
-    private $vat;
-    private $phone;
-    private $mobile;
-    private $email;
-    private $position;
-    private $boss;
-    private $bank;
-    private $bankCode;
-    private $account;
+    protected $logo;
+    protected $name;
+    protected $street;
+    protected $postalCode;
+    protected $city;
+    protected $code;
+    protected $vat;
+    protected $phone;
+    protected $mobile;
+    protected $email;
+    protected $position;
+    protected $boss;
+    protected $bank;
+    protected $bankCode;
+    protected $account;
 
     public function __construct()
     {
-        $companyDetails = json_decode(file_get_contents('details.json'));
+        if (file_exists('details.json')) {
+            $companyDetails = json_decode(file_get_contents('details.json'));
+            $this->name = $companyDetails->name;
+            $this->street = $companyDetails->street;
+            $this->postalCode = $companyDetails->postal_code;
+            $this->city = $companyDetails->city;
+            $this->code = $companyDetails->company_code;
+            $this->vat = $companyDetails->vat_code;
+            $this->phone = $companyDetails->phone;
+            $this->mobile = $companyDetails->mobile;
+            $this->email = $companyDetails->email;
+            $this->position = $companyDetails->position;
+            $this->boss = $companyDetails->boss;
+            $this->bank = $companyDetails->bank;
+            $this->bankCode = $companyDetails->bankCode;
+            $this->account = $companyDetails->account;
+        }
+
         $image = 'images/logo.png';
         $imageData = base64_encode(file_get_contents($image));
         $this->logo = 'data:'.mime_content_type($image).';base64,'.$imageData;
-        $this->name = $companyDetails->name;
-        $this->street = $companyDetails->street;
-        $this->postalCode = $companyDetails->postal_code;
-        $this->city = $companyDetails->city;
-        $this->code = $companyDetails->company_code;
-        $this->vat = $companyDetails->vat_code;
-        $this->phone = $companyDetails->phone;
-        $this->mobile = $companyDetails->mobile;
-        $this->email = $companyDetails->email;
-        $this->position = $companyDetails->position;
-        $this->boss = $companyDetails->boss;
-        $this->bank = $companyDetails->bank;
-        $this->bankCode = $companyDetails->bankCode;
-        $this->account = $companyDetails->account;
+        
     }
 
     /**
      * Get the value of name.
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -61,7 +61,7 @@ class Company
     /**
      * Get the value of address.
      */
-    public function getAddress()
+    public function getAddress(): string
     {
         return $this->street.', '.$this->postalCode.' '.$this->city;
     }
@@ -69,7 +69,7 @@ class Company
     /**
      * Get the value of code.
      */
-    public function getCode()
+    public function getCode(): string
     {
         return $this->code;
     }
@@ -77,7 +77,7 @@ class Company
     /**
      * Get the value of vat.
      */
-    public function getVat()
+    public function getVat(): string
     {
         return $this->vat;
     }
@@ -85,7 +85,7 @@ class Company
     /**
      * Get the value of phone.
      */
-    public function getPhone()
+    public function getPhone(): string
     {
         return $this->phone;
     }
@@ -93,7 +93,7 @@ class Company
     /**
      * Get the value of email.
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -101,7 +101,7 @@ class Company
     /**
      * Get the value of position.
      */
-    public function getPosition()
+    public function getPosition(): string
     {
         return $this->position;
     }
@@ -109,7 +109,7 @@ class Company
     /**
      * Get the value of boss.
      */
-    public function getBoss()
+    public function getBoss(): string
     {
         return $this->boss;
     }
@@ -117,15 +117,15 @@ class Company
     /**
      * Get the value of account.
      */
-    public function getAccount()
+    public function getAccount(): string
     {
         return 'a/s '.$this->account;
-    }
+    }   
 
     /**
      * Get the value of mobile.
      */
-    public function getMobile()
+    public function getMobile(): string
     {
         return $this->mobile;
     }
@@ -133,7 +133,7 @@ class Company
     /**
      * Get the value of bank.
      */
-    public function getBank()
+    public function getBank(): string
     {
         return $this->bank;
     }
@@ -141,7 +141,7 @@ class Company
     /**
      * Get the value of bankCode.
      */
-    public function getBankCode()
+    public function getBankCode(): string
     {
         return 'banko kodas '.$this->bankCode;
     }
@@ -149,7 +149,7 @@ class Company
     /**
      * Get the value of logo.
      */
-    public function getLogo()
+    public function getLogo(): string
     {
         return $this->logo;
     }
@@ -157,7 +157,7 @@ class Company
     /**
      * Get the value of street.
      */
-    public function getStreet()
+    public function getStreet(): string
     {
         return $this->street;
     }
@@ -165,7 +165,7 @@ class Company
     /**
      * Get the value of postalCode.
      */
-    public function getPostalCode()
+    public function getPostalCode(): string
     {
         return $this->postalCode;
     }
@@ -173,7 +173,7 @@ class Company
     /**
      * Get the value of city.
      */
-    public function getCity()
+    public function getCity(): string
     {
         return $this->city;
     }
@@ -181,7 +181,7 @@ class Company
     /**
      * Get the value of ceo.
      */
-    public function getCeo()
+    public function getCeo(): string
     {
         $converter = new NameConverterLT();
         return $converter->convertString($this->position.' '.$this->boss);
