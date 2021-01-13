@@ -47,7 +47,7 @@ class InvoiceListService extends PurchaseService
     private function setList(string $search = '')
     {
         $this->list = $this->invoicesRepository->invoiceList($search);
-
+// dd($this->list);
         return $this;
     }
 }
