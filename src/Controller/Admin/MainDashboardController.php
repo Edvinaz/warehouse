@@ -34,11 +34,11 @@ class MainDashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linktoDashboard('Dashboard', 'fa fa-tachometer');
         yield MenuItem::section('Contrahents');
         yield MenuItem::linkToCrud('Contrahents', 'fa fa-address-card-o fa-fw', Contrahents::class);
         yield MenuItem::section('Objects');
-        yield MenuItem::linkToCrud('Objects', 'fas fa-list', WareObjects::class);
+        yield MenuItem::linkToCrud('Objects', 'fas fa-tasks', WareObjects::class);
         yield MenuItem::linkToCrud('Contracts', 'fas fa-list', BuhContracts::class);
 
         yield MenuItem::section('Purchases');
