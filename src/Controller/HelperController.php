@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Models\CompanyUpdate;
 use App\Form\CompanyDetailsType;
 use App\Services\StatisticService;
 use App\Form\SessionTimeIntervalType;
 use App\Helpers\CompanyDetailsUpdater;
-use App\Models\CompanyUpdate;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Services\Transport\TransportBlockService;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,6 +24,16 @@ class HelperController extends AbstractController
     public function __construct()
     {
         $this->session = new Session();
+    }
+
+    /**
+    * @Route("/", name="dashboard")
+    */
+    public function homes(TransportBlockService $transport)
+    {
+        return $this->render('home/index.html.twig', [
+            'list' => $transport->getBlockList(),
+        ]);
     }
 
     /**
@@ -80,4 +91,6 @@ class HelperController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
 }

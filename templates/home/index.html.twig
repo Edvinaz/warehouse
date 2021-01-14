@@ -1,20 +1,60 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Main dashboard!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/programing/sandelys/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/programing/sandelys/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
+{% if app.user %}
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <ul>
+                <li>
+                    <a href="{{ path('new_invoice') }}">Nauja pirkimo sąskaita</a>
+                </li>
+                <li>
+                    <a href="{{ path('write_off') }}">Nurašymo aktai</a>
+                </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                <li>
+                    <a href="{{ path('transport_list') }}">Transporto sąrašas</a>
+                </li>
+                <li>
+                    <a href="{{ path('easyadmin') }}">Administravimo puslapis</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="col-6">
+        <table width="100%">
+        <tr>
+            <th>Valst. Nr.</th>
+            <th>Draudimas</th>
+            <th>Kelių mokestis</th>
+        </tr>
+        {% for key, item in list %}
+        <tr>
+            <td>{{ key }}</td>
+            <td>
+                {% if item.insurancedays > -30 and item.insurancedays < 60 %}
+                    {{ item.insurance|date("Y-m-d") }} ({{ item.insurancedays }})
+                {% endif %}
+            </td>
+            <td>
+                {% if item.roadtax is not null and item.roadtaxdays < 60 %}
+                    {{ item.roadtax|date("Y-m-d") }} ({{ item.roadtaxdays }})
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        </table>
+        </div>
+    </div>
 </div>
+{% else %}
+<div class="container">
+Prašome prisijungti.
+</div>
+{% endif %}
+
 {% endblock %}
