@@ -53,7 +53,7 @@ class ObjectListService extends ObjectsService
 
     private function setObjectList(): self
     {
-        $this->list = $this->objectsRepository->findAll();
+        $this->list = $this->objectsRepository->getObjectsList(null);
 
         return $this;
     }
