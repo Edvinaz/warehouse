@@ -1,0 +1,91 @@
+easy_admin:
+    entities:
+        User:
+            class: App\Entity\User
+            label: 'Vartotojai'
+
+            form:
+                fields:
+                    - { property: 'email' }
+                    - { property: 'roles', type: collection }
+                    - { property: 'password' }
+
+        Contrahent:
+            class: App\Entity\Contrahents
+            label: 'Kontrahentai'
+
+        Object:
+            class: App\Entity\Objects\WareObjects
+            label: 'Objektai'
+
+            # form:
+            #     fields:
+            #         - { property: 'number' }
+            #         - { property: 'contrahent', data_class: 'App\Entity\Contrahents' }
+            #         - { property: 'name' }
+            #         - { property: 'adress' }
+            #         - { property: 'date' }
+            #         - { property: 'type', 
+            #             type: 'choice',
+            #             type_options: {
+            #                 mapped: true, 
+            #                 expanded: false, 
+            #                 multiple: false, 
+            #                 choices: {
+            #                     'Elektros montavimo darbai': 'ELECTRICAL_INSTALLATION_WORK',
+            #                     'Elektriniai matavimai': 'ELECTRICAL_MEASUREMENTS',
+            #                     'Eksploatavimo paslaugos': 'OPERATING_SERVICES',
+            #                     'Projektavimo darbai': 'DESIGN_WORK'
+            #                     }
+            #                 } 
+            #             }
+                    # - { property: 'status', 
+                    #     type: 'choice',
+                    #     type_options: {
+                    #         mapped: true, 
+                    #         expanded: false, 
+                    #         multiple: false, 
+                    #         choices: {
+                    #             'Pasiūlymas': 'OFFER',
+                    #             'Vykdomas': 'EXECUTING',
+                    #             'Darbai baigti': 'DONE',
+                    #             'Uždarytas': 'CLOSED'
+                    #             }
+                    #         } 
+                    #     }
+
+        PurchaseInvoice:
+            class: App\Entity\Purchases\WareInvoices
+            label: 'Pirkimo sąskaitos'
+
+        PurchasedMaterial:
+            class: App\Entity\Purchases\WarePurchasedMaterials
+            label: 'Pirktos medžiagos'
+
+        Material:
+            class: App\Entity\Materials\WareMaterials
+            label: 'Medžiagos'
+
+        MaterialCategory:
+            class: App\Entity\Materials\WareMaterialCategories
+            label: 'Medžiagų kategotijos'
+
+        People:
+            class: App\Entity\Staff\People
+            label: 'Darbuotojų vardai'
+
+        Staff:
+            class: App\Entity\Staff\Staff
+            label: 'Darbuotojai'
+
+        SalesInvoices:
+            class: App\Entity\Sales\BuhInvoices
+            label: 'Pardavimo sąskaitos'
+
+        WriteOffs:
+            class: App\Entity\Debition\WareWriteOffs
+            label: 'Nurašymo aktai'
+
+        SaleContracts:
+            class: App\Entity\Sales\BuhContracts
+            label: 'Pardavimo sutartys'

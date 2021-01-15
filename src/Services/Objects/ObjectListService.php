@@ -23,11 +23,18 @@ class ObjectListService extends ObjectsService
         // TODO implement objectStatus
         $this->setObjectList();
 
-        $list = new ItemsCollection();
-
         if (empty($search)) {
             return $this->iterate($page);
         }
+
+        $list = $this->iterateSearchList($search);
+
+        return $list->getIterator();
+    }
+
+    private function iterateSearchList(string $search): ItemsCollection
+    {
+        $list = new ItemsCollection();
 
         $chunk = [];
 
@@ -44,11 +51,12 @@ class ObjectListService extends ObjectsService
                 $chunk = [];
             }
         }
+        
         if (count($chunk) > 0) {
             $list->addItem($chunk);
         }
 
-        return $list->getIterator();
+        return $list;
     }
 
     private function setObjectList(): self

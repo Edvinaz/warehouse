@@ -2,7 +2,9 @@
     <div class="level1buttons">
         <a class="first" href="{{ path('new_invoice') }}">{% trans %}New Invoice{% endtrans %}</a><!--
         --><a class="middle" href="{{ path('purchase') }}">{% trans %}Invoice list{% endtrans %}</a><!--
-        --><a class="last" href="{{ path('analytics') }}">{% trans %}statistika{% endtrans %}</a>
+        -->
+        
+        {# <a class="last" href="{{ path('analytics') }}">{% trans %}statistika{% endtrans %}</a> #}
     </div>
     {% if invoice is defined %}
     <div class="level2buttons">
