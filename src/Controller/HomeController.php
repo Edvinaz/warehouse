@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use DateTime;
 use App\Entity\Staff\People;
+use App\Services\StatisticService;
 use App\Entity\Staff\MedicalDetails;
 use App\Services\Staff\StaffService;
 use App\Entity\Staff\TrainingDetails;
 use App\Services\Purchase\InvoiceListService;
+use App\Services\Transport\FuelImportService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -42,29 +44,25 @@ class HomeController extends AbstractController
     }
 
     //! from ObjectsController.php
-    /**
-     * @Route("/objects_test/{objectId}", name="recalculate_object_details")
-     *
-     * @return Response
-     * 
-     * @IsGranted("ROLE_ACCOUNTANT")
-     */
-    public function objectTest(Request $request, ObjectExaminationService $service, int $objectId): Response
-    {
-        // TODO 
-        try {
-            $this->denyAccessUnlessGranted(['ROLE_ACCOUNTANT', 'ROLE_FOREMEN', 'ROLE_ADMIN']);
-        } catch (AccessDeniedException $e) {
-            return $this->redirectToRoute('home');
-        }
-        //! reikia testuoti objektus, perskaičiuoti medžiagas, pajamas ir kt.
+    // /**
+    //  * @Route("/objects_test/{objectId}", name="recalculate_object_details")
+    //  *
+    //  * @return Response
+    //  * 
+    //  * @IsGranted("ROLE_ACCOUNTANT")
+    //  */
+    // public function objectTest(Request $request, ObjectExaminationService $service, int $objectId): Response
+    // {
+    //     // TODO 
 
-        $service->recalculateObject($objectId);
+    //     //! reikia testuoti objektus, perskaičiuoti medžiagas, pajamas ir kt.
+
+    //     $service->recalculateObject($objectId);
         
-        return $this->redirectToRoute('object_info', [
-            'id' => $objectId,
-        ]);
-    } 
+    //     return $this->redirectToRoute('object_info', [
+    //         'id' => $objectId,
+    //     ]);
+    // } 
 
     //! from PurchaseController.php
     /**
@@ -74,12 +72,6 @@ class HomeController extends AbstractController
      */
     public function importFuel(Request $request, FuelImportService $service)
     {
-        try {
-            $this->denyAccessUnlessGranted(['ROLE_ADMIN']);
-        } catch (AccessDeniedException $e) {
-            return $this->redirectToRoute('home');
-        }
-
         $form = $this->createForm(ImportFuelType::class);
         $form->handleRequest($request);
 
@@ -103,14 +95,8 @@ class HomeController extends AbstractController
      */
     public function MothPurchasStatistics(StatisticService $service)
     {
-        try {
-            $this->denyAccessUnlessGranted(['ROLE_ADMIN']);
-        } catch (AccessDeniedException $e) {
-            return $this->redirectToRoute('home');
-        }
-
         return $this->render('purchase/statistics.html.twig', [
-            'report' => $service->purchaseReport(),
+            // 'report' => $service->purchaseReport(),
         ]);
     }
 
@@ -131,7 +117,7 @@ class HomeController extends AbstractController
 
 
         return $this->render('purchase/statistics.html.twig', [
-            'report' => $service->purchaseReport(),
+            'report' => [],
         ]);
     }
 
