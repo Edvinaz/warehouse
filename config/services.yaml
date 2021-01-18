@@ -77,6 +77,11 @@ services:
     App\Services\FuelService:
         factory: ['@App\Factories\FuelServiceFactory', 'createFuelServiceManager']
 
+    App\Services\Staff\StaffService: ~
+
+    App\Services\Staff\StaffService:
+        factory: ['@App\Factories\StaffServiceFactory', 'createStaffServiceManager']
+
 
 
     
