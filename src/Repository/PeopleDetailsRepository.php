@@ -19,6 +19,12 @@ class PeopleDetailsRepository extends ServiceEntityRepository
         parent::__construct($registry, PeopleDetails::class);
     }
 
+    public function save(PeopleDetails $save)
+    {
+        $this->_em->persist($save);
+        $this->_em->flush();
+    }
+
     // /**
     //  * @return PeopleDetails[] Returns an array of PeopleDetails objects
     //  */

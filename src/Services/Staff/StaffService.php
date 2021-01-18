@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Services\Staff;
 
+use App\Entity\Staff\PeopleDetails;
 use App\Repository\PeopleDetailsRepository;
 
 class StaffService
@@ -13,5 +14,10 @@ class StaffService
         PeopleDetailsRepository $peopleDetailsRepository
     ) {
         $this->peopleDetailsRepository = $peopleDetailsRepository;    
+    }
+
+    public function savePeopleDetail(PeopleDetails $detail)
+    {
+        $this->peopleDetailsRepository->save($detail);
     }
 }

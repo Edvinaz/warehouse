@@ -2,6 +2,11 @@
 
 namespace App\Controller;
 
+use DateTime;
+use App\Entity\Staff\People;
+use App\Entity\Staff\MedicalDetails;
+use App\Services\Staff\StaffService;
+use App\Entity\Staff\TrainingDetails;
 use App\Services\Purchase\InvoiceListService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -108,4 +113,26 @@ class HomeController extends AbstractController
             'report' => $service->purchaseReport(),
         ]);
     }
+
+    //! working with people details
+    /**
+     * @Route("/peopleDetails", name="people_details_list")
+     * 
+     * @IsGranted("ROLE_ACCOUNTANT")
+     */
+    public function PeopleDetailsList(StaffService $service)
+    {
+        $people = $this->getDoctrine()->getRepository(People::class)->find(1);
+        $medical = new TrainingDetails();
+        $medical->setPeople($people);
+        $medical->setDate(new DateTime('2021-01-11'));
+        // $service->savePeopleDetail($medical);
+        dd($medical);
+
+
+        return $this->render('purchase/statistics.html.twig', [
+            'report' => $service->purchaseReport(),
+        ]);
+    }
+
 }
