@@ -101,7 +101,7 @@ class SecurityAuthenticator extends AbstractFormLoginAuthenticator implements Pa
         $session = new Session();
         $session->set('interval', new SessionTimeInterval());
 
-        return new RedirectResponse($this->urlGenerator->generate('home'));
+        return new RedirectResponse($this->urlGenerator->generate('dashboard'));
     }
 
     protected function getLoginUrl()
