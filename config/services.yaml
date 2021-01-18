@@ -147,7 +147,7 @@ services:
                 entity: 'App\Entity\Sales\BuhInvoices'
                 lazy: true
 
-    BuhInvoiceContent:
+    BuhInvoicesContent:
         class: App\EventListener\BuhInvoicesContentListener
         tags:
             -
