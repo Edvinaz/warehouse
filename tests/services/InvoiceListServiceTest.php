@@ -17,7 +17,7 @@ class InvoiceListServiceTest extends TestCase
         $purchasesRepositoryMock = $this->createMock(WarePurchasedMaterialsRepository::class);
         $entityManagerMock = $this->createMock(EntityManagerInterface::class);
 
-        $service = new InvoiceListService($invoiceRepositoryMock, $materialRepositoryMock, $purchasesRepositoryMock, $entityManagerMock);
+        // $service = new InvoiceListService($invoiceRepositoryMock, $materialRepositoryMock, $purchasesRepositoryMock, $entityManagerMock);
 
         $this->assertEquals(1, '1');
     }
