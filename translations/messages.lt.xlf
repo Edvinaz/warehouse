@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="lt" target-language="lt" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="OnhpU4i" resname="Home">
+        <source>Home</source>
+        <target>__Home</target>
+      </trans-unit>
+      <trans-unit id="oHGO_OQ" resname="Purchases">
+        <source>Purchases</source>
+        <target>Pirkimai</target>
+      </trans-unit>
+      <trans-unit id="3lI27hV" resname="Objects">
+        <source>Objects</source>
+        <target>Objektai</target>
+      </trans-unit>
+      <trans-unit id="qurUq.X" resname="Transport">
+        <source>Transport</source>
+        <target>Transportas</target>
+      </trans-unit>
+      <trans-unit id="qA_UL0E" resname="Fuel">
+        <source>Fuel</source>
+        <target>Kuras</target>
+      </trans-unit>
+      <trans-unit id="ui.XvWT" resname="Month usage">
+        <source>Month usage</source>
+        <target>Mėn. sunaudojimas</target>
+      </trans-unit>
+      <trans-unit id="ts54jZe" resname="Report">
+        <source>Report</source>
+        <target>Ataskaita</target>
+      </trans-unit>
+      <trans-unit id="S0LGaQ6" resname="Administration">
+        <source>Administration</source>
+        <target>Administravimas</target>
+      </trans-unit>
+      <trans-unit id="1LHqVwj" resname="Overview">
+        <source>Overview</source>
+        <target>Apžvalga</target>
+      </trans-unit>
+      <trans-unit id="GsnKtKI" resname="Time card">
+        <source>Time card</source>
+        <target>Tabelis</target>
+      </trans-unit>
+      <trans-unit id="nWMiwfT" resname="Login">
+        <source>Login</source>
+        <target>Prisijungti</target>
+      </trans-unit>
+      <trans-unit id="0FJ_Sz1" resname="Logout">
+        <source>Logout</source>
+        <target>Atsijungti</target>
+      </trans-unit>
+      <trans-unit id="zI.Z63_" resname="Welcome!">
+        <source>Welcome!</source>
+        <target>Sveiki!</target>
+      </trans-unit>
+      <trans-unit id="CkHwo5A" resname="Company details">
+        <source>Company details</source>
+        <target>Įmonės informacija</target>
+      </trans-unit>
+      <trans-unit id="YqbahzX" resname="Object">
+        <source>Object</source>
+        <target>Objektas</target>
+      </trans-unit>
+      <trans-unit id="Xt4WrdS" resname="New Object">
+        <source>New Object</source>
+        <target>Naujas objektas</target>
+      </trans-unit>
+      <trans-unit id="r8eGSen" resname="Objects list">
+        <source>Objects list</source>
+        <target>Sąrašas</target>
+      </trans-unit>
+      <trans-unit id="vzdjODq" resname="Customer">
+        <source>Customer</source>
+        <target>Užsakovas</target>
+      </trans-unit>
+      <trans-unit id="vYLPFmm" resname="Number">
+        <source>Number</source>
+        <target>Numeris</target>
+      </trans-unit>
+      <trans-unit id="mcQKtAW" resname="Date">
+        <source>Date</source>
+        <target>Data</target>
+      </trans-unit>
+      <trans-unit id="oQjEORk" resname="Object name">
+        <source>Object name</source>
+        <target>Pavadinimas</target>
+      </trans-unit>
+      <trans-unit id="M4X.5nR" resname="Reserved">
+        <source>Reserved</source>
+        <target>Rezervuota</target>
+      </trans-unit>
+      <trans-unit id="UVlduRk" resname="Income">
+        <source>Income</source>
+        <target>Pajamos</target>
+      </trans-unit>
+      <trans-unit id="aKYQktu" resname="New contract">
+        <source>New contract</source>
+        <target>Sutartis</target>
+      </trans-unit>
+      <trans-unit id="3NHVIj9" resname="Name">
+        <source>Name</source>
+        <target>Pavadinimas</target>
+      </trans-unit>
+      <trans-unit id="TlRZYPG" resname="Unit">
+        <source>Unit</source>
+        <target>Mato vnt.</target>
+      </trans-unit>
+      <trans-unit id="giurjUG" resname="Quantity">
+        <source>Quantity</source>
+        <target>Kiekis</target>
+      </trans-unit>
+      <trans-unit id="k8kchR5" resname="Price">
+        <source>Price</source>
+        <target>Kaina</target>
+      </trans-unit>
+      <trans-unit id="oh198Ew" resname="Sum">
+        <source>Sum</source>
+        <target>Suma</target>
+      </trans-unit>
+      <trans-unit id="n9coxmy" resname="Add">
+        <source>Add</source>
+        <target>Pridėti</target>
+      </trans-unit>
+      <trans-unit id="OvhrY5O" resname="Write-off list">
+        <source>Write-off list</source>
+        <target>Nurašymo aktai</target>
+      </trans-unit>
+      <trans-unit id="vxu6BFM" resname="New object">
+        <source>New object</source>
+        <target>Naujas objektas</target>
+      </trans-unit>
+      <trans-unit id=".Iswvwl" resname="New write-off">
+        <source>New write-off</source>
+        <target>Nurašymo aktas</target>
+      </trans-unit>
+      <trans-unit id="RkxP.QG" resname="Edit">
+        <source>Edit</source>
+        <target>Taisyti</target>
+      </trans-unit>
+      <trans-unit id="4tClSWj" resname="Delete">
+        <source>Delete</source>
+        <target>Naikinti</target>
+      </trans-unit>
+      <trans-unit id="hJGMZqn" resname="New invoice">
+        <source>New invoice</source>
+        <target>Nauja sąskaita</target>
+      </trans-unit>
+      <trans-unit id="eoZNt.c" resname="Print reserved materials">
+        <source>Print reserved materials</source>
+        <target>Spausdinti medžiagas</target>
+      </trans-unit>
+      <trans-unit id="99eMVh8" resname="Time-card">
+        <source>Time-card</source>
+        <target>Tabelis</target>
+      </trans-unit>
+      <trans-unit id="BxuXWFd" resname="Recalculate">
+        <source>Recalculate</source>
+        <target>Perskaičiuoti</target>
+      </trans-unit>
+      <trans-unit id="dpAPG.0" resname="Back">
+        <source>Back</source>
+        <target>Atgal</target>
+      </trans-unit>
+      <trans-unit id="ScJmuqq" resname="Search">
+        <source>Search</source>
+        <target>Ieškoti</target>
+      </trans-unit>
+      <trans-unit id="rC1R2Eg" resname="Worked hours">
+        <source>Worked hours</source>
+        <target>Dirbta val.</target>
+      </trans-unit>
+      <trans-unit id="5HxBkah" resname="Write off number">
+        <source>Write off number</source>
+        <target>Nurašymo numeris</target>
+      </trans-unit>
+      <trans-unit id="se9F1OV" resname="Update Invoice details">
+        <source>Update Invoice details</source>
+        <target>Atnaujinti sąskaitos info</target>
+      </trans-unit>
+      <trans-unit id="_WSIzAg" resname="Debited amount">
+        <source>Debited amount</source>
+        <target>Nurašytas kiekis</target>
+      </trans-unit>
+      <trans-unit id="LYWus_U" resname="Write-off act">
+        <source>Write-off act</source>
+        <target>Nurašymo aktas</target>
+      </trans-unit>
+      <trans-unit id="wXD9LFn" resname="Primarily">
+        <source>Primarily</source>
+        <target>__Primarily</target>
+      </trans-unit>
+      <trans-unit id="SfGb7uz" resname="Received">
+        <source>Received</source>
+        <target>Gauta</target>
+      </trans-unit>
+      <trans-unit id="wIUab6d" resname="Debited">
+        <source>Debited</source>
+        <target>Nurašyta</target>
+      </trans-unit>
+      <trans-unit id="eIz1Ne1" resname="Finally">
+        <source>Finally</source>
+        <target>__Finally</target>
+      </trans-unit>
+      <trans-unit id="rgkweLw" resname="New Invoice">
+        <source>New Invoice</source>
+        <target>Nauja sąskaita</target>
+      </trans-unit>
+      <trans-unit id="W16cZbQ" resname="Purchase">
+        <source>Purchase</source>
+        <target>Pirkimai</target>
+      </trans-unit>
+      <trans-unit id="AUmPox1" resname="Seller">
+        <source>Seller</source>
+        <target>Pardavėjas</target>
+      </trans-unit>
+      <trans-unit id="SIWhc4P" resname="VAT">
+        <source>VAT</source>
+        <target>PVM</target>
+      </trans-unit>
+      <trans-unit id="GoPLpE_" resname="Sum with VAT">
+        <source>Sum with VAT</source>
+        <target>Suma su PVM</target>
+      </trans-unit>
+      <trans-unit id="hRSfNiJ" resname="Invoice number">
+        <source>Invoice number</source>
+        <target>Sąskaitos numeris</target>
+      </trans-unit>
+      <trans-unit id="cuLwM2f" resname="Supplier">
+        <source>Supplier</source>
+        <target>Tiekėjas</target>
+      </trans-unit>
+      <trans-unit id="svJcL5d" resname="Invoice list">
+        <source>Invoice list</source>
+        <target>Sąrašas</target>
+      </trans-unit>
+      <trans-unit id="hVwSbpb" resname="Statistic">
+        <source>Statistic</source>
+        <target>Statistika</target>
+      </trans-unit>
+      <trans-unit id="La9XtA." resname="search by invoice number">
+        <source>search by invoice number</source>
+        <target>Paieška pagal sąskaitos numerį</target>
+      </trans-unit>
+      <trans-unit id="GP3VSbL" resname="New">
+        <source>New</source>
+        <target>Naujas</target>
+      </trans-unit>
+      <trans-unit id="yKeA0.P" resname="Log in!">
+        <source>Log in!</source>
+        <target>Prisijungti!</target>
+      </trans-unit>
+      <trans-unit id="acVpEs4" resname="You are logged in as">
+        <source>You are logged in as</source>
+        <target>Prisijungęs kaip</target>
+      </trans-unit>
+      <trans-unit id="dDUw20Q" resname="Please sign in">
+        <source>Please sign in</source>
+        <target>Prašau prisijungti</target>
+      </trans-unit>
+      <trans-unit id="lpzL089" resname="Email">
+        <source>Email</source>
+        <target>El. paštas</target>
+      </trans-unit>
+      <trans-unit id="588_9PF" resname="Password">
+        <source>Password</source>
+        <target>Slaptažodis</target>
+      </trans-unit>
+      <trans-unit id="v9QCsvb" resname="Sign in">
+        <source>Sign in</source>
+        <target>Prisijungti</target>
+      </trans-unit>
+      <trans-unit id="cLoLZae" resname="Time card table">
+        <source>Time card table</source>
+        <target>Tabelis</target>
+      </trans-unit>
+      <trans-unit id="tFBkXev" resname="Contacts">
+        <source>Contacts</source>
+        <target>Kontaktai</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
