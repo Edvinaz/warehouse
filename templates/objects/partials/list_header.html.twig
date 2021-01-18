@@ -23,12 +23,12 @@
         <a href="{{ path('object_invoice', {'id': object.id}) }}">
             {% trans %}New invoice{% endtrans %}
         </a ><!--
-        {# --><a href="{{ path('print_reserved_materials', {'id': object.id}) }}">
+        --><a href="{{ path('print_reserved_materials', {'id': object.id}) }}">
             {% trans %}Print reserved materials{% endtrans %}
-        </a><!-- #}
-        {# --><a href="{{ path('object_time_card', {'id': object.id}) }}">
+        </a><!--
+        --><a href="{{ path('object_time_card', {'id': object.id}) }}">
             {% trans %}Time-card{% endtrans %}
-        </a><!-- #}
+        </a><!--
         --><a href="{{ path('recalculate_object_details', {'objectId': object.id}) }}">
             {% trans %}Recalculate{% endtrans %}
         </a><!--
