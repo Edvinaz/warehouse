@@ -17,7 +17,7 @@ class InvoiceManageService extends PurchaseService
 
         return $invoice;
     }
-
+    
     /**
      * Save/update invoice.
      */

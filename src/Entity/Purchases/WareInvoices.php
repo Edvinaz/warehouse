@@ -69,7 +69,7 @@ class WareInvoices
 
     public function __toString()
     {
-        return $this->number;
+        return (string) $this->number;
     }
 
     public function getId(): ?int

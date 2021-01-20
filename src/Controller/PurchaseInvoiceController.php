@@ -9,7 +9,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\Purchase\InvoiceDetailsService;
-use App\Services\Purchase\InvoiceManageService;;
+use App\Services\Purchase\InvoiceManageService;
+use App\Services\Purchase\InvoiceService;
+
+;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Security;
@@ -43,9 +46,12 @@ class PurchaseInvoiceController extends AbstractController
      * @return Response
      * 
      */
-    public function newInvoice(Request $request, InvoiceManageService $service): Response
-    {
+    public function newInvoice(
+        Request $request, 
+        InvoiceManageService $service
+    ): Response {
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
+
         $form = $this->createForm(WareInvoiceType::class, $service->getNewInvoice());
 
         $form->handleRequest($request);

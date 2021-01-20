@@ -29,9 +29,9 @@ class PurchaseMaterialService extends PurchaseService
         /**
          * @var WareMaterials
          */
-        $Material = $this->materialRepository->find($materialID);
+        $material = $this->materialRepository->find($materialID);
 
-        $purchase->setMaterial($Material);
+        $purchase->setMaterial($material);
 
         return $purchase;
     }
