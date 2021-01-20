@@ -13,10 +13,6 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 class InvoiceManageServiceTest extends KernelTestCase
 {
     use ServiceTrait;
-    /**
-     * @var \Doctrine\ORM\EntityManager
-     */
-    private $entityManager;
 
     public function testGetNewInvoice()
     {
@@ -37,15 +33,6 @@ class InvoiceManageServiceTest extends KernelTestCase
 
         $this->assertEquals($invoice, $service->getNewInvoice());
     }
-
-    protected function setUp(): void
-    {
-        $kernel = self::bootKernel();
-
-        $this->entityManager = $kernel->getContainer()
-            ->get('doctrine')
-            ->getManager();
-    } 
 
     /**
      * @runInSeparateProcess
@@ -167,14 +154,5 @@ class InvoiceManageServiceTest extends KernelTestCase
             'Cannot delete invoice', 
             $service->deleteInvoice($iID)
         );
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-        // doing this is recommended to avoid memory leaks
-        $this->entityManager->close();
-        $this->entityManager = null;
     }
 }

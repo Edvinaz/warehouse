@@ -13,6 +13,11 @@ trait ServiceTrait
     private $purchaseRepository;
     private $em;
 
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    private $entityManager;
+
     private function setPurchaseServiceRepository()
     {
         $this->invoicesRepository = $this
@@ -40,5 +45,23 @@ trait ServiceTrait
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
             ->getMock();
+    }
+
+    protected function setUp(): void
+    {
+        $kernel = self::bootKernel();
+
+        $this->entityManager = $kernel->getContainer()
+            ->get('doctrine')
+            ->getManager();
+    } 
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        // doing this is recommended to avoid memory leaks
+        $this->entityManager->close();
+        $this->entityManager = null;
     }
 }

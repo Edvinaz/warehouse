@@ -2,31 +2,97 @@
 
 namespace App\Tests\services\purchase;
 
-use PHPUnit\Framework\TestCase;
-use App\Tests\Traits\ServiceTrait;
+use App\Entity\Contrahents;
 use App\Entity\Purchases\WareInvoices;
+use App\Tests\Traits\ServiceTrait;
+use App\Repository\WareInvoicesRepository;
 use App\Services\Purchase\InvoiceListService;
+use SebastianBergmann\RecursionContext\Context;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class InvoiceListServiceTest extends TestCase
+class InvoiceListServiceTest extends KernelTestCase
 {
     use ServiceTrait;
     
-    public function testSetListServiceFunction()
+    /**
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testGetEmptyList()
     {
-        $this->setPurchaseServiceRepository();
+        $this->setPurchaseServiceRepository();  
+        
+        $invoiceRepository = $this
+            ->getMockBuilder(WareInvoicesRepository::class)->disableOriginalConstructor()
+            ->disableOriginalClone()
+            ->disableArgumentCloning()
+            ->disallowMockingUnknownTypes()
+            ->getMock();
+        $invoiceRepository->method('invoiceList')->willReturn([]);
         
         $service = new InvoiceListService(
-            $this->invoicesRepository, 
+            $invoiceRepository, 
             $this->materialRepository, 
             $this->purchaseRepository, 
-            $this->entityManager);
+            $this->em
+        );
+
+        $list = [];
+
+        $this->assertEquals($list, $service->getList()->current());
+    }
+
+    /**
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testGetSearchList()
+    {
+        $this->setPurchaseServiceRepository();  
+
+        $contrahent = new Contrahents();
+        $contrahent->setName('Contrahent');
+
+        $contrahent2 = new Contrahents();
+        $contrahent2->setName('Seller');
 
         $invoice = new WareInvoices();
-        $invoice->setAmount(0);
-        $invoice->setVAT(0);
+        $invoice->setContrahent($contrahent);
+        $invoice->setNumber('WARE 00123');
 
-        // $this->assertInstanceOf(WareInvoices::class, $service->getNewInvoice());
+        $invoice2 = new WareInvoices();
+        $invoice2->setContrahent($contrahent2);
+        $invoice2->setNumber('SL 3566');
 
-        $this->assertEquals(2, 2);
+        $this->assertEquals('Contrahent', $invoice->getContrahent()->getName());
+        $this->assertEquals('Seller', $invoice2->getContrahent()->getName());
+        
+        $invoiceRepository = $this
+            ->getMockBuilder(WareInvoicesRepository::class)->disableOriginalConstructor()
+            ->disableOriginalClone()
+            ->disableArgumentCloning()
+            ->disallowMockingUnknownTypes()
+            ->getMock();
+
+        $invoiceRepository->method('invoiceList')
+            ->willReturn([
+                $invoice, 
+                $invoice2
+            ]);
+        
+        $service = new InvoiceListService(
+            $invoiceRepository, 
+            $this->materialRepository, 
+            $this->purchaseRepository, 
+            $this->em
+        );
+
+        $list = [$invoice];
+        $result = $service->getList('contr');
+        $this->assertEquals($list, $result->current());
+        
+        $result = $service->getList('123');
+        $this->assertEquals($list, $result->current());
+
     }
 }
