@@ -11,7 +11,7 @@ trait ServiceTrait
     private $invoicesRepository;
     private $materialRepository;
     private $purchaseRepository;
-    private $entityManager;
+    private $em;
 
     private function setPurchaseServiceRepository()
     {
@@ -34,7 +34,7 @@ trait ServiceTrait
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
             ->getMock();
-        $this->entityManager = $this
+        $this->em = $this
             ->getMockBuilder(EntityManagerInterface::class)->disableOriginalConstructor()
             ->disableOriginalClone()
             ->disableArgumentCloning()
