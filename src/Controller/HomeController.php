@@ -44,25 +44,25 @@ class HomeController extends AbstractController
     }
 
     //! from ObjectsController.php
-    // /**
-    //  * @Route("/objects_test/{objectId}", name="recalculate_object_details")
-    //  *
-    //  * @return Response
-    //  * 
-    //  * @IsGranted("ROLE_ACCOUNTANT")
-    //  */
-    // public function objectTest(Request $request, ObjectExaminationService $service, int $objectId): Response
-    // {
-    //     // TODO 
+    /**
+     * @Route("/objects_test/{objectId}", name="recalculate_object_details")
+     *
+     * @return Response
+     * 
+     * @IsGranted("ROLE_ACCOUNTANT")
+     */
+    public function objectTest(Request $request, ObjectExaminationService $service, int $objectId): Response
+    {
+        // TODO 
 
-    //     //! reikia testuoti objektus, perskaičiuoti medžiagas, pajamas ir kt.
+        //! reikia testuoti objektus, perskaičiuoti medžiagas, pajamas ir kt.
 
-    //     $service->recalculateObject($objectId);
+        $service->recalculateObject($objectId);
         
-    //     return $this->redirectToRoute('object_info', [
-    //         'id' => $objectId,
-    //     ]);
-    // } 
+        return $this->redirectToRoute('object_info', [
+            'id' => $objectId,
+        ]);
+    } 
 
     //! from PurchaseController.php
     /**
