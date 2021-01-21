@@ -10,13 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\Purchase\InvoiceDetailsService;
 use App\Services\Purchase\InvoiceManageService;
-use App\Services\Purchase\InvoiceService;
-
-;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\Security;
-
 
 class PurchaseInvoiceController extends AbstractController
 {
@@ -25,10 +20,12 @@ class PurchaseInvoiceController extends AbstractController
      *
      * @return Response
      * 
-     * @IsGranted("ROLE_ADMIN", statusCode=418, message="Suck")
+     * @IsGranted("ROLE_ADMIN")
      */
-    public function index(Request $request, InvoiceListService $service): Response
-    {
+    public function index(
+        Request $request, 
+        InvoiceListService $service
+    ): Response {
         $search = $request->get('search') ? $request->get('search') : '';
         $purchases = $service->getList($search, (int) $request->get('page'));
 
@@ -45,13 +42,12 @@ class PurchaseInvoiceController extends AbstractController
      *
      * @return Response
      * 
+     * @IsGranted("ROLE_ADMIN")
      */
     public function newInvoice(
         Request $request, 
         InvoiceManageService $service
     ): Response {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
-
         $form = $this->createForm(WareInvoiceType::class, $service->getNewInvoice());
 
         $form->handleRequest($request);
@@ -74,10 +70,13 @@ class PurchaseInvoiceController extends AbstractController
      *
      * @return Response
      * 
+     * @IsGranted("ROLE_ADMIN")
      */
-    public function updateInvoice(int $id, Request $request, InvoiceManageService $service): Response
-    {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
+    public function updateInvoice(
+        int $id, 
+        Request $request, 
+        InvoiceManageService $service
+    ): Response {
         $form = $this->createForm(WareInvoiceType::class, $service->getInvoice($id));
         $form->handleRequest($request);
 
@@ -98,10 +97,12 @@ class PurchaseInvoiceController extends AbstractController
      *
      * @return Response
      * 
+     * @IsGranted("ROLE_ADMIN")
      */
-    public function deleteInvoice(int $id, InvoiceManageService $service): Response
-    {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
+    public function deleteInvoice(
+        int $id, 
+        InvoiceManageService $service
+    ): Response {
         $this->addFlash('error', $service->deleteInvoice($id));
 
         return $this->redirectToRoute('purchase');
@@ -112,10 +113,13 @@ class PurchaseInvoiceController extends AbstractController
      *
      * @return Response
      * 
+     * @IsGranted("ROLE_ADMIN")
      */
-    public function invoiceDetails(int $id, Request $request, InvoiceDetailsService $service): Response
-    {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
+    public function invoiceDetails(
+        int $id, 
+        Request $request, 
+        InvoiceDetailsService $service
+    ): Response {
         $form = $this->createForm(PurchaseInvoiceType::class, $service->getPurchaseInvoice());
 
         $form->handleRequest($request);

@@ -6,6 +6,9 @@ namespace App\Services\Purchase;
 use App\Models\PurchaseInvoice;
 use App\Services\PurchaseService;
 
+/**
+ * Working with materials to purchase, material search
+ */
 class InvoiceDetailsService extends PurchaseService
 {
     protected $purchaseInvoice;
@@ -19,8 +22,9 @@ class InvoiceDetailsService extends PurchaseService
         return $this->purchaseInvoice;
     }
 
-    public function setMaterialList(string $search = '')
-    {
+    public function setMaterialList(
+        string $search = ''
+    ) {
         $this->materialsList = $this->materialRepository->getPaginatedMaterialsList($search);
         $this->purchaseInvoice->setMaxMaterialsPage(intval(count($this->materialsList) / $this->purchaseInvoice->getPageSize()));
     }
