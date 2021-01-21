@@ -248,8 +248,9 @@ class WareObjects
         return $this->warePurchasedMaterials;
     }
 
-    public function addWarePurchasedMaterial(WarePurchasedMaterials $warePurchasedMaterial): self
-    {
+    public function addWarePurchasedMaterial(
+        WarePurchasedMaterials $warePurchasedMaterial
+    ): self {
         if (!$this->warePurchasedMaterials->contains($warePurchasedMaterial)) {
             $this->warePurchasedMaterials[] = $warePurchasedMaterial;
             $warePurchasedMaterial->setObject($this);
@@ -258,8 +259,9 @@ class WareObjects
         return $this;
     }
 
-    public function removeWarePurchasedMaterial(WarePurchasedMaterials $warePurchasedMaterial): self
-    {
+    public function removeWarePurchasedMaterial(
+        WarePurchasedMaterials $warePurchasedMaterial
+    ): self {
         if ($this->warePurchasedMaterials->contains($warePurchasedMaterial)) {
             $this->warePurchasedMaterials->removeElement($warePurchasedMaterial);
             // set the owning side to null (unless already changed)
@@ -279,8 +281,9 @@ class WareObjects
         return $this->buhInvoices;
     }
 
-    public function addBuhInvoice(BuhInvoices $buhInvoice): self
-    {
+    public function addBuhInvoice(
+        BuhInvoices $buhInvoice
+    ): self {
         if (!$this->buhInvoices->contains($buhInvoice)) {
             $this->buhInvoices[] = $buhInvoice;
             $buhInvoice->setObject($this);
@@ -289,8 +292,9 @@ class WareObjects
         return $this;
     }
 
-    public function removeBuhInvoice(BuhInvoices $buhInvoice): self
-    {
+    public function removeBuhInvoice(
+        BuhInvoices $buhInvoice
+    ): self {
         if ($this->buhInvoices->contains($buhInvoice)) {
             $this->buhInvoices->removeElement($buhInvoice);
             // set the owning side to null (unless already changed)
@@ -310,8 +314,9 @@ class WareObjects
         return $this->wareInvoices;
     }
 
-    public function addWareInvoice(WareInvoices $wareInvoice): self
-    {
+    public function addWareInvoice(
+        WareInvoices $wareInvoice
+    ): self {
         if (!$this->wareInvoices->contains($wareInvoice)) {
             $this->wareInvoices[] = $wareInvoice;
             $wareInvoice->setObject($this);
@@ -320,8 +325,9 @@ class WareObjects
         return $this;
     }
 
-    public function removeWareInvoice(WareInvoices $wareInvoice): self
-    {
+    public function removeWareInvoice(
+        WareInvoices $wareInvoice
+    ): self {
         if ($this->wareInvoices->contains($wareInvoice)) {
             $this->wareInvoices->removeElement($wareInvoice);
             // set the owning side to null (unless already changed)
@@ -341,8 +347,9 @@ class WareObjects
         return $this->wareWriteOffs;
     }
 
-    public function addWareWriteOff(WareWriteOffs $wareWriteOff): self
-    {
+    public function addWareWriteOff(
+        WareWriteOffs $wareWriteOff
+    ): self {
         if (!$this->wareWriteOffs->contains($wareWriteOff)) {
             $this->wareWriteOffs[] = $wareWriteOff;
             $wareWriteOff->setObject($this);
@@ -351,8 +358,9 @@ class WareObjects
         return $this;
     }
 
-    public function removeWareWriteOff(WareWriteOffs $wareWriteOff): self
-    {
+    public function removeWareWriteOff(
+        WareWriteOffs $wareWriteOff
+    ): self {
         if ($this->wareWriteOffs->contains($wareWriteOff)) {
             $this->wareWriteOffs->removeElement($wareWriteOff);
             // set the owning side to null (unless already changed)
@@ -369,8 +377,9 @@ class WareObjects
         return $this->buhContracts;
     }
 
-    public function setBuhContracts(BuhContracts $buhContracts): self
-    {
+    public function setBuhContracts(
+        BuhContracts $buhContracts
+    ): self {
         $this->buhContracts = $buhContracts;
 
         // set the owning side of the relation if necessary
@@ -389,8 +398,9 @@ class WareObjects
         return $this->buhInvoiceContents;
     }
 
-    public function addBuhInvoiceContent(BuhInvoiceContent $buhInvoiceContent): self
-    {
+    public function addBuhInvoiceContent(
+        BuhInvoiceContent $buhInvoiceContent
+    ): self {
         if (!$this->buhInvoiceContents->contains($buhInvoiceContent)) {
             $this->buhInvoiceContents[] = $buhInvoiceContent;
             $buhInvoiceContent->setObject($this);
@@ -399,8 +409,9 @@ class WareObjects
         return $this;
     }
 
-    public function removeBuhInvoiceContent(BuhInvoiceContent $buhInvoiceContent): self
-    {
+    public function removeBuhInvoiceContent(
+        BuhInvoiceContent $buhInvoiceContent
+    ): self {
         if ($this->buhInvoiceContents->contains($buhInvoiceContent)) {
             $this->buhInvoiceContents->removeElement($buhInvoiceContent);
             // set the owning side to null (unless already changed)
@@ -429,8 +440,9 @@ class WareObjects
         return $this->timeCards;
     }
 
-    public function addTimeCard(TimeCard $timeCard): self
-    {
+    public function addTimeCard(
+        TimeCard $timeCard
+    ): self {
         if (!$this->timeCards->contains($timeCard)) {
             $this->timeCards[] = $timeCard;
             $timeCard->setObject($this);
@@ -439,8 +451,9 @@ class WareObjects
         return $this;
     }
 
-    public function removeTimeCard(TimeCard $timeCard): self
-    {
+    public function removeTimeCard(
+        TimeCard $timeCard
+    ): self {
         if ($this->timeCards->contains($timeCard)) {
             $this->timeCards->removeElement($timeCard);
             // set the owning side to null (unless already changed)
@@ -461,15 +474,17 @@ class WareObjects
         return new ObjectDetails();
     }
 
-    public function setEntity(ObjectDetails $entity): self
-    {
+    public function setEntity(
+        ObjectDetails $entity
+    ): self {
         $this->entity = serialize($entity);
 
         return $this;
     }
 
-    public function updateReservedMaterials(string $update)
-    {
+    public function updateReservedMaterials(
+        string $update
+    ) {
         $details = $this->getEntity();
         $details->updateReservedMaterials($update);
         $this->setEntity($details);
@@ -477,8 +492,9 @@ class WareObjects
         return $this;
     }
 
-    public function updateDebitedMaterials(string $update)
-    {
+    public function updateDebitedMaterials(
+        string $update
+    ) {
         $details = $this->getEntity();
         $details->updateDebitedMaterials($update);
         $this->setEntity($details);
@@ -486,8 +502,9 @@ class WareObjects
         return $this;
     }
 
-    public function updateDebitedMaterialsFromReservedMaterials(string $update)
-    {
+    public function updateDebitedMaterialsFromReservedMaterials(
+        string $update
+    ) {
         $details = $this->getEntity();
         $details->updateDebitedMaterials($update);
         $reserve = (string) (-1 * floatval($update));
@@ -497,8 +514,9 @@ class WareObjects
         return $this;
     }
 
-    public function updateServices(string $update)
-    {
+    public function updateServices(
+        string $update
+    ) {
         $details = $this->getEntity();
         $details->updateServices($update);
         $this->setEntity($details);
@@ -506,8 +524,9 @@ class WareObjects
         return $this;
     }
 
-    public function updateIncome(string $update)
-    {
+    public function updateIncome(
+        string $update
+    ) {
         $details = $this->getEntity();
         $details->updateIncome($update);
         $this->setEntity($details);

@@ -21,8 +21,9 @@ class InvoiceManageService extends PurchaseService
     /**
      * Save/update invoice.
      */
-    public function saveInvoice(WareInvoices $invoice): string
-    {
+    public function saveInvoice(
+        WareInvoices $invoice
+    ): string {
         $this->em->persist($invoice);
         foreach ($invoice->getWarePurchasedMaterials() as $material) {
             $material->setObject($invoice->getObject());
@@ -38,8 +39,9 @@ class InvoiceManageService extends PurchaseService
         return 'Invoice saved';
     }
 
-    public function deleteInvoice(int $invoiceId)
-    {
+    public function deleteInvoice(
+        int $invoiceId
+    ): string {
         $invoice = $this->invoicesRepository->find($invoiceId);
 
         if ($invoice->isDebited()) {
