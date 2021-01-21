@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Entity\Objects\WareObjects;
 use App\Repository\BuhInvoicesRepository;
 use App\Repository\WareObjectsRepository;
 use App\Repository\BuhContractsRepository;
@@ -35,8 +36,9 @@ class ObjectsService
         $this->writeOffRepository = $wareWriteOffsRepository;
     }
 
-    public function getObject(int $objectId)
-    {
+    public function getObject(
+        int $objectId
+    ): WareObjects {
         return $this->objectsRepository->find($objectId);
     }
 }

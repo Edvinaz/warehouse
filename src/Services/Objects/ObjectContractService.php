@@ -8,8 +8,9 @@ use App\Entity\Sales\BuhContracts;
 
 class ObjectContractService extends ObjectsService
 {
-    public function getContract(int $objectId): BuhContracts
-    {
+    public function getContract(
+        int $objectId
+    ): BuhContracts {
         $object = $this->getObject($objectId);
         if ($object->getBuhContracts()) {
             return $object->getBuhContracts();
@@ -21,8 +22,9 @@ class ObjectContractService extends ObjectsService
         return $contract;
     }
 
-    public function saveContract(BuhContracts $contract)
-    {
+    public function saveContract(
+        BuhContracts $contract
+    ): void {
         $this->contractsRepository->save($contract);
     }
 }
