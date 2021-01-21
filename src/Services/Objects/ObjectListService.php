@@ -17,7 +17,7 @@ class ObjectListService extends ObjectsService
 
     public function getObjectList(
         string $search = '', 
-        string $objectStatus, 
+        string $objectStatus = '', 
         int $page = 0
     ): IteratorInterface {
         // TODO implement objectStatus
@@ -32,8 +32,9 @@ class ObjectListService extends ObjectsService
         return $list->getIterator();
     }
 
-    private function iterateSearchList(string $search): ItemsCollection
-    {
+    private function iterateSearchList(
+        string $search
+    ): ItemsCollection {
         $list = new ItemsCollection();
 
         $chunk = [];
