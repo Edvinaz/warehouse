@@ -59,16 +59,18 @@ class PurchaseMaterialService extends PurchaseService
         return 'New material saved';
     }
 
-    public function getMaterialPurchase(int $purchaseId): WarePurchasedMaterials
-    {
+    public function getMaterialPurchase(
+        int $purchaseId
+    ): WarePurchasedMaterials {
         return $this->purchasedMaterialsRepository->find($purchaseId);
     }
 
     /**
      * Save/update purchased material.
      */
-    public function updatePurchasedMaterial(WarePurchasedMaterials $material): string
-    {
+    public function updatePurchasedMaterial(
+        WarePurchasedMaterials $material
+    ): string {
         $material->setBalance($material->getQuantity());
 
         try {
@@ -80,8 +82,9 @@ class PurchaseMaterialService extends PurchaseService
         return 'Successfully updated';
     }
 
-    public function deletePurchasedMaterial(int $purchasedMaterialId): string
-    {
+    public function deletePurchasedMaterial(
+        int $purchasedMaterialId
+    ): string {
         $purchasedMaterial = $this->purchasedMaterialsRepository->find($purchasedMaterialId);
 
         if ($purchasedMaterial->isDebited()) {
@@ -100,8 +103,9 @@ class PurchaseMaterialService extends PurchaseService
         return 'Successfully deleted';
     }
 
-    private function checkMaterialDifference(WarePurchasedMaterials $material) : bool
-    {
+    private function checkMaterialDifference(
+        WarePurchasedMaterials $material
+    ): bool {
         $last = $this->purchasedMaterialsRepository->getLastInserted()[0];
         if (
             $last->getInvoice() === $material->getInvoice() 
