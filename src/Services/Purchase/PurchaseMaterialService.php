@@ -12,8 +12,10 @@ class PurchaseMaterialService extends PurchaseService
     /**
      * @return WarePurchasedMaterials
      */
-    public function createPurchaseMaterialFormModel(int $invoiceID, int $materialID): WarePurchasedMaterials
-    {
+    public function createPurchaseMaterialFormModel(
+        int $invoiceID, 
+        int $materialID
+    ): WarePurchasedMaterials {
         $purchase = new WarePurchasedMaterials();
 
         /**
@@ -36,12 +38,14 @@ class PurchaseMaterialService extends PurchaseService
         return $purchase;
     }
 
-    public function saveNewMaterial(WarePurchasedMaterials $material, int $newMaterial): void
-    {
+    public function saveNewMaterial(
+        WarePurchasedMaterials $material, 
+        int $newMaterial
+    ): string {
         $material->setBalance($material->getQuantity());
 
         if($this->checkMaterialDifference($material)) {
-            return;
+            return 'Can\'t save material';
         }
 
         if (0 === $newMaterial) {
@@ -51,6 +55,8 @@ class PurchaseMaterialService extends PurchaseService
 
         $this->em->persist($material);
         $this->em->flush();
+
+        return 'New material saved';
     }
 
     public function getMaterialPurchase(int $purchaseId): WarePurchasedMaterials
@@ -78,7 +84,7 @@ class PurchaseMaterialService extends PurchaseService
     {
         $purchasedMaterial = $this->purchasedMaterialsRepository->find($purchasedMaterialId);
 
-        if (count($purchasedMaterial->getWareDebitedMaterials()) > 0) {
+        if ($purchasedMaterial->isDebited()) {
             return 'Cannot delete, because already debited';
         }
         
