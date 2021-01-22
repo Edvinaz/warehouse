@@ -39,6 +39,9 @@ class ObjectsService
     public function getObject(
         int $objectId
     ): WareObjects {
+        if ($objectId === 0) {
+            return new WareObjects();
+        }
         return $this->objectsRepository->find($objectId);
     }
 }
