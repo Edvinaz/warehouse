@@ -1,7 +1,7 @@
 <div class="section_menu">
     <div class="level1buttons">
         <a class="first" href="{{ path('objects') }}">{% trans %}Objects list{% endtrans %}</a><!--
-        --><a href="">{% trans %}Write-off list{% endtrans %}</a><!--
+        --><a href="{{ path('write_off') }}">{% trans %}Write-off list{% endtrans %}</a><!--
         --><a href="{{ path('edit_object', {'id': 0}) }}">{% trans %}New object{% endtrans %}</a><!--
         --><a class="last" href="">{% trans %}New write-off{% endtrans %}</a>
     </div>

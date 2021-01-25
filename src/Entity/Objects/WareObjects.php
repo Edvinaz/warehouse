@@ -16,8 +16,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\WareObjectsRepository")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discr", type="string", length=4)
+ * @ORM\DiscriminatorMap({
+ *      "installation" = "InstallationObject",
+ *      "measurement" = "MeasurementObject"
+ * })
  */
-class WareObjects
+abstract class WareObjects
 {
     /**
      * @ORM\Id()

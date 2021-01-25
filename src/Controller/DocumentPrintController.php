@@ -67,8 +67,10 @@ class DocumentPrintController extends AbstractController
 
         $domPdf = new Dompdf($pdfOption);
 
-        $html = $this->renderView('document_print/constructionContract.html.twig', [
-            'object' => $service->getObject($id),
+        $object = $service->getObject($id);
+
+        $html = $this->renderView('document_print/'.$object->getObjectContract().'.html.twig', [
+            'object' => $object,
             'company' => new Company(),
         ]);
         $domPdf->loadHtml($html);

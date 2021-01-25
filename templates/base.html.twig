@@ -73,15 +73,22 @@
                     <li class="navbar-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Statistika
+                            {% trans %}Statistic{% endtrans %}
                         </a>
                         
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="{{ path('statistic') }}">
-                                Statistika
+                                {% trans %}Statistic{% endtrans %}
                             </a>
-                            <a class="dropdown-item" href="{{ path('overview') }}">{% trans %}Overview{% endtrans %}</a>
-                            <a class="dropdown-item" href="{{ path('time_card_summary') }}">{% trans %}Time card{% endtrans %}</a>
+                            <a class="dropdown-item" href="{{ path('overview') }}">
+                                {% trans %}Overview{% endtrans %}
+                            </a>
+                            <a class="dropdown-item" href="{{ path('time_card_summary') }}">
+                                {% trans %}Time card{% endtrans %}
+                            </a>
+                            <a class="dropdown-item" href="{{ path('company_details') }}">
+                                {% trans %}Company details{% endtrans %}
+                            </a>
                         </div>
                     </li>
                 </ul>
