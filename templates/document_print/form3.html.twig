@@ -1,0 +1,180 @@
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="lt-LT" xml:lang="lt">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style>
+        body {
+            font-family: DejaVu Sans, sans-serif;
+        }
+
+        @page {
+            margin: 55px 75px;
+        }
+
+        footer {
+            position: fixed;
+            bottom: -45px;
+            left: 0px;
+            right: 0px;
+            height: 50px;
+            border-top: 1px solid black;
+
+            /** Extra personal styles **/
+            font-size: 9px;
+        }
+
+        .mainText {
+            border-color: grey;
+            font-size: 13px;
+            text-indent: 20px;
+            text-align: justify;
+        }
+
+        .titleText {
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .titleDateText {
+            text-align: right;
+            font-size: 13px;
+            margin: 7px;
+        }
+
+        .props {
+            font-size: 11px;
+        }
+
+        .props td {
+            padding-left: 70px;
+        }
+
+        .page_break {
+            page-break-after: always;
+        }
+
+        p {
+            margin: 1px;
+        }
+
+        table {
+            font-size: 12px;
+            border-spacing: -1px;
+        }
+
+        td.kunas{
+            border-left: 1px solid #222;
+            border-right: 1px solid #222;
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
+        }
+        th.virsunele{
+            border-left: 1.5px solid #222;
+            border-right: 1.5px solid #222;
+            border-top: 1.5px solid #222;
+            border-bottom: 1.5px solid #222;
+        }
+        td.beremis{}
+    </style>
+
+    <title>Forma 3</title>
+</head>
+
+<body>
+
+<main>
+    <div align="center">
+        <span class="titleText">PAŽYMA APIE ATLIKTŲ DARBŲ VERTĘ F-3</span>
+        <br>
+        <span class="titleTextDate">{{ invoice.dateInWords }}</span>
+    </div>
+    <div align="left" class="mainText">
+        Užsakovas: <b>{{ invoice.contrahent }}</b>
+    </div>
+    <div align="left" class="mainText">
+        Rangovas: <b>{{ company.name }}</b>, įmonės kodas {{ company.code }}, PVM kodas {{ company.vat }}, {{ company.account }}
+    </div>
+    <div align="left" class="mainText">
+        Objektas: <b>{{ invoice.object }}</b>
+    </div>
+
+    <br>
+
+    <div align="left" class="mainText">
+        {{ invoice.date|date("Y-m-d") }}
+    </div>
+    
+    <table width="100%">
+        <tr>
+            <th width="5%" align="center" class="virsunele">Eil. Nr.</th>
+            <th width="35%" align="center" class="virsunele">Objekto išlaidų pavadinimas</th>
+            <th width="12%" align="center" class="virsunele">Sutartinė kaina</th>
+            <th width="12%" align="center" class="virsunele">Už praėjusį laikotarpį</th>
+            <th width="12%" align="center" class="virsunele">Už einamą mėnesį</th>
+            <th width="12%" align="center" class="virsunele">Viso atlikta</th>
+            <th width="12%" align="center" class="virsunele">Likutis</th>
+        </tr>
+        <tr>
+            <td align="center" class="kunas">1</td>
+            <td class="kunas">{{ invoice.fullObject }}</td>
+            <td align="center" class="kunas">{{ invoice.contract.total|number_format(2, ',', ' ') }}</td>
+            <td align="center" class="kunas">{{ invoice.previous.total|number_format(2, ',', ' ') }}</td>
+            <td align="center" class="kunas">{{ invoice.invoice.total|number_format(2, ',', ' ') }}</td>
+            <td align="center" class="kunas">{{ invoice.done.total|number_format(2, ',', ' ') }}</td>
+            <td align="center" class="kunas">{{ invoice.remain.total|number_format(2, ',', ' ') }}</td>
+        </tr>
+        <tr>
+            <td align="center"></td>
+            <td>Viso</td>
+            <td align="center">{{ invoice.contract.total|number_format(2, ',', ' ') }}</td>
+            <td align="center">{{ invoice.previous.total|number_format(2, ',', ' ') }}</td>
+            <td align="center">{{ invoice.invoice.total|number_format(2, ',', ' ') }}</td>
+            <td align="center">{{ invoice.done.total|number_format(2, ',', ' ') }}</td>
+            <td align="center">{{ invoice.remain.total|number_format(2, ',', ' ') }}</td>
+        </tr>
+        <tr>
+            <td align="center"></td>
+            <td>PVM (21%)</td>
+            <td align="center">{{ invoice.contract.VAT|number_format(2, ',', ' ') }}</td>
+            <td align="center">{{ invoice.previous.VAT|number_format(2, ',', ' ') }}</td>
+            <td align="center">{{ invoice.invoice.VAT|number_format(2, ',', ' ') }}</td>
+            <td align="center">{{ invoice.done.VAT|number_format(2, ',', ' ') }}</td>
+            <td align="center">{{ invoice.remain.VAT|number_format(2, ',', ' ') }}</td>
+        </tr>
+        <tr>
+            <td align="center"></td>
+            <td>Viso su PVM</td>
+            <td align="center">{{ invoice.contract.withVAT|number_format(2, ',', ' ') }}</td>
+            <td align="center">{{ invoice.previous.withVAT|number_format(2, ',', ' ') }}</td>
+            <td align="center">{{ invoice.invoice.withVAT|number_format(2, ',', ' ') }}</td>
+            <td align="center">{{ invoice.done.withVAT|number_format(2, ',', ' ') }}</td>
+            <td align="center">{{ invoice.remain.withVAT|number_format(2, ',', ' ') }}</td>
+        </tr>
+    </table>
+    
+    <br>
+    
+    <div class="mainText">
+        Viso: {{ invoice.invoiceTotalWords }}
+    </div>
+
+    <br>
+
+    <div>
+        <table width="60%">
+            <tr>
+                <td align="center" colspan="2">Užsakovas</td>
+                <td align="center" colspan="2">Rangovas</td>
+            </tr>
+            <tr>
+                <td width="15%"></td>
+                <td align="left" width="35%">{{ invoice.contrahent }}</td>
+                <td width="15%"></td>
+                <td align="left" width="35%">{{ company.name }}</td>
+            </tr>
+        </table>
+    </div>
+
+ </main>
+
+ </body>
+                    

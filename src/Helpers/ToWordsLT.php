@@ -123,7 +123,7 @@ class ToWordsLT
             $skaiz = $skaiz.$sk1000[2];
         }
 
-        return $skaiz.$this->simtai($ld[6], $ld[7], $ld[8]);
+        return ucfirst ($skaiz.$this->simtai($ld[6], $ld[7], $ld[8]));
     }
 
     private function simtai($s, $d, $v)

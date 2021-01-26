@@ -559,4 +559,8 @@ abstract class WareObjects
     {
         return $this->getEntity()->getWorkedHours();
     }
+
+    public function getObjectContract(){}
+
+    public function getObjectContractName(){}
 }

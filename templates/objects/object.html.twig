@@ -62,10 +62,16 @@
                         <td>
                             <a class="btn btn-outline-secondary btn-sm"
                                href="{{ path('object_invoice_add_content', {'id': object.id, 'invoiceId': invoice.id}) }}">
-                                {% trans %}Add{% endtrans %}</a>
-                            {# <a class="btn btn-outline-secondary btn-sm"
+                                {% trans %}Add{% endtrans %}
+                            </a>
+                            <a class="btn btn-outline-secondary btn-sm"
                                href="{{ path('print_invoice', {'id': invoice.id}) }}">
-                                {% trans %}Print{% endtrans %}</a> #}
+                                {% trans %}Print{% endtrans %}
+                            </a>
+                            <a class="btn btn-outline-secondary btn-sm"
+                               href="{{ path('print_form_3', {'id': invoice.id}) }}">
+                                {% trans %}Form 3{% endtrans %}
+                            </a>
                         </td>
                     </tr>
                         {% for content in invoice.buhInvoiceContents %}

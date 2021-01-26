@@ -49,7 +49,10 @@
         <div class="col-8">{{ object.contrahent.name }}
         {% if object.hasContract %}
         (<i>{{ object.buhContracts.name }} sutartis Nr. {{ object.buhContracts.number }}.
-            date: {{ object.buhContracts.date|date('Y-m-d') }}</i>)
+            date: {{ object.buhContracts.date|date('Y-m-d') }}</i>) 
+            <a href="{{ path('print_contract', {'id': object.id}) }}">
+                {% trans %}Print{% endtrans %}
+            </a>
         {% endif %}
         </div>
     </div>

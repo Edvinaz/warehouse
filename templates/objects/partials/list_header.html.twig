@@ -15,11 +15,13 @@
             {% trans %}Delete{% endtrans %}
         </a>
         {% endif %}
-        {% if not object.hasContract %}
         <a href="{{ path('object_contract_edit', {'objectId': object.id}) }}">
+        {% if not object.hasContract %}
             {% trans %}New contract{% endtrans %}
-        </a>
+        {% else %}
+            {% trans %}Edit contract{% endtrans %}
         {% endif %}
+        </a>
         <a href="{{ path('object_invoice', {'id': object.id}) }}">
             {% trans %}New invoice{% endtrans %}
         </a ><!--
@@ -29,9 +31,9 @@
         --><a href="{{ path('object_time_card', {'id': object.id}) }}">
             {% trans %}Time-card{% endtrans %}
         </a><!--
-        --><a href="{{ path('recalculate_object_details', {'objectId': object.id}) }}">
+        {# --><a href="{{ path('recalculate_object_details', {'objectId': object.id}) }}">
             {% trans %}Recalculate{% endtrans %}
-        </a><!--
+        </a><!-- #}
         --><a class="last" href="{{ path('object_info', {'id': object.id}) }}">
             {% trans %}Back{% endtrans %}
         </a>

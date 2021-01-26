@@ -213,6 +213,11 @@ class BuhInvoices
         return $word->monthLT($this->date->format('m'));
     }
 
+    public function dateWords(): string
+    {
+        return $this->date->format('Y').' m. '.$this->month().' mėn. '.$this->date->format('d').' d. ';
+    }
+
     public function totalWords(): string
     {
         $word = new ToWordsLT();

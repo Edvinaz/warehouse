@@ -14,4 +14,9 @@ class InstallationObject extends WareObjects
     {
         return 'constructionContract';
     }
+
+    public function getObjectContractName()
+    {
+        return 'statybos rangos sutartį';
+    }
 }

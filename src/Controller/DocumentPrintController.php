@@ -11,6 +11,7 @@ use App\Services\InvoiceService;
 use App\Services\StatisticService;
 use App\Services\Objects\ObjectContractService;
 use App\Services\Objects\ObjectMaterialsService;
+use App\Services\Sale\Form3Service;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Settings\Settings;
@@ -44,6 +45,38 @@ class DocumentPrintController extends AbstractController
         ]);
         $domPdf->loadHtml($html);
         $domPdf->setPaper('A4', 'portrait');
+        $domPdf->render();
+        $domPdf->stream(Settings::INVOICE_SERIES.' '.$invoice->getNumber().'.pdf', [
+            'Attachment' => false,
+        ]);
+
+        return new Response('The PDF file has been successfully generated !');
+    }
+
+    /**
+     * @Route("/object/print/form3/{id}", name="print_form_3")
+     * 
+     * @IsGranted("ROLE_ACCOUNTANT")
+     */
+    public function printForm3(
+        int $id,
+        Form3Service $service
+    ) {
+
+        $pdfOption = new Options();
+        $pdfOption->set('defaultFont', 'timesnewroman');
+        $pdfOption->setIsRemoteEnabled(true);
+
+        $invoice = $service->printForm3($id);
+
+        $domPdf = new Dompdf($pdfOption);
+
+        $html = $this->renderView('document_print/form3.html.twig', [
+            'invoice' => $invoice,
+            'company' => new Company(),
+        ]);
+        $domPdf->loadHtml($html);
+        $domPdf->setPaper('A4', 'landscape');
         $domPdf->render();
         $domPdf->stream(Settings::INVOICE_SERIES.' '.$invoice->getNumber().'.pdf', [
             'Attachment' => false,
