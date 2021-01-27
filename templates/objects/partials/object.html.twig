@@ -51,7 +51,7 @@
         (<i>{{ object.buhContracts.name }} sutartis Nr. {{ object.buhContracts.number }}.
             date: {{ object.buhContracts.date|date('Y-m-d') }}</i>) 
             <a href="{{ path('print_contract', {'id': object.id}) }}">
-                {% trans %}Print{% endtrans %}
+                <i class="fa fa-print" aria-hidden="true"></i>
             </a>
         {% endif %}
         </div>
