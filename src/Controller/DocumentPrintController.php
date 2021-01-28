@@ -110,7 +110,7 @@ class DocumentPrintController extends AbstractController
         $domPdf->setPaper('A4', 'portrait');
         $domPdf->render();
         $domPdf->stream('sutartis '.$service->getObject($id)->getBuhContracts()->getNumber().'.pdf', [
-            'Attachment' => false,
+            'Attachment' => true,
         ]);
 
         return new Response('The PDF file has been successfully generated !');
@@ -206,13 +206,7 @@ class DocumentPrintController extends AbstractController
 
         $html = $this->renderView('document_print/monthReport.html.twig', [
             'materials' => $statisticService->getMonthReport(),
-            'statistic' => [
-                'month' => '2020 m. kovo mėn.',
-                'begin' => 123123.12,
-                'purchased' => 123123.12,
-                'debited' => 123123.12,
-                'end' => 123123.12,
-            ],
+            'statistic' => $statisticService->getStatistics()
         ]);
         $domPdf->loadHtml($html);
         $domPdf->setPaper('A4', 'landscape');

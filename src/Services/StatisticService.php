@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Entity\WarehouseReview;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -13,12 +14,14 @@ class StatisticService
     private $em;
     private $session;
     private $period;
+    private $statistics;
 
     public function __construct(EntityManagerInterface $entityManagerInterface)
     {
         $this->em = $entityManagerInterface;
         $this->session = new Session();
         $this->period = [];
+        $this->setStatistics();
     }
 
     public function getMonthReport()
@@ -93,6 +96,27 @@ class StatisticService
         $stmt->execute(['from' => $date->format('Y-m-01'), 'to' => $date->format('Y-m-t')]);
 
         return $stmt->fetchAll();
+    }
+
+    public function setStatistics(): self
+    {
+        $date = $this->session->get('interval')->getDate();
+        $rewiev = $this->em->getRepository(WarehouseReview::class)->getMonthRewiev();
+
+        $this->statistics = [
+            'month' => $rewiev->getMonthWord(),
+            'begin' => $rewiev->getBegin(),
+            'purchased' => $rewiev->getPurchased(),
+            'debited' => $rewiev->getDebited(),
+            'end' => $rewiev->getEnd(),
+        ];
+
+        return $this;
+    }
+
+    public function getStatistics(): array
+    {
+        return $this->statistics;
     }
 
     public function getPeriodStatistic()

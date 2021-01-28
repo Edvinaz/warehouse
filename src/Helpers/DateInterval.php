@@ -56,9 +56,14 @@ class DateInterval
         return $this->end;
     }
 
-    public function getDay(int $day)
+    public function getDay(int $day): string
     {
         return $this->begin->format('Y-m-'.$day);
+    }
+
+    public function getDayDate(int $day): DateTimeInterface
+    {
+        return new DateTime($this->getDay($day));
     }
 
     public function getDateIntervalDays(): array
