@@ -14,4 +14,9 @@ class MeasurementObject extends WareObjects
     {
         return 'measurementContract';
     }
+
+    public function getObjectContractName()
+    {
+        return 'measurementContract';
+    }
 }

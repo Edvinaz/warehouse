@@ -560,7 +560,7 @@ abstract class WareObjects
         return $this->getEntity()->getWorkedHours();
     }
 
-    public function getObjectContract(){}
+    public abstract function getObjectContract();
 
-    public function getObjectContractName(){}
+    public abstract function getObjectContractName();
 }
