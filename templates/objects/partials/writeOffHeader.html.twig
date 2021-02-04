@@ -1,4 +1,5 @@
-<div class="section_menu">
+<div class="card shadow mb-2">
+<div class="card-body">
     <div class="row">
         <div class="col-2">{% trans %}Write off number{% endtrans %}</div>
         <div class="col-2"><b>{{ writeOff.number }}</b></div>
@@ -16,7 +17,8 @@
         {% endif %}
     </div>
     <div class="row">
-        <div class="col-2">Nurašyta suma, Eur</div>
+        <div class="col-2">{% trans %}Debited sum{% endtrans %}, Eur</div>
         <div class="col-10"><b>{{ writeOff.amount|number_format(2, ',', ' ') }} €</b></div>
     </div>
+</div>
 </div>

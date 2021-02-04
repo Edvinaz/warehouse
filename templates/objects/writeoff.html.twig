@@ -1,13 +1,16 @@
-{% extends 'base.html.twig' %}
+{% extends 'base2.html.twig' %}
 
 {% block title %}{% trans %}Update Invoice details{% endtrans %}{% endblock %}
 
 {% block body %}
 
+<div class="container-fluid">
+
     {% include 'objects/partials/list_header.html.twig' %}
 
-    <div class="section_menu">
-        <table class="table_x">
+    <div class="card shadow mb-2">
+    <div class="card-body">
+        <table class="table table-hover">
             <thead>
             <tr>
                 <th>{% trans %}Number{% endtrans %}</th>
@@ -45,7 +48,7 @@
                 window.location.replace('writeOff/' + id);
             }
         </script>
-
     </div>
-
+    </div>
+</div>
 {% endblock %}

@@ -28,8 +28,11 @@
             {{ knp_menu_render('main', {'style': 'navbar'}) }}
             
           </div>
-          <form class="form-inline ml-md-auto d-none d-lg-flex searchform text-muted">
-            <input class="form-control mr-sm-2 bg-transparent border-0 pl-4 text-muted" type="search" placeholder="Type something..." aria-label="Search">
+          {# class = "searchform" #}
+          <form class="form-inline ml-md-auto d-none d-lg-flex text-muted" hidden>
+            <input class="form-control mr-sm-2 bg-transparent border-0 pl-4 text-muted" type="search" 
+            {# placeholder="Type something..."  #}
+            aria-label="Search" disabled>
           </form>
           <ul class="navbar-nav d-flex flex-row">
             {# <li class="nav-item">
@@ -62,7 +65,7 @@
                   <a class="nav-link pl-3" href="#">Profile</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link pl-3" href="#">Activities</a>
+                  <a class="nav-link pl-3" href="{{ path('app_logout') }}">{% trans %}Logout{% endtrans %}</a>
                 </li>
               </ul>
             </li>

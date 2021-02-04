@@ -103,13 +103,15 @@ class StatisticService
         $date = $this->session->get('interval')->getDate();
         $rewiev = $this->em->getRepository(WarehouseReview::class)->getMonthRewiev();
 
-        $this->statistics = [
-            'month' => $rewiev->getMonthWord(),
-            'begin' => $rewiev->getBegin(),
-            'purchased' => $rewiev->getPurchased(),
-            'debited' => $rewiev->getDebited(),
-            'end' => $rewiev->getEnd(),
-        ];
+        if ($rewiev){
+            $this->statistics = [
+                'month' => $rewiev->getMonthWord(),
+                'begin' => $rewiev->getBegin(),
+                'purchased' => $rewiev->getPurchased(),
+                'debited' => $rewiev->getDebited(),
+                'end' => $rewiev->getEnd(),
+            ];
+        }
 
         return $this;
     }
