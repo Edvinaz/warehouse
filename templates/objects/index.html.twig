@@ -1,13 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'base2.html.twig' %}
 
 {% block title %}{% trans %}Objects list{% endtrans %}{% endblock %}
 
 {% block body %}
-
+<div class="container-fluid">
  {% include 'objects/partials/list_header.html.twig' %}
 
+<div class="card shadow">
+<div class="card-body">
 <div class="section_menu" id="object_list">
-    <table width="100%" class="table_x">
+    <table width="100%" class="table table-hover">
         <thead>
         <tr>
             <th>{% trans %}Customer{% endtrans %}</th>
@@ -53,11 +55,13 @@
         {% endif %}
         </div>
     </div>
+    </div></div>
 
     <script>
         function clickedObject(id) {
             window.location.replace('objects/' + id);
         }
     </script>
+</div>
 </div>
 {% endblock %}

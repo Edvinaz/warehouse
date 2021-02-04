@@ -1,50 +1,47 @@
-<div class="section_menu">
-    <div class="level1buttons">
-        <a class="first" href="{{ path('objects') }}">{% trans %}Objects list{% endtrans %}</a><!--
-        --><a href="{{ path('write_off') }}">{% trans %}Write-off list{% endtrans %}</a><!--
-        --><a href="{{ path('edit_object', {'id': 0}) }}">{% trans %}New object{% endtrans %}</a><!--
-        --><a class="last" href="">{% trans %}New write-off{% endtrans %}</a>
-    </div>
-    {% if object is defined %}
-    <div class="level2buttons">
-        <a class="first" href="{{ path('edit_object', {'id': object.id}) }}">
+<div class="card shadow mb-2">
+<div class="card-body">
+    <div class="btn-group" role="group">
+        <a class="btn mb-2 btn-outline-primary" href="{{ path('objects') }}">{% trans %}Objects list{% endtrans %}</a>
+        <a class="btn mb-2 btn-outline-primary" href="{{ path('write_off') }}">{% trans %}Write-off list{% endtrans %}</a>
+        <a class="btn mb-2 btn-outline-primary" href="{{ path('edit_object', {'id': 0}) }}">{% trans %}New object{% endtrans %}</a>
+        <a class="btn mb-2 btn-outline-primary" class="last" href="">{% trans %}New write-off{% endtrans %}</a>
+    </div><br/>
+{% if object is defined %}
+    <div class="btn-group" role="group">
+         <a class="btn mb-2 btn-outline-primary btn-sm" href="{{ path('edit_object', {'id': object.id}) }}">
             {% trans %}Edit{% endtrans %}
         </a>
         {% if not object.reserved or not object.invoices %}
-        <a class="danger" href="{{ path('delete_object', {'id': object.id}) }}">
+        <a class="btn mb-2 btn-outline-danger btn-sm" href="{{ path('delete_object', {'id': object.id}) }}">
             {% trans %}Delete{% endtrans %}
         </a>
         {% endif %}
-        <a href="{{ path('object_contract_edit', {'objectId': object.id}) }}">
+        <a class="btn mb-2 btn-outline-primary btn-sm" href="{{ path('object_contract_edit', {'objectId': object.id}) }}">
         {% if not object.hasContract %}
             {% trans %}New contract{% endtrans %}
         {% else %}
             {% trans %}Edit contract{% endtrans %}
         {% endif %}
         </a>
-        <a href="{{ path('object_invoice', {'id': object.id}) }}">
+        <a class="btn mb-2 btn-outline-primary btn-sm" href="{{ path('object_invoice', {'id': object.id}) }}">
             {% trans %}New invoice{% endtrans %}
-        </a ><!--
-        --><a href="{{ path('print_reserved_materials', {'id': object.id}) }}">
+        </a>
+        <a class="btn mb-2 btn-outline-primary btn-sm" href="{{ path('print_reserved_materials', {'id': object.id}) }}">
             {% trans %}Print reserved materials{% endtrans %}
-        </a><!--
-        --><a href="{{ path('object_time_card', {'id': object.id}) }}">
+        </a>
+        <a class="btn mb-2 btn-outline-primary btn-sm" href="{{ path('object_time_card', {'id': object.id}) }}">
             {% trans %}Time-card{% endtrans %}
-        </a><!--
-        {# --><a href="{{ path('recalculate_object_details', {'objectId': object.id}) }}">
-            {% trans %}Recalculate{% endtrans %}
-        </a><!-- #}
-        --><a class="last" href="{{ path('object_info', {'id': object.id}) }}">
+        </a>
+        <a class="btn mb-2 btn-outline-primary btn-sm" href="{{ path('object_info', {'id': object.id}) }}">
             {% trans %}Back{% endtrans %}
         </a>
     </div>
     {% endif %}
     {% if object_list is defined %}
     <form class="search" method="GET">
-        <input class="first last" name="search" placeholder="objekto paieška..." size="150" value="{{ search }}"/><!--
-        --><button type="submit" hidden>{% trans %}Search{% endtrans %}</button>
+        <input id="example-helping" class="form-control" name="search" placeholder="objekto paieška..." value="{{ search }}"/>
+        <button type="submit" hidden>{% trans %}Search{% endtrans %}</button>
     </form>
     {% endif %}
 </div>
-
-
+</div>

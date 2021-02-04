@@ -1,0 +1,59 @@
+
+    <div class="btn-group" role="group">
+        <a class="{{ 
+            object.status == 'OFFER' ? 
+                'btn mb-2 btn-outline-primary btn-sm': 
+                'btn mb-2 btn-outline-secondary btn-sm' 
+            }}" href="{{ path('update_object_status', {'id': object.id, 'status': 'OFFER'}) }}">Pasiūlymas</a>
+        <a class="{{ object.status == 'EXECUTING' ? 
+                'btn mb-2 btn-outline-primary btn-sm': 
+                'btn mb-2 btn-outline-secondary btn-sm' 
+            }}" href="{{ path('update_object_status', {'id': object.id, 'status': 'EXECUTING'}) }}">Vykdomas</a>
+        <a class="{{ object.status == 'DONE' ? 
+                'btn mb-2 btn-outline-primary btn-sm': 
+                'btn mb-2 btn-outline-secondary btn-sm' 
+            }}" href="{{ path('update_object_status', {'id': object.id, 'status': 'DONE'}) }}">Baigtas</a>
+        <a class="{{ object.status == 'CLOSED' ? 
+                'btn mb-2 btn-outline-primary btn-sm': 
+                'btn mb-2 btn-outline-secondary btn-sm' 
+            }}" href="{{ path('update_object_status', {'id': object.id, 'status': 'CLOSED'}) }}">Uždarytas</a>
+    </div>
+<div class="card-body">
+        {% if is_granted('ROLE_ADMIN') %}
+        <form class="staff-update" method="POST">
+        <label class="name">Manager</label>
+            <div class="input-group">
+            <select class="custom-select" name="manager">
+                {% for person in staff.responsible %}
+                    <option value={{ person.id }}>{{ person.person.fullName }}</option>
+                {% endfor %}
+            </select>
+            <button class="btn btn-primary" type="submit">Add</button>
+            </div>
+        </form>
+        <form class="staff-update">
+            <label class="name">Foremen</label>
+            <div class="input-group">
+            <select class="custom-select" name="foremen">
+                {% for person in staff.allStaff %}
+                    <option value={{ person.id }}>{{ person.person.fullName }}</option>
+                {% endfor %}
+            </select>
+            <button class="btn btn-primary" type="submit">Add</button>
+            </div>
+        </form>
+        {% else %}
+        <br/><br/>
+        {% endif %}
+        <form class="staff-update">
+            <label class="name">Staff</label>
+            <div class="input-group">
+            <select class="custom-select" name="staff">
+                {% for person in staff.notResponsible %}
+                    <option value={{ person.id }}>{{ person.person.fullName }}</option>
+                {% endfor %}
+            </select>
+            <button class="btn btn-primary" type="submit">Add</button>
+            </div>
+        </form>
+    </div>

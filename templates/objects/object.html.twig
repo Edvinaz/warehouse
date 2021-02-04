@@ -1,50 +1,61 @@
-{% extends 'base.html.twig' %}
+{% extends 'base2.html.twig' %}
 
 {% block title %}{{ object.number }}. {{ object.name }}, {{ object.adress }}{% endblock %}
 
 {% block body %}
-
+<div class="container-fluid">
     {% include 'objects/partials/list_header.html.twig' %}
 
     {% include 'objects/partials/object.html.twig' %}
-
-    <div class="section_menu">
-        <div class="row">
-            <div class="col-12">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-body">
                 <table class="table">
-                <tr>
-                    {% for key, month in reservedMaterialsByMonth %}
-                        <td onclick="printMonthMaterials( {{ month }}, {{ key }}, {{ object.id }} )">
-                            {# <a href="{{ path('print_reserved_materials_month', {'id': object.id, 'month': key}) }}">{{ key }} ({{ month|number_format(2, ',', ' ') }} Eur)</a> #}
-                        </td>
-                    {% endfor %}
-                </tr>
-                </table>
-            </div>
-            <div class="col-6">
-                <table class="table table-hover">
-                    <thead>
                     <tr>
-                        <th>{% trans %}Name{% endtrans %}</th>
-                        <th>{% trans %}Unit{% endtrans %}</th>
-                        <th>{% trans %}Quantity{% endtrans %}</th>
-                        <th>{% trans %}Price{% endtrans %}</th>
-                    </tr> 
-                    </thead>
-                    <tbody>
-                    {% for material in reservedMaterials %}
-                        <tr onclick="cancelReservation({{material.id}}, {{ object.id }})">
-                            <td>{{ material.name }}</td>
-                            <td>{{ material.unit }}</td>
-                            <td>{{ material.quantity|number_format(1, ',', ' ') }}</td>
-                            <td>{{ material.price|number_format(2, ',', ' ') }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
+                        {% for key, month in reservedMaterialsByMonth %}
+                            <td onclick="printMonthMaterials( {{ month }}, {{ key }}, {{ object.id }} )">
+                                <a href="{{ path('print_reserved_materials_month', {'id': object.id, 'month': key}) }}">{{ key }} ({{ month|number_format(2, ',', ' ') }} Eur)</a>
+                            </td>
+                        {% endfor %}
+                    </tr>
                 </table>
+                </div>
             </div>
-            <div class="col-6">
-                <table class="table table-hover">
+        </div>
+
+        <div class="col-6">
+            <div class="card shadow md-2">
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>{% trans %}Name{% endtrans %}</th>
+                            <th>{% trans %}Unit{% endtrans %}</th>
+                            <th>{% trans %}Quantity{% endtrans %}</th>
+                            <th>{% trans %}Price{% endtrans %}</th>
+                        </tr> 
+                        </thead>
+                        <tbody>
+                        {% for material in reservedMaterials %}
+                            <tr onclick="cancelReservation({{material.id}}, {{ object.id }})">
+                                <td>{{ material.name }}</td>
+                                <td>{{ material.unit }}</td>
+                                <td>{{ material.quantity|number_format(1, ',', ' ') }}</td>
+                                <td>{{ material.price|number_format(2, ',', ' ') }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card shadow md-2">
+                <div class="card-body">
+                 <table class="table table-hover">
                     <thead>
                     <tr>
                         <th>{% trans %}Number{% endtrans %}</th>
@@ -93,8 +104,13 @@
                     {% endfor %}
                     </tbody>
                 </table>
+                
+                
+                </div>
             </div>
         </div>
+    </div>
+
     </div>
 
     <script>
