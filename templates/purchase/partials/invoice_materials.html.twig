@@ -1,3 +1,5 @@
+<div class="card shadow mb2">
+<div class="card-body">
 <table class="table table-hover">
     <thead>
     <tr>
@@ -16,12 +18,12 @@
             <td>{{ material.quantity|number_format(2, ',', ' ') }}</td>
             <td>{{ material.price }}</td>
             <td><a href="{{ path('delete_purchased_material', {'id': invoice.id, 'purchase': material.id}) }}">
-                <span style="font-size: 18px; color: Tomato;">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                </span>
+                <span class="fe fe-21 fe-trash-2 red"></span>
                 </a>
             </td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
+</div>
+</div>

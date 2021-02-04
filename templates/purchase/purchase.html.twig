@@ -1,41 +1,37 @@
-{% extends 'base.html.twig' %}
+{% extends 'base2.html.twig' %}
 
 {% block title %}{% trans %}Update Invoice details{% endtrans %}{% endblock %}
 
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
+<div class="container-fluid">
 
     {% include('purchase/partials/menu.html.twig') %}
 
     {% include('purchase/partials/invoice_header.html.twig') %}
 
-    <div class="container">
         <div class="row invoiceHead">
             <div class="col-6">
-                {# {% include('purchase/partials/search.html.twig') %} #}
+                <div class="card shadow" style="height: 100%"></div>
             </div>
             <div class="col-6">
-                <div class="row">
-                    <div class="col-4">{% trans %}Sum{% endtrans %}, €</div>
-                    <div class="col-4">{% trans %}VAT{% endtrans %}, €</div>
-                    <div class="col-4">{% trans %}Sum with VAT{% endtrans %}, €</div>
-                </div>
-                <div class="row">
-                    <div class="col-4"><b>{{ invoice.amount }}</b></div>
-                    <div class="col-4"><b>{{ invoice.vat }}</b></div>
-                    <div class="col-4"><b>{{ invoice.amount + invoice.vat }}</b></div>
-                </div>
+                {% include 'purchase/partials/invoice_sum.html.twig' %}
             </div>
         </div>
         <div class="row">
             <div class="col-6">
-                {{ form(form) }}
+                <div class="card shadow">
+                    <div class="card-body">
+                        {{ form(form) }}
+                    </div>
+                </div> 
             </div>
             <div class="col-6">
                 {% include 'purchase/partials/invoice_materials.html.twig' %}
             </div>
         </div>
+
         <script>
             function purchaseMaterial(id, invoice) {
                 window.location.replace('purchase/' + invoice + '/' + id);

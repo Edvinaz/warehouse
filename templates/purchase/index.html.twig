@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base2.html.twig' %}
 
 {% block title %}{% trans %}Purchase{% endtrans %}{% endblock %}
 
@@ -7,34 +7,40 @@
 {% endblock %}
 
 {% block body %}
+    
+    <div class="container-fluid">
+
     {% include('purchase/partials/menu.html.twig') %}
-
-    <div class="section_menu" id="invoice_list">
-        <table width="100%" class="table table-hover">
-            <thead>
-            <tr>
-                <th>{% trans %}Number{% endtrans %}</th>
-                <th>{% trans %}Date{% endtrans %}</th>
-                <th>{% trans %}Seller{% endtrans %}</th>
-                <th>{% trans %}Sum{% endtrans %}, Eur</th>
-            </tr>
-            </thead>
-            {% for invoice in purchases %}
-            <tbody>
-                <tr onclick="clickedInvoice({{ invoice.id }})">
-                    <td>{{ invoice.number }}</td>
-                    <td>{{ invoice.date|date('Y-m-d') }}</td>
-                    <td>{{ invoice.getContrahent.name }}</td>
-                    <td>{{ invoice.amount|number_format(2, ',', ' ') }}</td>
+    
+    <div class="card shadow mb-4">
+        <div class="card-body" id="invoice_list">
+            <table width="100%" class="table table-hover">
+                <thead>
+                <tr>
+                    <th>{% trans %}Number{% endtrans %}</th>
+                    <th>{% trans %}Date{% endtrans %}</th>
+                    <th>{% trans %}Seller{% endtrans %}</th>
+                    <th>{% trans %}Sum{% endtrans %}, Eur</th>
                 </tr>
-            </tbody>
-            {% endfor %}
-        </table>
+                </thead>
+                {% for invoice in purchases %}
+                <tbody>
+                    <tr onclick="clickedInvoice({{ invoice.id }})">
+                        <td>{{ invoice.number }}</td>
+                        <td>{{ invoice.date|date('Y-m-d') }}</td>
+                        <td>{{ invoice.getContrahent.name }}</td>
+                        <td>{{ invoice.amount|number_format(2, ',', ' ') }}</td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
 
-        <script>
-            function clickedInvoice(id) {
-                window.location.replace('purchase/' + id);
-            }
-        </script>
+            <script>
+                function clickedInvoice(id) {
+                    window.location.replace('purchase/' + id);
+                }
+            </script>
+        </div>
+        </div>
     </div>
 {% endblock %}

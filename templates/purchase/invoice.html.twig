@@ -1,35 +1,26 @@
-{% extends 'base.html.twig' %}
+{% extends 'base2.html.twig' %}
 
 {% block title %}{% trans %}Update Invoice details{% endtrans %}{% endblock %}
 
 {% block body %}
-
+<div class="container-fluid">
     {% include('purchase/partials/menu.html.twig') %}
 
     {% include 'purchase/partials/invoice_header.html.twig' %}
     
-    <div class="container">
         <div class="row invoiceHead">
             <div class="col-6">
                 {% include 'purchase/partials/search.html.twig' %}
-
             </div>
             <div class="col-6">
-                <div class="row">
-                    <div class="col-4">{% trans %}Sum{% endtrans %}, €</div>
-                    <div class="col-4">{% trans %}VAT{% endtrans %}, €</div>
-                    <div class="col-4">{% trans %}Sum with VAT{% endtrans %}, €</div>
-                </div>
-                <div class="row">
-                    <div class="col-4"><b>{{ invoice.amount|number_format(2, ',', ' ') }}</b></div>
-                    <div class="col-4"><b>{{ invoice.vat|number_format(2, ',', ' ') }}</b></div>
-                    {% set sum_with_vat = invoice.amount + invoice.vat %}
-                    <div class="col-4"><b>{{ sum_with_vat|number_format(2, ',', ' ') }}</b></div>
-                </div>
+                {% include 'purchase/partials/invoice_sum.html.twig' %}
             </div>
         </div>
+
         <div class="row">
             <div class="col-6">
+            <div class="card shadow">
+            <div class="card-body">
                 <table class="table table-hover">
                     <thead>
                     <tr>
@@ -46,6 +37,8 @@
                     {% endfor %}
                     </tbody>
                 </table>
+                </div>
+                </div>
                 <div>
                     {{ helper.currentMaterialsPage }} /
                     {{ helper.maxMaterialsPage }}

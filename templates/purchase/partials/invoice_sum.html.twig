@@ -1,0 +1,13 @@
+<div class="card shadow" style="height: 100%">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-2">{% trans %}Sum{% endtrans %}, €</div>
+            <div class="col-2"><b>{{ invoice.amount|number_format(2, ',', ' ') }}</b></div>
+            <div class="col-2">{% trans %}VAT{% endtrans %}, €</div>
+            <div class="col-2"><b>{{ invoice.vat|number_format(2, ',', ' ') }}</b></div>
+            <div class="col-2">{% trans %}Sum with VAT{% endtrans %}, €</div>
+            {% set sum_with_vat = invoice.amount + invoice.vat %}
+            <div class="col-2"><b>{{ sum_with_vat|number_format(2, ',', ' ') }}</b></div>
+        </div>
+    </div>
+</div>

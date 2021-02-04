@@ -1,10 +1,18 @@
-{{ form_start(form) }}
-<div class="section_menu section_full">
-    <div class="search">
-        {{ form_widget(form.materialSearch, {'attr': {'class': 'first width60', 'placeholder': 'search here'}}) }}<!--
-        --><button type="button" class="width20" onclick="purchaseMaterial(0, {{ invoice.id }})">{% trans %}New{% endtrans %}</button><!--
-        -->{{ form_widget(form.submit, {'attr': {'class': 'last width20'}}) }}
+
+<div class="card shadow" style="height: 100%">
+    <div class="card-body">
+    {{ form_start(form) }}
+    <div class="input-group mb-3">
+        {{ form_widget(form.materialSearch, {'attr': {'class': 'form-control', 'placeholder': 'search here'}}) }}
+    <div class="input-group-append">
         {{ form_widget(form.currentMaterialsPage, {'attr': {'hidden': 'true'}}) }}
+        <button type="button" class="btn btn-outline-primary" onclick="purchaseMaterial(0, {{ invoice.id }})">
+            <span class="fe fe-21 fe-plus"></span>
+        </button>
+        {{ form_widget(form.submit, {'attr': {'class': 'btn btn-outline-primary',
+        'id': 'button-addon2'}}) }}
+    </div>
+    </div>
+    {{ form_end(form) }}
     </div>
 </div>
-{{ form_end(form) }}

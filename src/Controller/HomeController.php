@@ -121,4 +121,16 @@ class HomeController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/base2", name="month_purchase_statistic")
+     * 
+     * @IsGranted("ROLE_ACCOUNTANT")
+     */
+    public function BaseTwo()
+    {
+        return $this->render('confirm2.html.twig', [
+            // 'report' => $service->purchaseReport(),
+        ]);
+    }
+
 }
