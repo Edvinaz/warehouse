@@ -31,9 +31,13 @@ class HelperController extends AbstractController
     */
     public function homes(TransportBlockService $transport)
     {
-        return $this->render('home/index.html.twig', [
-            'list' => $transport->getBlockList(),
-        ]);
+        if ($this->getUser()){
+            return $this->render('home/index.html.twig', [
+                'list' => $transport->getBlockList(),
+            ]);
+        } else {
+            return $this->redirectToRoute('app_login');
+        }
     }
 
     /**

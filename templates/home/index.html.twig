@@ -1,60 +1,71 @@
-{% extends 'base.html.twig' %}
+{% extends 'base2.html.twig' %}
 
-{% block title %}Main dashboard!{% endblock %}
+{% block title %}Main dashboard!
+{% endblock %}
 
 {% block body %}
 
-{% if app.user %}
-<div class="container">
-    <div class="row">
-        <div class="col-6">
-            <ul>
-                <li>
-                    <a href="{{ path('new_invoice') }}">Nauja pirkimo sąskaita</a>
-                </li>
-                <li>
-                    <a href="{{ path('write_off') }}">Nurašymo aktai</a>
-                </li>
-                {% if is_granted('ROLE_ADMIN') %}
-                <li>
-                    <a href="{{ path('transport_list') }}">Transporto sąrašas</a>
-                </li>
-                <li>
-                    <a href="{{ path('easyadmin') }}">Administravimo puslapis</a>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
-        <div class="col-6">
-        <table width="100%">
-        <tr>
-            <th>Valst. Nr.</th>
-            <th>Draudimas</th>
-            <th>Kelių mokestis</th>
-        </tr>
-        {% for key, item in list %}
-        <tr>
-            <td>{{ key }}</td>
-            <td>
-                {% if item.insurancedays > -30 and item.insurancedays < 60 %}
-                    {{ item.insurance|date("Y-m-d") }} ({{ item.insurancedays }})
-                {% endif %}
-            </td>
-            <td>
-                {% if item.roadtax is not null and item.roadtaxdays < 60 %}
-                    {{ item.roadtax|date("Y-m-d") }} ({{ item.roadtaxdays }})
-                {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
-        </table>
-        </div>
-    </div>
-</div>
-{% else %}
-<div class="container">
-Prašome prisijungti.
-</div>
-{% endif %}
+	{% if app.user %}
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-6">
+					<div class="card shadow" height="100%">
+						<div class="card-body">
+							<ul>
+								<li>
+									<a href="{{ path('new_invoice') }}">Nauja pirkimo sąskaita</a>
+								</li>
+								<li>
+									<a href="{{ path('write_off') }}">Nurašymo aktai</a>
+								</li>
+								{% if is_granted('ROLE_ADMIN') %}
+									{# <li>
+										<a href="{{ path('transport_list') }}">Transporto sąrašas</a>
+									</li> #}
+									<li>
+										<a href="{{ path('easyadmin') }}">Administravimo puslapis</a>
+									</li>
+								{% endif %}
+							</ul>
+						</div>
+					</div>
+				</div>
+				{# <div class="col-6">
+					<div class="card shadow">
+						<div class="card-body">
+							<table width="100%">
+								<tr>
+									<th>Valst. Nr.</th>
+									<th>Draudimas</th>
+									<th>Kelių mokestis</th>
+								</tr>
+								{% for key, item in list %}
+									<tr>
+										<td>{{ key }}</td>
+										<td>
+											{% if item.insurancedays > -30 and item.insurancedays < 60 %}
+												{{ item.insurance|date("Y-m-d") }}
+												({{ item.insurancedays }})
+											{% endif %}
+										</td>
+										<td>
+											{% if item.roadtax is not null and item.roadtaxdays < 60 %}
+												{{ item.roadtax|date("Y-m-d") }}
+												({{ item.roadtaxdays }})
+											{% endif %}
+										</td>
+									</tr>
+								{% endfor %}
+							</table>
+						</div>
+					</div>
+				</div> #}
+			</div>
+		</div>
+	{% else %}
+		<div class="container-fluid">
+			Prašome prisijungti.
+		</div>
+	{% endif %}
 
 {% endblock %}
