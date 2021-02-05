@@ -118,7 +118,17 @@ class StatisticService
 
     public function getStatistics(): array
     {
-        return $this->statistics;
+        if ($this->statistics) {
+            return $this->statistics;
+        }
+        
+        return [
+            'month' => '12',
+            'begin' => '0',
+            'purchased' => '0',
+            'debited' => '0',
+            'end' => '0'
+        ];
     }
 
     public function getPeriodStatistic()

@@ -5,7 +5,6 @@ use App\Helpers\DateInterval;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 class MenuBuilder
 {
@@ -67,7 +66,7 @@ class MenuBuilder
             );
         }
 
-        if ($this->security->isGranted('ROLE_USER')) {
+        if ($this->security->isGranted('ROLE_SUPER_USER')) {
             $dropdown = $menu->addChild(
                 'Transport',
                 [
