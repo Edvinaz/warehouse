@@ -75,7 +75,11 @@ easy_admin:
             label: 'Darbuotojų vardai'
 
         Staff:
-            class: App\Entity\Staff\Staff
+            class: App\Entity\Staff\ResponsibleModel
+            label: 'Vadovai'
+        
+        Workers:
+            class: App\Entity\Staff\WorkerModel
             label: 'Darbuotojai'
 
         SalesInvoices:
