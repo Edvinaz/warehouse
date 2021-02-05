@@ -25,4 +25,11 @@ class ResponsibleModel extends Staff
         return $this->notes;
     }
 
+    public function setNotes($notes)
+    {
+        $this->notes = $notes;
+
+        return $this;
+    }
+
 }
