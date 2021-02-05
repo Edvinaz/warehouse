@@ -1,23 +1,23 @@
-{% extends 'base.html.twig' %}
+{% extends 'base2.html.twig' %}
 
-{% block title %}{% trans %}New Object{% endtrans %}{% endblock %}
+{% block title %}
+	{% trans %}New Object{% endtrans %}
+{% endblock %}
 
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
-{% block content %}
-
-{% endblock %}
+{% block content %}{% endblock %}
 
 {% block body %}
+	<div class="container-fluid" id="invoice_form">
+		{% include 'objects/partials/list_header.html.twig' %}
 
-    {% include 'objects/partials/list_header.html.twig' %}
 
-    <div class="container" id="invoice_form">
-        <div class="card">
-            <div class="card-header">{% trans %}Object{% endtrans %}</div>
-            <div class="card-body">
-                {{ form(form) }}
-            </div>
-        </div>
-    </div>
-{% endblock %}
+		<div class="card shadow">
+			<div class="card-header">{% trans %}Object{% endtrans %}</div>
+			<div class="card-body">
+				{{ form(form) }}
+				</div>
+			</div>
+		</div>
+	{% endblock %}

@@ -6,10 +6,11 @@ namespace App\Services;
 use App\Entity\Objects\WareObjects;
 use App\Repository\BuhInvoicesRepository;
 use App\Repository\WareObjectsRepository;
+use App\Entity\Objects\InstallationObject;
 use App\Repository\BuhContractsRepository;
+use App\Repository\WareWriteOffsRepository;
 use App\Repository\BuhInvoiceContentRepository;
 use App\Repository\Objects\ObjectMaterialsRepository;
-use App\Repository\WareWriteOffsRepository;
 
 class ObjectsService
 {
@@ -40,7 +41,7 @@ class ObjectsService
         int $objectId
     ): WareObjects {
         if ($objectId === 0) {
-            return new WareObjects();
+            return new InstallationObject();
         }
         return $this->objectsRepository->find($objectId);
     }
