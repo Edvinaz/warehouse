@@ -1,11 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'base2.html.twig' %}
 
 {% block title %}{% endblock %}
 
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
-<div class="container">
-    {{ form(form) }}
+<div class="container-fluid">
+    <div class="card shadow">
+        <div class="card-body">
+            {{ form(form) }}
+        </div>
+    </div>
 </div>
 {% endblock %}
