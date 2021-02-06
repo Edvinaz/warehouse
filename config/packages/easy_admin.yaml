@@ -15,7 +15,7 @@ easy_admin:
             label: 'Kontrahentai'
 
         Object:
-            class: App\Entity\Objects\WareObjects
+            class: App\Entity\Objects\InstallationObject
             label: 'Objektai'
 
             # form:
