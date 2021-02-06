@@ -1,18 +1,16 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Services\Objects;
 
-use App\Models\Worker;
 use App\Models\ObjectDetails;
 use App\Services\ObjectsService;
-use App\Entity\Staff\WorkerModel;
 use App\Entity\Objects\WareObjects;
-use App\Entity\Staff\ResponsibleModel;
 
 class ObjectManageService extends ObjectsService
 {
-    public function saveObject(WareObjects $object): self
+    public function saveObject(WareObjects $object): WareObjects
     {
         if (is_null($object->getEntity())) {
             $details = new ObjectDetails();
@@ -23,14 +21,17 @@ class ObjectManageService extends ObjectsService
         $object->setEntity($details);
         $this->objectsRepository->save($object);
 
-        return $this;
+        return $object;
     }
 
     public function deleteObject(WareObjects $object): void
     {
         //TODO throw new \Exception('Object won\'t be deleted');
-        
-        $this->objectsRepository->deleteObject($object);
+        try {
+            $this->objectsRepository->deleteObject($object);
+        } catch (\Exception $e) {
+            throw new \Exception('Object can\'t be deleted');
+        }
     }
 
     public function calculateObjectReservedMaterialsByPurchaseMonth(

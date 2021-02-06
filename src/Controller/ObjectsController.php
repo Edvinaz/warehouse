@@ -35,18 +35,18 @@ class ObjectsController extends AbstractController
      * @IsGranted("ROLE_ACCOUNTANT")
      */
     public function index(
-        Request $request, 
+        Request $request,
         ObjectListService $service
     ): Response {
         //! Done
         // TODO reikia padaryti objektų paiešką, filtravimą pagal įvykdymą
 
         $list = $service->getObjectList(
-            $request->get('search', ''), 
-            $request->get('status', ''), 
+            $request->get('search', ''),
+            $request->get('status', ''),
             (int) $request->get('page', 0)
         );
-        
+
         return $this->render('objects/index.html.twig', [
             'object_list' => $list->current(),
             'page' => $list->key(),
@@ -63,8 +63,8 @@ class ObjectsController extends AbstractController
      * @IsGranted("ROLE_ACCOUNTANT")
      */
     public function editObject(
-        int $id, 
-        Request $request, 
+        int $id,
+        Request $request,
         ObjectManageService $service
     ): Response {
         $form = $this->createForm(WareObjectType::class, $service->getObject($id));
@@ -76,7 +76,7 @@ class ObjectsController extends AbstractController
             $submittedObject = $service->saveObject($submittedObject);
 
             return $this->redirectToRoute('object_info', [
-                'id' => $id,
+                'id' => $submittedObject->getId(),
             ]);
         }
 
@@ -93,9 +93,9 @@ class ObjectsController extends AbstractController
      * @IsGranted("ROLE_ACCOUNTANT")
      */
     public function deleteObject(
-        int $id, 
+        int $id,
         ObjectManageService $service
-    ): Response { 
+    ): Response {
         try {
             $service->deleteObject($service->getObject($id));
         } catch (AccessDeniedException $exception) {
@@ -113,8 +113,8 @@ class ObjectsController extends AbstractController
      * @IsGranted("ROLE_ACCOUNTANT")
      */
     public function objectInfo(
-        int $id, 
-        Request $request,  
+        int $id,
+        Request $request,
         ObjectManageService $service,
         ObjectStaffService $staffService,
         StaffListInterface $staffList,
@@ -177,13 +177,13 @@ class ObjectsController extends AbstractController
      * @IsGranted("ROLE_ACCOUNTANT")
      */
     public function objectContractEdit(
-        int $objectId, 
+        int $objectId,
         Request $request,
         ObjectContractService $service
     ): Response {
 
         $form = $this->createForm(
-            ObjectContractType::class, 
+            ObjectContractType::class,
             $service->getContract($objectId)
         );
 
@@ -210,15 +210,15 @@ class ObjectsController extends AbstractController
      * @IsGranted("ROLE_ACCOUNTANT")
      */
     public function objectNewInvoice(
-        int $id, 
-        Request $request, 
+        int $id,
+        Request $request,
         ObjectInvoiceService $service
     ): Response {
 
         $invoiceId = $request->get('invoiceId', null);
 
         $form = $this->createForm(
-            ObjectInvoiceType::class, 
+            ObjectInvoiceType::class,
             $service->getInvoice($id, $invoiceId)
         );
 
@@ -245,14 +245,14 @@ class ObjectsController extends AbstractController
      * @IsGranted("ROLE_ACCOUNTANT")
      */
     public function objectAddInvoiceContent(
-        int $id, 
-        int $invoiceId, 
-        Request $request, 
+        int $id,
+        int $invoiceId,
+        Request $request,
         ObjectInvoiceService $service
     ): Response {
 
         $form = $this->createForm(
-            ObjectInvoiceContentType::class, 
+            ObjectInvoiceContentType::class,
             $service->getInvoiceContent($id, $invoiceId)
         );
 
@@ -279,7 +279,7 @@ class ObjectsController extends AbstractController
      * @IsGranted("ROLE_ACCOUNTANT")
      */
     public function objectRemoveInvoiceContent(
-        int $id, 
+        int $id,
         int $contentId,
         ObjectInvoiceService $service
     ): Response {
@@ -297,8 +297,8 @@ class ObjectsController extends AbstractController
      * @IsGranted("ROLE_ACCOUNTANT")
      */
     public function updateObjectStatus(
-        int $id, 
-        string $status, 
+        int $id,
+        string $status,
         ObjectManageService $service
     ): Response {
 
@@ -307,5 +307,5 @@ class ObjectsController extends AbstractController
         return $this->redirectToRoute('object_info', [
             'id' => $id,
         ]);
-    } 
+    }
 }

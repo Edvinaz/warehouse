@@ -41,7 +41,9 @@ class ObjectsService
         int $objectId
     ): WareObjects {
         if ($objectId === 0) {
-            return new InstallationObject();
+            $object = new InstallationObject();
+            $object->setNumber($this->objectsRepository->getLastNumber());
+            return $object;
         }
         return $this->objectsRepository->find($objectId);
     }
