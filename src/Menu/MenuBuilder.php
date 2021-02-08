@@ -66,7 +66,7 @@ class MenuBuilder
             );
         }
 
-        if ($this->security->isGranted('ROLE_SUPER_USER')) {
+        if ($this->security->isGranted('ROLE_ADMIN')) {
             $dropdown = $menu->addChild(
                 'Transport',
                 [

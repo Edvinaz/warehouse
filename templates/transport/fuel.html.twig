@@ -1,57 +1,61 @@
-{% extends 'base.html.twig' %}
+{% extends 'base2.html.twig' %}
 
-{% block title %}Nepanaudotas kuras{% endblock %}
+{% block title %}
+	{% trans %}
+	Assign fuel
+	{% endtrans %}
+{% endblock %}
 
 {% block body %}
-<div class="container">
-    {% for fuel in list %}
-    <div class="row">
-        <div class="col-2" align="center" vertical-align="middle">
-            {{ fuel.materialName }}
-        </div>
-        <div class="col-2">
-            {% if fuel.note|length > 1 %}
-                {{ fuel.note[2] }}
-            {% else %}
-                {{ fuel.purchaseDate|date("Y-m-d") }}
-            {% endif %}
-        </div>
-        <div class="col-1">
-            {{ fuel.price }}
-        </div>
-        <div class="col-1">
-            {{ fuel.quantity }}
-        </div>
-        <div class="col-6">
-        <form method="post" action="{{ path('add_fuel', {'id': fuel.id}) }}">
-            <div class="row">
-                <select name="auto" class="form-control col-5">
-                    <option></option>
-                {% for auto in transport %}
-                    {% if fuel.category == auto.mainFuel or fuel.category == auto.secondaryFuel %}
-                        {% if auto.id == fuel.note[0] %}
-                            <option selected value="{{ auto.id }}" disabled>{{ auto }}</option>
-                        {% else %}
-                            <option value="{{ auto.id }}" 
-                            {% if auto.monthlyUsageClosed %}
-                                disabled
-                            {% endif %}
-                            >{{ auto }}</option>
-                        {% endif %}
-                    {% endif %}
-                {% endfor %}
-                </select>
-                {% if fuel.note|length > 1 %}
-                    <input name="tacho" class="form-control col-4" value="{{ fuel.note[1] }}" />
-                {% else %}
-                    <input name="tacho" class="form-control col-4" value="" />
-                {% endif %}
-                <input type="hidden" name="id" value="{{ fuel.id }}"/>
-                <input type="submit" class="col-3" />
-            </div>
-        </form>
-        </div>
-    </div>
-    {% endfor %}
-</div>
+	<div class="container-fluid">
+		<div class="card shadow">
+			<div class="card-body">
+				{% for fuel in list %}
+					<div class="row">
+						<div class="col-2" align="center" vertical-align="middle">
+							{{ fuel.materialName }}
+						</div>
+						<div class="col-2">
+							{% if fuel.note|length > 1 %}
+								{{ fuel.note[2] }}
+							{% else %}
+								{{ fuel.purchaseDate|date("Y-m-d") }}
+							{% endif %}
+						</div>
+						<div class="col-1">
+							{{ fuel.price }}
+						</div>
+						<div class="col-1">
+							{{ fuel.quantity }}
+						</div>
+						<div class="col-6">
+							<form method="post" action="{{ path('add_fuel', {'id': fuel.id}) }}">
+								<div class="row">
+									<select name="auto" class="form-control col-5">
+										<option></option>
+										{% for auto in transport %}
+											{% if fuel.category == auto.mainFuel or fuel.category == auto.secondaryFuel %}
+												{% if auto.id == fuel.note[0] %}
+													<option selected value="{{ auto.id }}" disabled>{{ auto }}</option>
+												{% else %}
+													<option value="{{ auto.id }}" {% if auto.monthlyUsageClosed %} disabled {% endif %}>{{ auto }}</option>
+												{% endif %}
+											{% endif %}
+										{% endfor %}
+									</select>
+									{% if fuel.note|length > 1 %}
+										<input name="tacho" class="form-control col-4" value="{{ fuel.note[1] }}"/>
+									{% else %}
+										<input name="tacho" class="form-control col-4" value=""/>
+									{% endif %}
+									<input type="hidden" name="id" value="{{ fuel.id }}"/>
+									<input type="submit" class="col-3"/>
+								</div>
+							</form>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
 {% endblock %}

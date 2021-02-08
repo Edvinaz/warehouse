@@ -1,11 +1,17 @@
-{% extends 'base.html.twig' %}
+{% extends 'base2.html.twig' %}
 
-{% block title %}Kuro naudojimas!{% endblock %}
+{% block title %}
+	{% trans %}Transport details{% endtrans %}
+{% endblock %}
 
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
-<div class="section_menu">
-    {{ form(form) }}
-</div>
-{% endblock %}
+	<div class="container-fluid">
+		<div class="card shadow">
+			<div class="card-body">
+				{{ form(form) }}
+				</div>
+			</div>
+		</div>
+	{% endblock %}

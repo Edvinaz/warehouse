@@ -1,148 +1,156 @@
-{% extends 'base.html.twig' %}
+{% extends 'base2.html.twig' %}
 
-{% block title %}Kuro naudojimas!{% endblock %}
+{% block title %}
+	{% trans %}
+	Fuel usage
+	{% endtrans %}
+{% endblock %}
 
 {% block body %}
-<div class="section_menu">
-    <table width="100%">
-    <tr>
-        <td align="center">Kuras</td>
-        <td>Pradžioje</td>
-        <td>Gauta</td>
-        <td>Nepriskirtas</td>
-        <td>Sunaudota</td>
-        <td>Likutis</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td width="20%" align="center">Benzinas</td>
-        <td width="10%">{{ status[21]['begin'] }}</td>
-        <td width="20%">{{ status[21]['received'] }} ({{ purchase['benzinas'] }})</td>
-        <td width="20%">{{ (status[21]['received'] - purchase['benzinas'])|number_format(2, '.', '.') }}</td>
-        <td width="20%">{{ status[21]['used'] }}</td>
-        <td width="20%">{{ status[21]['end'] }}</td>
-        <td>{{ remaind[21] }}</td>
-    </tr>
-    <tr>
-        <td align="center">Dyzelinas</td>
-        <td>{{ status[22]['begin'] }}</td>
-        <td>{{ status[22]['received'] }} ({{ purchase['dyzelinas'] }})</td>
-        <td>{{ (status[22]['received'] - purchase['dyzelinas'])|number_format(2, '.', '.') }}</td>
-        <td>{{ status[22]['used'] }}</td>
-        <td>{{ status[22]['end'] }}</td>
-        <td>{{ remaind[22] }}</td>
-    </tr>
-    <tr>
-        <td align="center">Dujos</td>
-        <td>{{ status[23]['begin'] }}</td>
-        <td>{{ status[23]['received'] }} ({{ purchase['dujos'] }})</td>
-        <td>{{ (status[23]['received'] - purchase['dujos'])|number_format(2, '.', '.') }}</td>
-        <td>{{ status[23]['used'] }}</td>
-        <td>{{ status[23]['end'] }}</td>
-        <td>{{ remaind[23] }}</td>
-    </tr>
-    </table>
-    
-    <table width="100%" class="table_x">
-    <thead>
-        <tr>
-            <th width="15%">Markė</th>
-            <th width="5%">Valst. Nr.</th>
-            <th width="30%"></th>
-            
-            <th width="10%"></th>
-            <th width="40%"></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for transport in list %}
-        <tr onclick="clickedTransport({{ transport[0].id }})">
-            <td width="15%">{{ transport[0].brand }} {{ transport[0].model }}</td>
-            <td width="5%">{{ transport[0].licensePlate }}</td>
-            <td width="30%">
-            {% if transport[1] is not null %}
-            <table width="100%">
-                <tr>
-                    <td colspan="2">{{ transport[1].tachometerBegin }}</td>
-                    <td colspan="2">{{ transport[1].tachometerEnd }}</td>
-                    <td>{{ transport[1].distance }}</td>
-                </tr>
-                <tr>
-                    <td>begin, l</td>
-                    <td>received, l</td>
-                    <td>used, l</td>
-                    <td>end, l</td>
-                    <td>norm, l/100km</td>
-                </tr>
-                <tr>
-                    <td>{{ transport[1].mainFuelBegin }}</td>
-                    <td>{{ transport[1].mainFuelReceived|number_format(2, ',', ' ') }}</td>
-                    <td>{{ transport[1].mainFuelUsed|number_format(2, ',', ' ') }}</td>
-                    <td>{{ transport[1].mainFuelEnd }}</td>
-                    <td
-                        {% if transport[1].mainFuelNorm > 0 %}
-                            style="background-color: #b3ffb3; color: red;"
-                        {% endif %}
-                    >{{ transport[1].mainFuelNorm|number_format(2, ',', ' ') }}</td>
-                </tr>
-                {% if transport[1].monthSecondaryFuel is not null %}
-                <tr>
-                    <td>{{ transport[1].secondaryFuelBegin }}</td>
-                    <td>{{ transport[1].secondaryFuelReceived|number_format(2, ',', ' ') }}</td>
-                    <td>{{ transport[1].secondaryFuelUsed|number_format(2, ',', ' ') }}</td>
-                    <td>{{ transport[1].secondaryFuelEnd }}</td>
-                    <td 
-                    {% if transport[1].secondaryFuelNorm > 0 %}
-                            style="background-color: #b3ffb3; color: red;"
-                        {% endif %}
-                    >{{ transport[1].secondaryFuelNorm|number_format(2, ',', ' ') }}</td>
-                </tr>
-                {% endif %}
-            </table>
-                
-            {% endif %}
-            </td>
-            <td width="10%">
-            {% if transport[1] is null %}
-                <a href="{{ path('create_transport_monthly_usage', {'auto': transport[0].id}) }}">MU</a>
-            
-            {% else %}
-                <table width="100%">
-                    <tr>
-                        <td>tacho<br/></td>
-                    </tr> 
-                    <tr>
-                        <td>fuel used </td>
-                    </tr>     
-                    <tr>
-                        <td>norm</td>
-                    </tr>      
-                </table>
-            {% endif %}
-            </td>
-            <td width="40%">
-            {% if transport[1] is not null %}
-                <form action="{{ path('transport_month_update') }}">
-                    <input name="transport" value="{{ transport[0].id }}" hidden />
-                    <input name="tachometer" placeholder="Tachometro parodymas" />
-                    <input name="mainRemainder" placeholder="{{ transport[0].mainFuelName }} likutis" size="8"/>
-                    {% if transport[0].secondaryFuel is not null %}
-                        <input name="secondRemainder" placeholder="{{ transport[0].secondaryFuelName }} likutis" size="8"/>
-                    {% endif %}
-                    <button type="submit">OK</button>
-                </form>
-            {% endif %}
-            </td>
-        </tr>
-        {% endfor%}
-    </tbody>
-    </table>
+	<div class="container-fluid">
+		<div class="card shadow">
+			<div class="card-body">
+				<table width="100%" class="table">
+					<tr>
+						<td align="center">{% trans %}Fuel{% endtrans %}</td>
+						<td>{% trans %}Primarily{% endtrans %}</td>
+						<td>{% trans %}Received{% endtrans %}</td>
+						<td>{% trans %}Unassigned{% endtrans %}</td>
+						<td>{% trans %}Used{% endtrans %}</td>
+						<td>{% trans %}Finally{% endtrans %}</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td width="20%" align="center">Benzinas</td>
+						<td width="10%">{{ status[21]['begin'] }}</td>
+						<td width="20%">{{ status[21]['received'] }}
+							({{ purchase['benzinas'] }})</td>
+						<td width="20%">{{ (status[21]['received'] - purchase['benzinas'])|number_format(2, '.', '.') }}</td>
+						<td width="20%">{{ status[21]['used'] }}</td>
+						<td width="20%">{{ status[21]['end'] }}</td>
+						<td>{{ remaind[21] }}</td>
+					</tr>
+					<tr>
+						<td align="center">Dyzelinas</td>
+						<td>{{ status[22]['begin'] }}</td>
+						<td>{{ status[22]['received'] }}
+							({{ purchase['dyzelinas'] }})</td>
+						<td>{{ (status[22]['received'] - purchase['dyzelinas'])|number_format(2, '.', '.') }}</td>
+						<td>{{ status[22]['used'] }}</td>
+						<td>{{ status[22]['end'] }}</td>
+						<td>{{ remaind[22] }}</td>
+					</tr>
+					<tr>
+						<td align="center">Dujos</td>
+						<td>{{ status[23]['begin'] }}</td>
+						<td>{{ status[23]['received'] }}
+							({{ purchase['dujos'] }})</td>
+						<td>{{ (status[23]['received'] - purchase['dujos'])|number_format(2, '.', '.') }}</td>
+						<td>{{ status[23]['used'] }}</td>
+						<td>{{ status[23]['end'] }}</td>
+						<td>{{ remaind[23] }}</td>
+					</tr>
+				</table>
 
-    <script>
-        function clickedTransport(id) {
-            {# window.location.replace('transport/form/' + id); #}
-        }
-    </script>
+				<table width="100%" class="table table-hover">
+					<thead>
+						<tr>
+							<th width="15%">Markė</th>
+							<th width="5%">Valst. Nr.</th>
+							<th width="30%"></th>
 
-</div>
+							<th width="10%"></th>
+							<th width="40%"></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for transport in list %}
+							<tr onclick="clickedTransport({{ transport[0].id }})">
+								<td width="15%">{{ transport[0].brand }}
+									{{ transport[0].model }}</td>
+								<td width="5%">{{ transport[0].licensePlate }}</td>
+								<td width="30%">
+									{% if transport[1] is not null %}
+										<table width="100%">
+											<tr>
+												<td colspan="2">{{ transport[1].tachometerBegin }}</td>
+												<td colspan="2">{{ transport[1].tachometerEnd }}</td>
+												<td>{{ transport[1].distance }}</td>
+											</tr>
+											<tr>
+												<td>begin, l</td>
+												<td>received, l</td>
+												<td>used, l</td>
+												<td>end, l</td>
+												<td>norm, l/100km</td>
+											</tr>
+											<tr>
+												<td>{{ transport[1].mainFuelBegin }}</td>
+												<td>{{ transport[1].mainFuelReceived|number_format(2, ',', ' ') }}</td>
+												<td>{{ transport[1].mainFuelUsed|number_format(2, ',', ' ') }}</td>
+												<td>{{ transport[1].mainFuelEnd }}</td>
+												<td {% if transport[1].mainFuelNorm > 0 %} style="background-color: #b3ffb3; color: red;" {% endif %}>{{ transport[1].mainFuelNorm|number_format(2, ',', ' ') }}</td>
+											</tr>
+											{% if transport[1].monthSecondaryFuel is not null %}
+												<tr>
+													<td>{{ transport[1].secondaryFuelBegin }}</td>
+													<td>{{ transport[1].secondaryFuelReceived|number_format(2, ',', ' ') }}</td>
+													<td>{{ transport[1].secondaryFuelUsed|number_format(2, ',', ' ') }}</td>
+													<td>{{ transport[1].secondaryFuelEnd }}</td>
+													<td {% if transport[1].secondaryFuelNorm > 0 %} style="background-color: #b3ffb3; color: red;" {% endif %}>{{ transport[1].secondaryFuelNorm|number_format(2, ',', ' ') }}</td>
+												</tr>
+											{% endif %}
+										</table>
+
+									{% endif %}
+								</td>
+								<td width="10%">
+									{% if transport[1] is null %}
+										<a href="{{ path('create_transport_monthly_usage', {'auto': transport[0].id}) }}">MU</a>
+
+									{% else %}
+										<table width="100%">
+											<tr>
+												<td>tacho<br/></td>
+											</tr>
+											<tr>
+												<td>fuel used
+												</td>
+											</tr>
+											<tr>
+												<td>norm</td>
+											</tr>
+										</table>
+									{% endif %}
+								</td>
+								<td width="40%">
+									{% if transport[1] is not null %}
+										<form action="{{ path('transport_month_update') }}">
+											<input name="transport" value="{{ transport[0].id }}" hidden/>
+											<input name="tachometer" placeholder="Tachometro parodymas"/>
+											<input name="mainRemainder" placeholder="{{ transport[0].mainFuelName }} likutis" size="8"/>
+											{% if transport[0].secondaryFuel is not null %}
+												<input name="secondRemainder" placeholder="{{ transport[0].secondaryFuelName }} likutis" size="8"/>
+											{% endif %}
+											<button type="submit">OK</button>
+										</form>
+									{% endif %}
+								</td>
+							</tr>
+							{% endfor %}</tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<script>
+			function clickedTransport(id) {
+{
+# window.location.replace('transport/form/' + id);
+#
+}
+}
+		</script>
+
+	</div>
 {% endblock %}
