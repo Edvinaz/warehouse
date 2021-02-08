@@ -4,7 +4,7 @@
         <a class="btn mb-2 btn-outline-primary" href="{{ path('objects') }}">{% trans %}Objects list{% endtrans %}</a>
         <a class="btn mb-2 btn-outline-primary" href="{{ path('write_off') }}">{% trans %}Write-off list{% endtrans %}</a>
         <a class="btn mb-2 btn-outline-primary" href="{{ path('edit_object', {'id': 0}) }}">{% trans %}New object{% endtrans %}</a>
-        <a class="btn mb-2 btn-outline-primary" class="last" href="">{% trans %}New write-off{% endtrans %}</a>
+        <a class="btn mb-2 btn-outline-primary" class="last" href="{{ path('new_write_off') }}">{% trans %}New write-off{% endtrans %}</a>
     </div><br/>
 {% if object is defined %}
     <div class="btn-group" role="group">
