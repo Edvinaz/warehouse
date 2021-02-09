@@ -7,7 +7,7 @@
     <body>
       <trans-unit id="OnhpU4i" resname="Home">
         <source>Home</source>
-        <target>__Home</target>
+        <target>Namai</target>
       </trans-unit>
       <trans-unit id="oHGO_OQ" resname="Purchases">
         <source>Purchases</source>
@@ -71,7 +71,7 @@
       </trans-unit>
       <trans-unit id="r8eGSen" resname="Objects list">
         <source>Objects list</source>
-        <target>Sąrašas</target>
+        <target>Objektų sąrašas</target>
       </trans-unit>
       <trans-unit id="vzdjODq" resname="Customer">
         <source>Customer</source>
@@ -87,7 +87,7 @@
       </trans-unit>
       <trans-unit id="oQjEORk" resname="Object name">
         <source>Object name</source>
-        <target>Pavadinimas</target>
+        <target>Objekto pavadinimas</target>
       </trans-unit>
       <trans-unit id="M4X.5nR" resname="Reserved">
         <source>Reserved</source>
@@ -99,7 +99,7 @@
       </trans-unit>
       <trans-unit id="aKYQktu" resname="New contract">
         <source>New contract</source>
-        <target>Sutartis</target>
+        <target>Nauja sutartis</target>
       </trans-unit>
       <trans-unit id="3NHVIj9" resname="Name">
         <source>Name</source>
@@ -135,11 +135,11 @@
       </trans-unit>
       <trans-unit id=".Iswvwl" resname="New write-off">
         <source>New write-off</source>
-        <target>Nurašymo aktas</target>
+        <target>Naujas nurašymo aktas</target>
       </trans-unit>
       <trans-unit id="RkxP.QG" resname="Edit">
         <source>Edit</source>
-        <target>Taisyti</target>
+        <target>Koreguoti</target>
       </trans-unit>
       <trans-unit id="4tClSWj" resname="Delete">
         <source>Delete</source>
@@ -191,7 +191,7 @@
       </trans-unit>
       <trans-unit id="wXD9LFn" resname="Primarily">
         <source>Primarily</source>
-        <target>__Primarily</target>
+        <target>Pradžioje</target>
       </trans-unit>
       <trans-unit id="SfGb7uz" resname="Received">
         <source>Received</source>
@@ -203,7 +203,7 @@
       </trans-unit>
       <trans-unit id="eIz1Ne1" resname="Finally">
         <source>Finally</source>
-        <target>__Finally</target>
+        <target>Likutis</target>
       </trans-unit>
       <trans-unit id="rgkweLw" resname="New Invoice">
         <source>New Invoice</source>
@@ -235,7 +235,7 @@
       </trans-unit>
       <trans-unit id="svJcL5d" resname="Invoice list">
         <source>Invoice list</source>
-        <target>Sąrašas</target>
+        <target>Sąskaitų sąrašas</target>
       </trans-unit>
       <trans-unit id="hVwSbpb" resname="Statistic">
         <source>Statistic</source>
@@ -280,6 +280,58 @@
       <trans-unit id="tFBkXev" resname="Contacts">
         <source>Contacts</source>
         <target>Kontaktai</target>
+      </trans-unit>
+      <trans-unit id="p0nMSgF" resname="Company Details">
+        <source>Company Details</source>
+        <target>Įmonės informacija</target>
+      </trans-unit>
+      <trans-unit id="pDH1xQX" resname="Form 3">
+        <source>Form 3</source>
+        <target>Forma 3</target>
+      </trans-unit>
+      <trans-unit id="Sg.2DZK" resname="Edit contract">
+        <source>Edit contract</source>
+        <target>Koreguoti sutartį</target>
+      </trans-unit>
+      <trans-unit id="C26CgyG" resname="Debited sum">
+        <source>Debited sum</source>
+        <target>Nurašyta suma</target>
+      </trans-unit>
+      <trans-unit id="8kiP1O9" resname="Email address">
+        <source>Email address</source>
+        <target>El. pašto adresas</target>
+      </trans-unit>
+      <trans-unit id="qwS67Nb" resname="Let me in">
+        <source>Let me in</source>
+        <target>Įleiskite</target>
+      </trans-unit>
+      <trans-unit id="nwVRYhz" resname="Time Card Summary">
+        <source>Time Card Summary</source>
+        <target>Tabelio santrauka</target>
+      </trans-unit>
+      <trans-unit id="yolAr5N" resname="Transport details">
+        <source>Transport details</source>
+        <target>Transporto informacija</target>
+      </trans-unit>
+      <trans-unit id="MRQnN6S" resname="Assign fuel">
+        <source>Assign fuel</source>
+        <target>Priskirti kurą</target>
+      </trans-unit>
+      <trans-unit id="xZMAQtR" resname="Transport list!">
+        <source>Transport list!</source>
+        <target>Transporto sąrašas</target>
+      </trans-unit>
+      <trans-unit id="cIoL4dc" resname="Fuel usage">
+        <source>Fuel usage</source>
+        <target>Kuro sunaudojimas</target>
+      </trans-unit>
+      <trans-unit id="FNM70BT" resname="Unassigned">
+        <source>Unassigned</source>
+        <target>Nepriskirta</target>
+      </trans-unit>
+      <trans-unit id="rn2N_sn" resname="Used">
+        <source>Used</source>
+        <target>Sunaudota</target>
       </trans-unit>
     </body>
   </file>
