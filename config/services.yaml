@@ -37,61 +37,6 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-
-    App\Services\PurchaseService: ~
-
-    App\Services\PurchaseService:
-        factory: ['@App\Factories\PurchaseServiceFactory', 'createPurchaseServiceManager']
-    
-    App\Services\ObjectsService: ~
-
-    App\Services\ObjectsService:
-        factory: ['@App\Factories\ObjectServiceFactory', 'createObjectServiceManager']
-
-    App\Services\MaterialService: ~
-
-    App\Services\MaterialService:
-        factory: ['@App\Factories\MaterialServiceFactory', 'createMaterialServiceManager']
-
-    App\Helpers\StaffList: ~
-
-    App\Helpers\StaffList:
-        factory: ['@App\Factories\StaffListFactory', 'createStaffListManager']
-
-    App\Interfaces\StaffListInterface: '@App\Helpers\StaffList'
-
-    App\Services\StatisticService: ~
-
-    App\Services\StatisticService:
-        factory: ['@App\Factories\StatisticServiceFactory', 'createStatisticServiceManager']
-
-    App\Services\Sales\InvoiceService: ~
-
-    App\Services\Sales\InvoiceService:
-        factory: ['@App\Factories\InvoiceServiceFactory', 'createInvoiceServiceManager']
-
-    App\Services\TimeCard\TimeCardService: ~
-
-    App\Services\TimeCard\TimeCardService:
-        factory: ['@App\Factories\TimeCardServiceFactory', 'createTimeCardServiceManager']
-
-    App\Services\TransportService: ~
-
-    App\Services\TransportService:
-        factory: ['@App\Factories\TransportServiceFactory', 'createTransportServiceManager']
-
-    App\Services\FuelService: ~
-
-    App\Services\FuelService:
-        factory: ['@App\Factories\FuelServiceFactory', 'createFuelServiceManager']
-
-    App\Services\Staff\StaffService: ~
-
-    App\Services\Staff\StaffService:
-        factory: ['@App\Factories\StaffServiceFactory', 'createStaffServiceManager']
-
-
-
     
     App\Services\Purchase\InvoiceListService:
         public: true
