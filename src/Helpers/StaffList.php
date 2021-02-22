@@ -12,12 +12,14 @@ class StaffList implements StaffListInterface
 
     public function __construct(StaffRepository $staff)
     {
-        $this->setStaff($staff->findAll());
+        $this->setStaff($staff);
     }
 
-    public function setStaff(array $staff): void
+    public function setStaff(StaffRepository $staff): self
     {
-        $this->staff = $staff;
+        $this->staff = $staff->findAll();
+
+        return $this;
     }
 
     public function getAllStaff(): array

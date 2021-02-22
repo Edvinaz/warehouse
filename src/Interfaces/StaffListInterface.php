@@ -2,12 +2,13 @@
 
 namespace App\Interfaces;
 
+use App\Repository\StaffRepository;
 use App\Interfaces\Staff\StaffInterface;
 
 interface StaffListInterface
 {
     /** Set all staff */
-    public function setStaff(array $staff): void;
+    public function setStaff(StaffRepository $staff): self;
 
     /** Get all setted staff */
     public function getAllStaff(): array;
