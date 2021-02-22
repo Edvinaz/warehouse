@@ -2,12 +2,18 @@
 
 namespace App\Helpers;
 
-use App\Interfaces\Staff\StaffInterface;
+use App\Repository\StaffRepository;
 use App\Interfaces\StaffListInterface;
+use App\Interfaces\Staff\StaffInterface;
 
 class StaffList implements StaffListInterface
 {
     private $staff;
+
+    public function __construct(StaffRepository $staff)
+    {
+        $this->setStaff($staff->findAll());
+    }
 
     public function setStaff(array $staff): void
     {
