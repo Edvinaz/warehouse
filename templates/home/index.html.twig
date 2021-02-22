@@ -1,6 +1,7 @@
 {% extends 'base2.html.twig' %}
 
-{% block title %}Main dashboard!
+{% block title %}
+	{% trans %}Main dashboard!{% endtrans %}
 {% endblock %}
 
 {% block body %}
@@ -19,9 +20,9 @@
 									<a href="{{ path('write_off') }}">Nurašymo aktai</a>
 								</li>
 								{% if is_granted('ROLE_ADMIN') %}
-									{# <li>
+									<li>
 										<a href="{{ path('transport_list') }}">Transporto sąrašas</a>
-									</li> #}
+									</li>
 									<li>
 										<a href="{{ path('easyadmin') }}">Administravimo puslapis</a>
 									</li>
@@ -30,7 +31,7 @@
 						</div>
 					</div>
 				</div>
-				{# <div class="col-6">
+				<div class="col-6">
 					<div class="card shadow">
 						<div class="card-body">
 							<table width="100%">
@@ -59,7 +60,7 @@
 							</table>
 						</div>
 					</div>
-				</div> #}
+				</div>
 			</div>
 		</div>
 	{% else %}
