@@ -54,7 +54,7 @@ class timecard extends React.Component {
 
     render() {
 
-        return <div className="container">
+        return <div className="card-body">
             <a className={this.state.workedHours == 3 ? "btn btn-sm btn-primary" : "btn btn-sm btn-outline-secondary"} type="button" onClick={() => (this.updateWorkedHours(3))}>3</a>
             <a className={this.state.workedHours == 4 ? "btn btn-sm btn-primary" : "btn btn-sm btn-outline-secondary"} type="button" onClick={() => (this.updateWorkedHours(4))}>4</a>
             <a className={this.state.workedHours == 5 ? "btn btn-sm btn-primary" : "btn btn-sm btn-outline-secondary"} type="button" onClick={() => (this.updateWorkedHours(5))}>5</a>
@@ -69,7 +69,7 @@ class timecard extends React.Component {
             <a className={this.state.workedHours == -10 ? "btn btn-sm btn-primary" : "btn btn-sm btn-outline-secondary"} type="button" onClick={() => (this.updateWorkedHours(-10))}>Neatvyko</a>
             <a className={this.state.workedHours == -12 ? "btn btn-sm btn-primary" : "btn btn-sm btn-outline-secondary"} type="button" onClick={() => (this.updateWorkedHours(-12))}>Liga</a>
 
-{/* Atostogos -8
+            {/* Atostogos -8
     Neatvyko -10
     Liga -12
 */}

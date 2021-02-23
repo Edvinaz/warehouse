@@ -1,16 +1,21 @@
-{% extends 'base.html.twig' %}
+{% extends 'base2.html.twig' %}
 
 {% block title %}{% trans %}Time card table{% endtrans %}{% endblock %}
 
 {% block body %}
     {% set hours = 8 %}
-
+<div class="container-fluid">
     {% include 'objects/partials/list_header.html.twig' %}
 
-    <div id="root"></div>
+    <div id="root" class="card shadow"></div>
 
+</div>
     {% block javascripts %}
         {{ encore_entry_script_tags('timeCard') }}
     {% endblock %}
 
+{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
 {% endblock %}
