@@ -19,7 +19,7 @@ class ObjectsService
         $object = $this->objectRepository->findOneBy(['number' => $objectNumber]);
         return [
             'id' => $object->getId(),
-            'number' => $object->getNumber(),
+            'number' => (string) $object->getNumber(),
             'object' => $object->getName(),
             'address' => $object->getAdress(),
             'client' => $object->getContrahent()->getName()
