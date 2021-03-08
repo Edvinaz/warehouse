@@ -41,6 +41,64 @@ services:
     App\Services\Purchase\InvoiceListService:
         public: true
 
+    # App\Helpers\StaffList: ~
+
+    # App\Helpers\StaffList:
+    #     factory: ['@App\Factories\StaffListFactory', 'createStaffListManager']
+
+    # App\Interfaces\StaffListInterface: '@App\Helpers\StaffList'
+
+    App\Objects\ObjectList: ~
+    
+    App\Objects\ObjectList:
+        factory: ['@App\Factories\ObjectListFactory', 'createObjectListManager']
+
+    App\Services\MaterialService: ~
+
+    App\Services\MaterialService:
+        factory: ['@App\Factories\MaterialServiceFactory', 'createMaterialServiceManager']
+
+    App\Services\Sales\InvoiceService: ~
+
+    App\Services\Sales\InvoiceService:
+        factory: ['@App\Factories\InvoiceServiceFactory', 'createInvoiceServiceManager']
+
+    App\Services\TimeCard\TimeCardService: ~
+
+    App\Services\TimeCard\TimeCardService:
+        factory: ['@App\Factories\TimeCardServiceFactory', 'createTimeCardServiceManager']
+
+    App\Services\PurchaseService: ~
+
+    App\Services\PurchaseService:
+        factory: ['@App\Factories\PurchaseServiceFactory', 'createPurchaseServiceManager']
+
+    App\Services\WriteOffService: ~
+
+    App\Services\WriteOffService:
+        factory: ['@App\Factories\WriteOffServiceFactory', 'createWriteOffServiceManager']
+
+    App\Services\StatisticService: ~
+
+    App\Services\StatisticService:
+        factory: ['@App\Factories\StatisticServiceFactory', 'createStatisticServiceManager']
+
+    App\Services\TransportService: ~
+
+    App\Services\TransportService:
+        factory: ['@App\Factories\TransportServiceFactory', 'createTransportServiceManager']
+
+    App\Services\FuelService: ~
+
+    App\Services\FuelService:
+        factory: ['@App\Factories\FuelServiceFactory', 'createFuelServiceManager']
+
+    # Main object's service
+    App\Objects\ObjectDetailsService: ~
+
+    App\Objects\ObjectDetailsService:
+        factory: ['@App\Factories\ObjectDetailsFactory', 'createObjectDetailsManager']
+        
 
 
     PurchaseSubscriber:

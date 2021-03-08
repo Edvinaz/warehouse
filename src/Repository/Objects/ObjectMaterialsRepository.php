@@ -31,4 +31,28 @@ class ObjectMaterialsRepository extends WarePurchasedMaterialsRepository
             ->getResult()
             ;
     }
+
+    public function getObjectMaterials(int $objectId, ?array $search)
+    {        
+        if (is_null($search)) {
+            $search['search'] = '';
+        }
+        
+        return $this->createQueryBuilder('w')
+            ->andWhere('w.object = :id')
+            ->setParameter('id', $objectId)
+            ->andWhere('r.name LIKE :name')
+            ->setParameter('name', '%'.$search['search'].'%')
+            ->andWhere('w.balance > 0')
+            ->andWhere('c.type < 10')
+            ->select('SUM(w.balance) as quantity, (SUM(w.balance * w.price)/SUM(w.balance)) as price, 
+                                r.name as name, r.unit as unit, r.id as id')
+            ->join('w.material', 'r')
+            ->join('r.category', 'c')
+            ->join('w.invoice', 'i')
+            ->groupBy('w.material')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }
