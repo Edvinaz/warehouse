@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Services\API;
 
-use App\Repository\WareMaterialsRepository;
 use App\Repository\Objects\ObjectMaterialsRepository;
 
 class MaterialService
@@ -26,7 +25,7 @@ class MaterialService
                 $material['name'],
                 $material['unit'],
                 $material['quantity'],
-                $material['price'],
+                number_format(floatval($material['price']), 2),
             ];
         }
         return $list;
